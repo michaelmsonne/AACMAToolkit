@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ElevatedLevelForm));
             this.spltButtonScreen = new System.Windows.Forms.Splitter();
             this.lblCheckVersion = new System.Windows.Forms.Label();
             this.txtOutput = new System.Windows.Forms.RichTextBox();
@@ -144,6 +145,7 @@
             this.Controls.Add(this.lblCheckVersion);
             this.Controls.Add(this.spltButtonScreen);
             this.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(1);
             this.MinimumSize = new System.Drawing.Size(1000, 500);
             this.Name = "ElevatedLevelForm";

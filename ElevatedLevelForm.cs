@@ -65,6 +65,40 @@ namespace AACMAToolkit
             }
         }
 
+        /// Execute the click event with the right params --- Params are CASE SENSITIVE
+        /// Azcmagent show "Agent Version" "Agent Logfile" "Agent Status" "Agent Last Heartbeat"
+
+        private void lblCheckVersion_Click(object sender, EventArgs e)
+        {
+            string AgentversionCheck = "show \"Agent Version\" \"Agent Logfile\" \"Agent Status\" \"Agent Last Heartbeat\" ";
+            txtOutput.Text = RunAzCmAgentCommand(AgentversionCheck);
+        }
+
+
+        /// Azcmagent show "Agent Error Code" "Agent Error Details" "Agent Error Timestamp"
+
+        private void lblCheckAgentError_Click(object sender, EventArgs e)
+        {
+            string AgentErrorCheck = "show \"Agent Error Code\" \"Agent Error Details\" \"Agent Error Timestamp\"  ";
+            txtOutput.Text = RunAzCmAgentCommand(AgentErrorCheck);
+        }
+
+
+        /// Azcmagent config list
+
+        private void lblShowAgentConfig_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = RunAzCmAgentCommand("config list");
+        }
+
+
+        /// Azcmagent config get config.mode
+
+        private void lblShowAgentMode_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = RunAzCmAgentCommand("config get config.mode");
+        }
+
         private void lblUpdateArcAgent_Click(object sender, EventArgs e)
         {
 
