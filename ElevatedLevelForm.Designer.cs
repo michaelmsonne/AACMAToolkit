@@ -37,6 +37,8 @@
             this.lblExportLogs = new System.Windows.Forms.Label();
             this.lblShowAgentMode = new System.Windows.Forms.Label();
             this.lblShowAgentConfig = new System.Windows.Forms.Label();
+            this.lblChangeMode2Full = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // spltButtonScreen
@@ -54,10 +56,11 @@
             this.lblCheckVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCheckVersion.Location = new System.Drawing.Point(12, 9);
             this.lblCheckVersion.Name = "lblCheckVersion";
-            this.lblCheckVersion.Size = new System.Drawing.Size(298, 65);
+            this.lblCheckVersion.Size = new System.Drawing.Size(298, 40);
             this.lblCheckVersion.TabIndex = 1;
             this.lblCheckVersion.Text = "Check Agent Version";
             this.lblCheckVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCheckVersion.Click += new System.EventHandler(this.lblCheckVersion_Click);
             // 
             // txtOutput
             // 
@@ -72,12 +75,13 @@
             this.lblCheckAgentError.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblCheckAgentError.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblCheckAgentError.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCheckAgentError.Location = new System.Drawing.Point(12, 74);
+            this.lblCheckAgentError.Location = new System.Drawing.Point(12, 49);
             this.lblCheckAgentError.Name = "lblCheckAgentError";
-            this.lblCheckAgentError.Size = new System.Drawing.Size(298, 65);
+            this.lblCheckAgentError.Size = new System.Drawing.Size(298, 40);
             this.lblCheckAgentError.TabIndex = 3;
             this.lblCheckAgentError.Text = "Check Agent Error";
             this.lblCheckAgentError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCheckAgentError.Click += new System.EventHandler(this.lblCheckAgentError_Click);
             // 
             // lblUpdateArcAgent
             // 
@@ -109,24 +113,52 @@
             this.lblShowAgentMode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblShowAgentMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblShowAgentMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblShowAgentMode.Location = new System.Drawing.Point(12, 204);
+            this.lblShowAgentMode.Location = new System.Drawing.Point(12, 129);
             this.lblShowAgentMode.Name = "lblShowAgentMode";
-            this.lblShowAgentMode.Size = new System.Drawing.Size(298, 65);
+            this.lblShowAgentMode.Size = new System.Drawing.Size(298, 40);
             this.lblShowAgentMode.TabIndex = 5;
             this.lblShowAgentMode.Text = "Show Agent Mode";
             this.lblShowAgentMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblShowAgentMode.Click += new System.EventHandler(this.lblShowAgentMode_Click);
             // 
             // lblShowAgentConfig
             // 
             this.lblShowAgentConfig.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblShowAgentConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblShowAgentConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblShowAgentConfig.Location = new System.Drawing.Point(12, 139);
+            this.lblShowAgentConfig.Location = new System.Drawing.Point(12, 89);
             this.lblShowAgentConfig.Name = "lblShowAgentConfig";
-            this.lblShowAgentConfig.Size = new System.Drawing.Size(298, 65);
+            this.lblShowAgentConfig.Size = new System.Drawing.Size(298, 40);
             this.lblShowAgentConfig.TabIndex = 4;
             this.lblShowAgentConfig.Text = "Show Agent Config";
             this.lblShowAgentConfig.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblShowAgentConfig.Click += new System.EventHandler(this.lblShowAgentConfig_Click);
+            // 
+            // lblChangeMode2Full
+            // 
+            this.lblChangeMode2Full.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblChangeMode2Full.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblChangeMode2Full.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChangeMode2Full.Location = new System.Drawing.Point(12, 169);
+            this.lblChangeMode2Full.Name = "lblChangeMode2Full";
+            this.lblChangeMode2Full.Size = new System.Drawing.Size(298, 40);
+            this.lblChangeMode2Full.TabIndex = 8;
+            this.lblChangeMode2Full.Text = "Change 2 Full mode";
+            this.lblChangeMode2Full.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblChangeMode2Full.Click += new System.EventHandler(this.lblChangeMode2Full_Click);
+            // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 209);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(298, 40);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Change 2 Monitor mode";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // ElevatedLevelForm
             // 
@@ -136,6 +168,8 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(1237, 590);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblChangeMode2Full);
             this.Controls.Add(this.lblExportLogs);
             this.Controls.Add(this.lblUpdateArcAgent);
             this.Controls.Add(this.lblShowAgentMode);
@@ -165,6 +199,8 @@
         private System.Windows.Forms.Label lblExportLogs;
         private System.Windows.Forms.Label lblShowAgentMode;
         private System.Windows.Forms.Label lblShowAgentConfig;
+        private System.Windows.Forms.Label lblChangeMode2Full;
+        private System.Windows.Forms.Label label1;
     }
 }
 
