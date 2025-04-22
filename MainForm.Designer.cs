@@ -1,6 +1,6 @@
 ﻿namespace AACMAToolkit
 {
-    partial class ElevatedLevelForm
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ElevatedLevelForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.spltButtonScreen = new System.Windows.Forms.Splitter();
             this.lblCheckVersion = new System.Windows.Forms.Label();
             this.txtOutput = new System.Windows.Forms.RichTextBox();
@@ -64,6 +64,7 @@
             // 
             // txtOutput
             // 
+            this.txtOutput.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOutput.Location = new System.Drawing.Point(342, 9);
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.Size = new System.Drawing.Size(895, 569);
@@ -160,7 +161,7 @@
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // ElevatedLevelForm
+            // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoScroll = true;
@@ -179,10 +180,12 @@
             this.Controls.Add(this.lblCheckVersion);
             this.Controls.Add(this.spltButtonScreen);
             this.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(1);
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1000, 500);
-            this.Name = "ElevatedLevelForm";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.ResumeLayout(false);
