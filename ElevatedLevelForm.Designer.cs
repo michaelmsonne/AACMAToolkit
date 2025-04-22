@@ -107,6 +107,7 @@
             this.lblExportLogs.TabIndex = 7;
             this.lblExportLogs.Text = "Export Logs";
             this.lblExportLogs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblExportLogs.Click += new System.EventHandler(this.lblExportLogs_Click);
             // 
             // lblShowAgentMode
             // 

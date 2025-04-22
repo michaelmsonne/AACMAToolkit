@@ -11,6 +11,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace AACMAToolkit
 {
@@ -140,6 +141,29 @@ namespace AACMAToolkit
         private void label1_Click(object sender, EventArgs e)
         {
             txtOutput.Text = RunAzCmAgentCommand("config set config.mode monitor");
+        }
+
+        private void lblExportLogs_Click(object sender, EventArgs e)
+        {
+            string strLocationExportLogs = Interaction.InputBox("Enter the location to export the logs", "Export Logs", @"C:\temp");
+            string strExportLogsZip = "AzcmagentLogs.zip";
+            string strExportLogs = Path.Combine(strLocationExportLogs, strExportLogsZip);
+
+            if (Directory.Exists(strLocationExportLogs))
+            {
+                MessageBox.Show("Click on OK to start the export");
+                File.Create(strExportLogs);
+                MessageBox.Show("Export completed");
+            }
+            else
+            {
+                MessageBox.Show("Directory does not exist. Click on OK to create the directory and start the export");
+                Directory.CreateDirectory(strLocationExportLogs);
+                File.Create(strExportLogs);
+                MessageBox.Show("Export completed");
+            }
+
+            
         }
     }
 }
