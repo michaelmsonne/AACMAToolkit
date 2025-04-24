@@ -228,5 +228,13 @@ namespace AACMAToolkit
         {
             txtOutput.Text = RunAzCmAgentCommand("config set config.mode monitor");
         }
+
+        private void lblExportLogs_Click(object sender, EventArgs e)
+        {
+            string strLogspath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string strLogfilePath = @"C:\temp\AzcmagentLogs.zip"; // Fixed unrecognized escape sequence by using @  
+
+            txtOutput.Text = RunAzCmAgentCommand("logs --full --output " + strLogfilePath);
+        }
     }
 }
