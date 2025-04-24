@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AACMAToolkit.Class;
-using AACMAToolkit.Forms;
 
-namespace AACMAToolkit
+namespace AACMAToolkit.Forms
 {
     public partial class MainForm : Form
     {
@@ -26,7 +26,7 @@ namespace AACMAToolkit
             {
                 // Step 1: Get the installed version
                 string versionCommand = "show \"Agent Version\"";
-                installedVersion = (await RunAzCmAgentCommand(versionCommand)).Trim();
+                installedVersion = (await runAzCmAgentCommand(versionCommand)).Trim();
 
                 // Extract the version number from the output
                 if (installedVersion.Contains(":"))
@@ -110,7 +110,7 @@ namespace AACMAToolkit
         ///UseShellExecute = process won't use system shell
         ///CreateNoWindow = no window pop-up whatsoever
 
-        private async Task<string> RunAzCmAgentCommand(string args)
+        private async Task<string> runAzCmAgentCommand(string args)
         {
             try
             {
@@ -124,13 +124,15 @@ namespace AACMAToolkit
                     CreateNoWindow = true
                 };
 
-                /// Launch process with arguments asynchronously
-                /// Captures Output/error from the command
-                /// Waits the process to finish
-                /// Returns the output/error
+                // Launch process with arguments asynchronously
+                // Captures Output/error from the command
+                // Waits the process to finish
+                // Returns the output/error
 
-                using (var process = new Process { StartInfo = psi, EnableRaisingEvents = true })
+                using (var process = new Process())
                 {
+                    process.StartInfo = psi;
+                    process.EnableRaisingEvents = true;
                     var outputBuilder = new StringBuilder();
                     var errorBuilder = new StringBuilder();
 
@@ -149,7 +151,21 @@ namespace AACMAToolkit
                     return string.IsNullOrWhiteSpace(output) ? error : output;
                 }
             }
-            /// Exception handling
+
+            // Handle specific exceptions
+            catch (FileNotFoundException ex)
+            {
+                return $"Error: {ex.Message} - Azcmagent not found. Please ensure it is installed.";
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return $"Error: {ex.Message} - Access denied. Please run the application as administrator.";
+            }
+            catch (InvalidOperationException ex)
+            {
+                return $"Error: {ex.Message} - Invalid operation. Please check the command.";
+            }
+            // Exception handling
             catch (Exception ex)
             {
                 return $"Exception: {ex.Message}";
@@ -188,39 +204,39 @@ Latest Version: {latestVersion}",
         ///
         private async void lblCheckVersion_Click(object sender, EventArgs e)
         {
-            var AgentversionCheck = "show \"Agent Version\" \"Agent Logfile\" \"Agent Status\" \"Agent Last Heartbeat\" ";
-            txtOutput.Text = await RunAzCmAgentCommand(AgentversionCheck);
+            const string agentversionCheck = "show \"Agent Version\" \"Agent Logfile\" \"Agent Status\" \"Agent Last Heartbeat\" ";
+            txtOutput.Text = await runAzCmAgentCommand(agentversionCheck);
         }
 
         /// Azcmagent show "Agent Error Code" "Agent Error Details" "Agent Error Timestamp"
         private async void lblCheckAgentError_Click(object sender, EventArgs e)
         {
-            var AgentErrorCheck = "show \"Agent Error Code\" \"Agent Error Details\" \"Agent Error Timestamp\"  ";
-            txtOutput.Text = await RunAzCmAgentCommand(AgentErrorCheck);
+            const string agentErrorCheck = "show \"Agent Error Code\" \"Agent Error Details\" \"Agent Error Timestamp\"  ";
+            txtOutput.Text = await runAzCmAgentCommand(agentErrorCheck);
         }
 
         /// Azcmagent config list
         private async void lblShowAgentConfig_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = await RunAzCmAgentCommand("config list");
+            txtOutput.Text = await runAzCmAgentCommand("config list");
         }
 
         /// Azcmagent config get config.mode
         private async void lblShowAgentMode_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = await RunAzCmAgentCommand("config get config.mode");
+            txtOutput.Text = await runAzCmAgentCommand("config get config.mode");
         }
 
         /// Put the agent in full mode
         private async void lblChangeMode2Full_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode full");
+            txtOutput.Text = await runAzCmAgentCommand("config set config.mode full");
         }
 
         /// Put the agent in monitor mode
         private async void label1_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode monitor");
+            txtOutput.Text = await runAzCmAgentCommand("config set config.mode monitor");
         }
 
         /// <summary>
@@ -228,10 +244,10 @@ Latest Version: {latestVersion}",
         /// </summary>
         private async void lblExportLogs_Click(object sender, EventArgs e)
         {
-            string strLogspath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //string strLogspath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string strLogfilePath = @"C:\temp\AzcmagentLogs.zip"; // Fixed unrecognized escape sequence by using @  
 
-            txtOutput.Text = await RunAzCmAgentCommand("logs --full --output " + strLogfilePath);
+            txtOutput.Text = await runAzCmAgentCommand("logs --full --output " + strLogfilePath);
         }
 
         /// <summary>
@@ -240,7 +256,7 @@ Latest Version: {latestVersion}",
         private void restartAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Call the function to restart the application as admin
-            Class.ApplicationFunctions.restartAsAdmin();
+            ApplicationFunctions.restartAsAdmin();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

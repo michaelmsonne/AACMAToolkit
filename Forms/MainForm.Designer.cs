@@ -1,4 +1,4 @@
-﻿namespace AACMAToolkit
+﻿namespace AACMAToolkit.Forms
 {
     partial class MainForm
     {
