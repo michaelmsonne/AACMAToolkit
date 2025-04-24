@@ -74,6 +74,7 @@ namespace AACMAToolkit
                 label1.Enabled = true; // Monitor mode
                 lblShowAgentMode.Enabled = true; // Show mode
                 lblShowAgentConfig.Enabled = true; // Show config
+                lblExportLogs.Enabled = true; // Export logs
             }
             else
             {
@@ -83,6 +84,7 @@ namespace AACMAToolkit
                 label1.Enabled = false; // Monitor mode
                 lblShowAgentMode.Enabled = false; // Show mode
                 lblShowAgentConfig.Enabled = false; // Show config
+                lblExportLogs.Enabled = false; // Export logs
 
                 MessageBox.Show(@"Some features are disabled because the application is not running as an administrator.",
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -235,6 +237,12 @@ namespace AACMAToolkit
             string strLogfilePath = @"C:\temp\AzcmagentLogs.zip"; // Fixed unrecognized escape sequence by using @  
 
             txtOutput.Text = RunAzCmAgentCommand("logs --full --output " + strLogfilePath);
+        }
+
+        private void restartAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Call the function to restart the application as admin
+            Class.ApplicationFuncktions.RestartAsAdmin();
         }
     }
 }
