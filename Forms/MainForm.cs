@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using AACMAToolkit.Class;
 using AACMAToolkit.Forms;
 
 namespace AACMAToolkit
@@ -15,16 +17,16 @@ namespace AACMAToolkit
             set { base.Text = value; }
         }
 
-        private bool IsAzureArcAgentUpToDate(out string installedVersion, out string latestVersion)
+        private async Task<(bool, string, string)> isAzureArcAgentUpToDate()
         {
-            installedVersion = string.Empty;
-            latestVersion = string.Empty;
+            string installedVersion = string.Empty;
+            string latestVersion = string.Empty;
 
             try
             {
                 // Step 1: Get the installed version
                 string versionCommand = "show \"Agent Version\"";
-                installedVersion = RunAzCmAgentCommand(versionCommand).Trim();
+                installedVersion = (await RunAzCmAgentCommand(versionCommand)).Trim();
 
                 // Extract the version number from the output
                 if (installedVersion.Contains(":"))
@@ -49,20 +51,22 @@ namespace AACMAToolkit
                     }
                     else
                     {
-                        MessageBox.Show("Failed to extract the latest version from the release notes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
+                        MessageBox.Show(@"Failed to extract the latest version from the release notes.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return (false, installedVersion, latestVersion);
                     }
                 }
 
                 // Step 3: Compare the normalized installed version with the latest version
-                return string.Equals(normalizedInstalledVersion, latestVersion, StringComparison.OrdinalIgnoreCase);
+                bool isUpToDate = string.Equals(normalizedInstalledVersion, latestVersion, StringComparison.OrdinalIgnoreCase);
+                return (isUpToDate, installedVersion, latestVersion);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error while checking Azure Arc agent version: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                MessageBox.Show($@"Error while checking Azure Arc agent version: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return (false, installedVersion, latestVersion);
             }
         }
+
 
         public MainForm()
         {
@@ -72,7 +76,7 @@ namespace AACMAToolkit
             Text = Application.ProductName + @" v." +Application.ProductVersion;
 
             // Check if the application is running as admin or not
-            var isAdmin = Class.ApplicationsChecks.IsRunningAsAdmin();
+            var isAdmin = ApplicationFunctions.isRunningAsAdmin();
 
             // Adjust UI based on admin status
             if (isAdmin)
@@ -99,16 +103,14 @@ namespace AACMAToolkit
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
         
-
         ///create Process and give arguments via string
         ///Azcmagent(arguments) ex: Azcmagent(show config)
         ///RedirectStandard = capture Output & Error
         ///UseShellExecute = process won't use system shell
         ///CreateNoWindow = no window pop-up whatsoever
 
-        private string RunAzCmAgentCommand(string args)
+        private async Task<string> RunAzCmAgentCommand(string args)
         {
             try
             {
@@ -122,82 +124,61 @@ namespace AACMAToolkit
                     CreateNoWindow = true
                 };
 
-                /// Launch process with arguments
+                /// Launch process with arguments asynchronously
                 /// Captures Output/error from the command
                 /// Waits the process to finish
                 /// Returns the output/error
 
-                using (var process = Process.Start(psi))
+                using (var process = new Process { StartInfo = psi, EnableRaisingEvents = true })
                 {
-                    var output = process.StandardOutput.ReadToEnd();
-                    var error = process.StandardError.ReadToEnd();
-                    process.WaitForExit();
+                    var outputBuilder = new StringBuilder();
+                    var errorBuilder = new StringBuilder();
+
+                    process.OutputDataReceived += (sender, e) => { if (e.Data != null) outputBuilder.AppendLine(e.Data); };
+                    process.ErrorDataReceived += (sender, e) => { if (e.Data != null) errorBuilder.AppendLine(e.Data); };
+
+                    process.Start();
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
+
+                    await Task.Run(() => process.WaitForExit());
+
+                    var output = outputBuilder.ToString();
+                    var error = errorBuilder.ToString();
 
                     return string.IsNullOrWhiteSpace(output) ? error : output;
                 }
             }
-
             /// Exception handling
-            ///
             catch (Exception ex)
             {
                 return $"Exception: {ex.Message}";
             }
         }
-
-        private void UpdateAzureArcAgent()
+        
+        private async void lblUpdateArcAgent_Click(object sender, EventArgs e)
         {
-            // Logic to update the Azure Arc agent
-            var installerUrl = "https://aka.ms/AzureConnectedMachineAgent"; // Works too: https://gbl.his.arc.azure.com/azcmagent/latest/AzureConnectedMachineAgent.msi
-                                                                            // See more here: https://gbl.his.arc.azure.com/azcmagent-windows
-            var tempPath = Path.GetTempPath();
-            var installerPath = Path.Combine(tempPath, "AzureConnectedMachineAgent.msi");
+            var (isUpToDate, installedVersion, latestVersion) = await isAzureArcAgentUpToDate();
 
-            try
+            if (isUpToDate)
             {
-                using (var client = new WebClient())
-                {
-                    MessageBox.Show(@"Downloading Azure Connected Machine Agent...");
-                    client.DownloadFile(installerUrl, installerPath);
-                }
-
-                var installer = new Process();
-                installer.StartInfo.FileName = "msiexec.exe";
-                installer.StartInfo.Arguments = $"/i \"{installerPath}\" /quiet /qn /norestart";
-                installer.StartInfo.Verb = "runas"; // Admin rights
-                installer.StartInfo.UseShellExecute = true;
-                installer.Start();
-
-                // Wait for the installer to finish
-                installer.WaitForExit();
-
-                // Check if the installation was successful
-                MessageBox.Show(@"Installation completed.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions that occur during the download or installation
-                MessageBox.Show(@"Error: " + ex.Message);
-            }
-        }
-
-        private void lblUpdateArcAgent_Click(object sender, EventArgs e)
-        {
-            if (IsAzureArcAgentUpToDate(out string installedVersion, out string latestVersion))
-            {
-                MessageBox.Show($"Azure Arc agent is up-to-date.\nInstalled Version: {installedVersion}\nLatest Version: {latestVersion}",
-                    "Version Check", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($@"Azure Arc agent is up-to-date.
+Installed Version: {installedVersion}
+Latest Version: {latestVersion}",
+                    @"Version Check", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show($"Azure Arc agent is not up-to-date.\nInstalled Version: {installedVersion}\nLatest Version: {latestVersion}",
-                    "Version Check", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($@"Azure Arc agent is not up-to-date.
+Installed Version: {installedVersion}
+Latest Version: {latestVersion}",
+                    @"Version Check", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 // Ask if the user wants to update
-                var result = MessageBox.Show("Do you want to update the Azure Arc agent?", "Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var result = MessageBox.Show(@"Do you want to update the Azure Arc agent?", @"Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    UpdateAzureArcAgent();
+                    ApplicationFunctions.updateAzureArcAgent();
                 }
             }
         }
@@ -205,55 +186,61 @@ namespace AACMAToolkit
         /// Execute the click event with the right params --- Params are CASE SENSITIVE
         /// Azcmagent show "Agent Version" "Agent Logfile" "Agent Status" "Agent Last Heartbeat"
         ///
-        private void lblCheckVersion_Click(object sender, EventArgs e)
+        private async void lblCheckVersion_Click(object sender, EventArgs e)
         {
             var AgentversionCheck = "show \"Agent Version\" \"Agent Logfile\" \"Agent Status\" \"Agent Last Heartbeat\" ";
-            txtOutput.Text = RunAzCmAgentCommand(AgentversionCheck);
+            txtOutput.Text = await RunAzCmAgentCommand(AgentversionCheck);
         }
 
         /// Azcmagent show "Agent Error Code" "Agent Error Details" "Agent Error Timestamp"
-        private void lblCheckAgentError_Click(object sender, EventArgs e)
+        private async void lblCheckAgentError_Click(object sender, EventArgs e)
         {
             var AgentErrorCheck = "show \"Agent Error Code\" \"Agent Error Details\" \"Agent Error Timestamp\"  ";
-            txtOutput.Text = RunAzCmAgentCommand(AgentErrorCheck);
+            txtOutput.Text = await RunAzCmAgentCommand(AgentErrorCheck);
         }
 
         /// Azcmagent config list
-        private void lblShowAgentConfig_Click(object sender, EventArgs e)
+        private async void lblShowAgentConfig_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = RunAzCmAgentCommand("config list");
+            txtOutput.Text = await RunAzCmAgentCommand("config list");
         }
 
         /// Azcmagent config get config.mode
-        private void lblShowAgentMode_Click(object sender, EventArgs e)
+        private async void lblShowAgentMode_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = RunAzCmAgentCommand("config get config.mode");
+            txtOutput.Text = await RunAzCmAgentCommand("config get config.mode");
         }
 
         /// Put the agent in full mode
-        private void lblChangeMode2Full_Click(object sender, EventArgs e)
+        private async void lblChangeMode2Full_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = RunAzCmAgentCommand("config set config.mode full");
+            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode full");
         }
 
         /// Put the agent in monitor mode
-        private void label1_Click(object sender, EventArgs e)
+        private async void label1_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = RunAzCmAgentCommand("config set config.mode monitor");
+            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode monitor");
         }
 
-        private void lblExportLogs_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Export the logs to a zip file
+        /// </summary>
+        private async void lblExportLogs_Click(object sender, EventArgs e)
         {
             string strLogspath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string strLogfilePath = @"C:\temp\AzcmagentLogs.zip"; // Fixed unrecognized escape sequence by using @  
 
-            txtOutput.Text = RunAzCmAgentCommand("logs --full --output " + strLogfilePath);
+            txtOutput.Text = await RunAzCmAgentCommand("logs --full --output " + strLogfilePath);
         }
 
+        /// <summary>
+        /// Restart the application as administrator
+        /// </summary>
         private void restartAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Call the function to restart the application as admin
-            Class.ApplicationFunctions.RestartAsAdmin();
+            Class.ApplicationFunctions.restartAsAdmin();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
