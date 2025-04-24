@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AACMAToolkit.Class;
@@ -15,6 +16,27 @@ namespace AACMAToolkit.Forms
         {
             get { return base.Text; }
             set { base.Text = value; }
+        }
+
+        private string generateDynamicLogName(string logName)
+        {
+            var hostname = Environment.MachineName;
+            var timestamp = DateTime.Now.ToString("ddMMyyyy_HHmmss");
+            return $"{hostname}_{timestamp}_{logName}";
+        }
+
+        private async Task animateLabelText(Label label, string baseText, CancellationToken token)
+        {
+            // Animate the label text with dots
+            string[] dots = { ".", "..", "..." };
+            int index = 0;
+
+            while (!token.IsCancellationRequested)
+            {
+                label.Text = baseText + dots[index];
+                index = (index + 1) % dots.Length;
+                await Task.Delay(500, token); // Update every 500ms
+            }
         }
 
         private async Task<(bool, string, string)> isAzureArcAgentUpToDate()
@@ -67,6 +89,92 @@ namespace AACMAToolkit.Forms
             }
         }
 
+        ///create Process and give arguments via string
+        ///Azcmagent(arguments) ex: Azcmagent(show config)
+        ///RedirectStandard = capture Output & Error
+        ///UseShellExecute = process won't use system shell
+        ///CreateNoWindow = no window pop-up whatsoever
+
+        private async Task<string> runAzCmAgentCommand(string args)
+        {
+            CancellationTokenSource cancellationTokenSource = null; // Declare the variable here
+            try
+            {
+                // Set the label to show processing status
+                lblStatus.Text = @"Processing...";
+                lblStatus.ForeColor = System.Drawing.Color.Blue;
+                lblStatus.Visible = true;
+
+                // Start a task to animate the label text
+                cancellationTokenSource = new CancellationTokenSource();
+                var animationTask = animateLabelText(lblStatus, "Processing", cancellationTokenSource.Token);
+
+                // Wait for the animation task to start and parse the task
+                var psi = new ProcessStartInfo
+                {
+                    FileName = "azcmagent",
+                    Arguments = args,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                // Start the process
+                using (var process = new Process())
+                {
+                    process.StartInfo = psi;
+                    var outputBuilder = new StringBuilder();
+                    var errorBuilder = new StringBuilder();
+
+                    var outputTaskCompletion = new TaskCompletionSource<bool>();
+                    var errorTaskCompletion = new TaskCompletionSource<bool>();
+
+                    // Handle output and error asynchronously
+                    process.OutputDataReceived += (sender, e) =>
+                    {
+                        if (e.Data == null)
+                            outputTaskCompletion.TrySetResult(true); // Signal when output is done
+                        else
+                            outputBuilder.AppendLine(e.Data);
+                    };
+
+                    process.ErrorDataReceived += (sender, e) =>
+                    {
+                        if (e.Data == null)
+                            errorTaskCompletion.TrySetResult(true); // Signal when error is done
+                        else
+                            errorBuilder.AppendLine(e.Data);
+                    };
+
+                    process.Start();
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
+
+                    await Task.Run(() => process.WaitForExit()); // Wait for the process to exit
+                    await Task.WhenAll(outputTaskCompletion.Task, errorTaskCompletion.Task); // Wait for output/error reading to complete
+
+                    // Stop the animation and update the label text for completion
+                    lblStatus.Text = @"Task Complete";
+                    lblStatus.ForeColor = System.Drawing.Color.Green;
+
+                    return string.IsNullOrWhiteSpace(outputBuilder.ToString()) ? errorBuilder.ToString() : outputBuilder.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions and update the label text accordingly
+                lblStatus.Text = @"Error: An exception occurred.";
+                lblStatus.ForeColor = System.Drawing.Color.Red;
+                return $"Exception: {ex.Message}";
+            }
+            finally
+            {
+                // Stop the animation and hide the label
+                cancellationTokenSource?.Cancel(); // Ensure cancellationTokenSource is not null
+                lblStatus.Visible = false;
+            }
+        }
 
         public MainForm()
         {
@@ -101,74 +209,6 @@ namespace AACMAToolkit.Forms
 
                 MessageBox.Show(@"Some features are disabled because the application is not running as an administrator.",
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-        
-        ///create Process and give arguments via string
-        ///Azcmagent(arguments) ex: Azcmagent(show config)
-        ///RedirectStandard = capture Output & Error
-        ///UseShellExecute = process won't use system shell
-        ///CreateNoWindow = no window pop-up whatsoever
-
-        private async Task<string> runAzCmAgentCommand(string args)
-        {
-            try
-            {
-                var psi = new ProcessStartInfo
-                {
-                    FileName = "azcmagent",
-                    Arguments = args,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                // Launch process with arguments asynchronously
-                // Captures Output/error from the command
-                // Waits the process to finish
-                // Returns the output/error
-
-                using (var process = new Process())
-                {
-                    process.StartInfo = psi;
-                    process.EnableRaisingEvents = true;
-                    var outputBuilder = new StringBuilder();
-                    var errorBuilder = new StringBuilder();
-
-                    process.OutputDataReceived += (sender, e) => { if (e.Data != null) outputBuilder.AppendLine(e.Data); };
-                    process.ErrorDataReceived += (sender, e) => { if (e.Data != null) errorBuilder.AppendLine(e.Data); };
-
-                    process.Start();
-                    process.BeginOutputReadLine();
-                    process.BeginErrorReadLine();
-
-                    await Task.Run(() => process.WaitForExit());
-
-                    var output = outputBuilder.ToString();
-                    var error = errorBuilder.ToString();
-
-                    return string.IsNullOrWhiteSpace(output) ? error : output;
-                }
-            }
-
-            // Handle specific exceptions
-            catch (FileNotFoundException ex)
-            {
-                return $"Error: {ex.Message} - Azcmagent not found. Please ensure it is installed.";
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                return $"Error: {ex.Message} - Access denied. Please run the application as administrator.";
-            }
-            catch (InvalidOperationException ex)
-            {
-                return $"Error: {ex.Message} - Invalid operation. Please check the command.";
-            }
-            // Exception handling
-            catch (Exception ex)
-            {
-                return $"Exception: {ex.Message}";
             }
         }
         
@@ -244,10 +284,35 @@ Latest Version: {latestVersion}",
         /// </summary>
         private async void lblExportLogs_Click(object sender, EventArgs e)
         {
-            //string strLogspath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string strLogfilePath = @"C:\temp\AzcmagentLogs.zip"; // Fixed unrecognized escape sequence by using @  
+            // Open a folder dialog to select the folder to save the logs
+            using (var folderDialog = new FolderBrowserDialog())
+            {
+                // Set the initial directory to the user's documents folder
+                folderDialog.Description = @"Select the folder to save the logs file";
+                folderDialog.ShowNewFolderButton = true;
 
-            txtOutput.Text = await runAzCmAgentCommand("logs --full --output " + strLogfilePath);
+                // Show the folder dialog and check if the user selected a folder
+                if (folderDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Get the selected path and create the log file name
+                    var selectedPath = folderDialog.SelectedPath;
+                    var strLogfilePath = Path.Combine(selectedPath, generateDynamicLogName("AzcmagentLogs") + ".zip");
+
+                    // Log to txtOutput what is being done
+                    txtOutput.Text = @"Exporting logs to '" + strLogfilePath + @"'...";
+
+                    // Run the command to export logs
+                    txtOutput.Text = await runAzCmAgentCommand("logs --full --output " + strLogfilePath);
+
+                    // MessageBox to inform the user
+                    MessageBox.Show($@"Logs have been exported to: '{strLogfilePath}'", @"Export Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    // User canceled the folder selection
+                    MessageBox.Show(@"No folder was selected. Export canceled.", @"Export Canceled", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         /// <summary>
