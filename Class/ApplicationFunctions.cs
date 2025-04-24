@@ -2,7 +2,7 @@
 
 namespace AACMAToolkit.Class
 {
-    internal class ApplicationFuncktions
+    internal class ApplicationFunctions
     {
         // Function to restart the application is running as administrator
         public static void RestartAsAdmin()

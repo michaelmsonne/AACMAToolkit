@@ -3,11 +3,18 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using AACMAToolkit.Forms;
 
 namespace AACMAToolkit
 {
     public partial class MainForm : Form
     {
+        public sealed override string Text
+        {
+            get { return base.Text; }
+            set { base.Text = value; }
+        }
+
         private bool IsAzureArcAgentUpToDate(out string installedVersion, out string latestVersion)
         {
             installedVersion = string.Empty;
@@ -57,10 +64,12 @@ namespace AACMAToolkit
             }
         }
 
-
         public MainForm()
         {
             InitializeComponent();
+
+            // Set the title of the form to include the version number
+            Text = Application.ProductName + @" v." +Application.ProductVersion;
 
             // Check if the application is running as admin or not
             var isAdmin = Class.ApplicationsChecks.IsRunningAsAdmin();
@@ -90,6 +99,8 @@ namespace AACMAToolkit
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        
 
         ///create Process and give arguments via string
         ///Azcmagent(arguments) ex: Azcmagent(show config)
@@ -242,7 +253,16 @@ namespace AACMAToolkit
         private void restartAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Call the function to restart the application as admin
-            Class.ApplicationFuncktions.RestartAsAdmin();
+            Class.ApplicationFunctions.RestartAsAdmin();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Open the about form
+            using (var aboutForm = new AboutForm())
+            {
+                aboutForm.ShowDialog();
+            }
         }
     }
 }

@@ -43,6 +43,7 @@
             this.manuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartAsAdministratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -183,13 +184,15 @@
             // 
             this.manuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.restartAsAdministratorToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.manuToolStripMenuItem.Name = "manuToolStripMenuItem";
             this.manuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.manuToolStripMenuItem.Text = "Menu";
             // 
             // restartAsAdministratorToolStripMenuItem
             // 
+            this.restartAsAdministratorToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.restartAsAdministratorToolStripMenuItem.Name = "restartAsAdministratorToolStripMenuItem";
             this.restartAsAdministratorToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.restartAsAdministratorToolStripMenuItem.Text = "Restart as Administrator";
@@ -197,9 +200,18 @@
             // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
             // 
             // MainForm
             // 
@@ -253,6 +265,7 @@
         private System.Windows.Forms.ToolStripMenuItem manuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restartAsAdministratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 
