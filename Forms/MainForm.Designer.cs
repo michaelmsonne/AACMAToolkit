@@ -1,4 +1,4 @@
-﻿namespace AACMAToolkit
+﻿namespace AACMAToolkit.Forms
 {
     partial class MainForm
     {
@@ -39,13 +39,20 @@
             this.lblShowAgentConfig = new System.Windows.Forms.Label();
             this.lblChangeMode2Full = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.manuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restartAsAdministratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // spltButtonScreen
             // 
-            this.spltButtonScreen.Location = new System.Drawing.Point(0, 0);
+            this.spltButtonScreen.Location = new System.Drawing.Point(0, 24);
             this.spltButtonScreen.Name = "spltButtonScreen";
-            this.spltButtonScreen.Size = new System.Drawing.Size(336, 590);
+            this.spltButtonScreen.Size = new System.Drawing.Size(336, 566);
             this.spltButtonScreen.TabIndex = 0;
             this.spltButtonScreen.TabStop = false;
             // 
@@ -54,7 +61,7 @@
             this.lblCheckVersion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblCheckVersion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblCheckVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCheckVersion.Location = new System.Drawing.Point(12, 9);
+            this.lblCheckVersion.Location = new System.Drawing.Point(12, 27);
             this.lblCheckVersion.Name = "lblCheckVersion";
             this.lblCheckVersion.Size = new System.Drawing.Size(298, 40);
             this.lblCheckVersion.TabIndex = 1;
@@ -65,9 +72,10 @@
             // txtOutput
             // 
             this.txtOutput.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOutput.Location = new System.Drawing.Point(342, 9);
+            this.txtOutput.Location = new System.Drawing.Point(342, 24);
             this.txtOutput.Name = "txtOutput";
-            this.txtOutput.Size = new System.Drawing.Size(895, 569);
+            this.txtOutput.ReadOnly = true;
+            this.txtOutput.Size = new System.Drawing.Size(886, 556);
             this.txtOutput.TabIndex = 2;
             this.txtOutput.Text = "";
             // 
@@ -76,7 +84,7 @@
             this.lblCheckAgentError.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblCheckAgentError.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblCheckAgentError.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCheckAgentError.Location = new System.Drawing.Point(12, 49);
+            this.lblCheckAgentError.Location = new System.Drawing.Point(12, 67);
             this.lblCheckAgentError.Name = "lblCheckAgentError";
             this.lblCheckAgentError.Size = new System.Drawing.Size(298, 40);
             this.lblCheckAgentError.TabIndex = 3;
@@ -115,7 +123,7 @@
             this.lblShowAgentMode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblShowAgentMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblShowAgentMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblShowAgentMode.Location = new System.Drawing.Point(12, 129);
+            this.lblShowAgentMode.Location = new System.Drawing.Point(12, 147);
             this.lblShowAgentMode.Name = "lblShowAgentMode";
             this.lblShowAgentMode.Size = new System.Drawing.Size(298, 40);
             this.lblShowAgentMode.TabIndex = 5;
@@ -128,7 +136,7 @@
             this.lblShowAgentConfig.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblShowAgentConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblShowAgentConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblShowAgentConfig.Location = new System.Drawing.Point(12, 89);
+            this.lblShowAgentConfig.Location = new System.Drawing.Point(12, 107);
             this.lblShowAgentConfig.Name = "lblShowAgentConfig";
             this.lblShowAgentConfig.Size = new System.Drawing.Size(298, 40);
             this.lblShowAgentConfig.TabIndex = 4;
@@ -141,7 +149,7 @@
             this.lblChangeMode2Full.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblChangeMode2Full.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblChangeMode2Full.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChangeMode2Full.Location = new System.Drawing.Point(12, 169);
+            this.lblChangeMode2Full.Location = new System.Drawing.Point(12, 187);
             this.lblChangeMode2Full.Name = "lblChangeMode2Full";
             this.lblChangeMode2Full.Size = new System.Drawing.Size(298, 40);
             this.lblChangeMode2Full.TabIndex = 8;
@@ -154,13 +162,66 @@
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 209);
+            this.label1.Location = new System.Drawing.Point(12, 227);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(298, 40);
             this.label1.TabIndex = 9;
             this.label1.Text = "Change 2 Monitor mode";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.White;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.manuToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1237, 24);
+            this.menuStrip1.TabIndex = 10;
+            this.menuStrip1.Text = "menuStripTop";
+            // 
+            // manuToolStripMenuItem
+            // 
+            this.manuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restartAsAdministratorToolStripMenuItem,
+            this.aboutToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.manuToolStripMenuItem.Name = "manuToolStripMenuItem";
+            this.manuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.manuToolStripMenuItem.Text = "Menu";
+            // 
+            // restartAsAdministratorToolStripMenuItem
+            // 
+            this.restartAsAdministratorToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.restartAsAdministratorToolStripMenuItem.Name = "restartAsAdministratorToolStripMenuItem";
+            this.restartAsAdministratorToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.restartAsAdministratorToolStripMenuItem.Text = "Restart as Administrator";
+            this.restartAsAdministratorToolStripMenuItem.Click += new System.EventHandler(this.restartAsAdministratorToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(1160, 5);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(0, 13);
+            this.lblStatus.TabIndex = 11;
             // 
             // MainForm
             // 
@@ -170,6 +231,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(1237, 590);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblChangeMode2Full);
             this.Controls.Add(this.lblExportLogs);
@@ -180,16 +242,21 @@
             this.Controls.Add(this.txtOutput);
             this.Controls.Add(this.lblCheckVersion);
             this.Controls.Add(this.spltButtonScreen);
+            this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.SystemColors.Highlight;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(1);
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1000, 500);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -205,6 +272,12 @@
         private System.Windows.Forms.Label lblShowAgentConfig;
         private System.Windows.Forms.Label lblChangeMode2Full;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem manuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restartAsAdministratorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Label lblStatus;
     }
 }
 
