@@ -24,17 +24,17 @@ namespace AACMAToolkit.Class
                     // Stop the service if it's running
                     if (serviceController.Status == ServiceControllerStatus.Running)
                     {
-                        output.AppendLine("Stopping service...");
+                        output.AppendLine($"Stopping service '{serviceName}'...");
                         serviceController.Stop();
                         await Task.Run(() => serviceController.WaitForStatus(ServiceControllerStatus.Stopped, TimeSpan.FromSeconds(timeoutSeconds)));
-                        output.AppendLine("Service stopped.");
+                        output.AppendLine($"Service '{serviceName}' stopped.");
                     }
 
                     // Start the service
-                    output.AppendLine("Starting service...");
+                    output.AppendLine($"Starting service '{serviceName}'...");
                     serviceController.Start();
                     await Task.Run(() => serviceController.WaitForStatus(ServiceControllerStatus.Running, TimeSpan.FromSeconds(timeoutSeconds)));
-                    output.AppendLine("Service started.");
+                    output.AppendLine($"Service '{serviceName}' started.");
 
                     return output.ToString();
                 }

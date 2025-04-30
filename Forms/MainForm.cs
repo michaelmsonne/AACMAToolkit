@@ -25,6 +25,13 @@ namespace AACMAToolkit.Forms
             return $"{hostname}_{timestamp}_{logName}";
         }
 
+        private void SetLabelStatus(Label label, string text, System.Drawing.Color color, bool isVisible)
+        {
+            label.Text = text;
+            label.ForeColor = color;
+            label.Visible = isVisible;
+        }
+
         private async Task animateLabelText(Label label, string baseText, CancellationToken token)
         {
             // Animate the label text with dots
@@ -101,9 +108,7 @@ namespace AACMAToolkit.Forms
             try
             {
                 // Set the label to show processing status
-                lblStatus.Text = @"Processing...";
-                lblStatus.ForeColor = System.Drawing.Color.Blue;
-                lblStatus.Visible = true;
+                SetLabelStatus(lblStatus, @"Processing...", System.Drawing.Color.Blue, true);
 
                 // Start a task to animate the label text
                 cancellationTokenSource = new CancellationTokenSource();
@@ -155,8 +160,7 @@ namespace AACMAToolkit.Forms
                     await Task.WhenAll(outputTaskCompletion.Task, errorTaskCompletion.Task); // Wait for output/error reading to complete
 
                     // Stop the animation and update the label text for completion
-                    lblStatus.Text = @"Task Complete";
-                    lblStatus.ForeColor = System.Drawing.Color.Green;
+                    SetLabelStatus(lblStatus, @"Task Complete", System.Drawing.Color.Green, true);
 
                     return string.IsNullOrWhiteSpace(outputBuilder.ToString()) ? errorBuilder.ToString() : outputBuilder.ToString();
                 }
@@ -164,15 +168,14 @@ namespace AACMAToolkit.Forms
             catch (Exception ex)
             {
                 // Handle exceptions and update the label text accordingly
-                lblStatus.Text = @"Error: An exception occurred.";
-                lblStatus.ForeColor = System.Drawing.Color.Red;
+                SetLabelStatus(lblStatus, @"Error: An exception occurred.", System.Drawing.Color.Red, true);
                 return $"Exception: {ex.Message}";
             }
             finally
             {
                 // Stop the animation and hide the label
                 cancellationTokenSource?.Cancel(); // Ensure cancellationTokenSource is not null
-                lblStatus.Visible = false;
+                SetLabelStatus(lblStatus, string.Empty, System.Drawing.Color.Black, false);
             }
         }
 
@@ -350,7 +353,7 @@ Latest Version: {latestVersion}",
 
             txtOutput.Text = result;
 
-            if (result.IndexOf("Service started.", StringComparison.OrdinalIgnoreCase) >= 0)
+            if (result.IndexOf($"Service '{serviceName}' started.", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 MessageBox.Show(@"Azure Arc service restarted successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
