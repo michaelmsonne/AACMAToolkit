@@ -105,7 +105,7 @@
             this.lblUpdateArcAgent.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUpdateArcAgent.Location = new System.Drawing.Point(12, 513);
             this.lblUpdateArcAgent.Name = "lblUpdateArcAgent";
-            this.lblUpdateArcAgent.Size = new System.Drawing.Size(298, 65);
+            this.lblUpdateArcAgent.Size = new System.Drawing.Size(315, 65);
             this.lblUpdateArcAgent.TabIndex = 6;
             this.lblUpdateArcAgent.Text = "Update Arc Agent";
             this.lblUpdateArcAgent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -118,7 +118,7 @@
             this.lblExportLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblExportLogs.Location = new System.Drawing.Point(12, 448);
             this.lblExportLogs.Name = "lblExportLogs";
-            this.lblExportLogs.Size = new System.Drawing.Size(298, 65);
+            this.lblExportLogs.Size = new System.Drawing.Size(315, 65);
             this.lblExportLogs.TabIndex = 7;
             this.lblExportLogs.Text = "Export Logs";
             this.lblExportLogs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

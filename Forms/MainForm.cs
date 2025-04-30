@@ -341,6 +341,8 @@ Latest Version: {latestVersion}",
         {
             const string serviceName = "himds"; // Azure Hybrid Instance Metadata Service
 
+            SetLabelStatus(lblStatus, @"Restarting...", System.Drawing.Color.Blue, true);
+
             txtOutput.Text = @"Restarting Azure Arc service...";
             string result = await ServiceManager.RestartServiceAsync(serviceName);
 
@@ -349,10 +351,14 @@ Latest Version: {latestVersion}",
             if (result.IndexOf($"Service '{serviceName}' started.", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 MessageBox.Show(@"Azure Arc service restarted successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                SetLabelStatus(lblStatus, string.Empty, System.Drawing.Color.Black, false);
             }
             else
             {
                 MessageBox.Show($@"Failed to restart Azure Arc service. Check the output for details.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                SetLabelStatus(lblStatus, @"Failed to restart Azure Arc service", System.Drawing.Color.Red, true);
             }
         }
     }
