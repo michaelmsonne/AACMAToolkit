@@ -25,7 +25,7 @@ namespace AACMAToolkit.Forms
             label.Visible = isVisible;
         }
 
-        private async Task animateLabelText(Label label, string baseText, CancellationToken token)
+        private async Task AnimateLabelText(Label label, string baseText, CancellationToken token)
         {
             // Animate the label text with dots
             string[] dots = { ".", "..", "..." };
@@ -39,7 +39,7 @@ namespace AACMAToolkit.Forms
             }
         }
 
-        private async Task<(bool, string, string)> isAzureArcAgentUpToDate()
+        private async Task<(bool, string, string)> IsAzureArcAgentUpToDate()
         {
             string installedVersion = string.Empty;
             string latestVersion = string.Empty;
@@ -48,7 +48,7 @@ namespace AACMAToolkit.Forms
             {
                 // Step 1: Get the installed version
                 string versionCommand = "show \"Agent Version\"";
-                installedVersion = (await runAzCmAgentCommand(versionCommand)).Trim();
+                installedVersion = (await RunAzCmAgentCommand(versionCommand)).Trim();
 
                 // Extract the version number from the output
                 if (installedVersion.Contains(":"))
@@ -95,7 +95,7 @@ namespace AACMAToolkit.Forms
         ///UseShellExecute = process won't use system shell
         ///CreateNoWindow = no window pop-up whatsoever
 
-        private async Task<string> runAzCmAgentCommand(string args)
+        private async Task<string> RunAzCmAgentCommand(string args)
         {
             CancellationTokenSource cancellationTokenSource = null; // Declare the variable here
             try
@@ -105,7 +105,7 @@ namespace AACMAToolkit.Forms
 
                 // Start a task to animate the label text
                 cancellationTokenSource = new CancellationTokenSource();
-                var animationTask = animateLabelText(lblStatus, "Processing", cancellationTokenSource.Token);
+                AnimateLabelText(lblStatus, "Processing", cancellationTokenSource.Token);
 
                 // Wait for the animation task to start and parse the task
                 var psi = new ProcessStartInfo
@@ -212,7 +212,7 @@ namespace AACMAToolkit.Forms
         
         private async void lblUpdateArcAgent_Click(object sender, EventArgs e)
         {
-            var (isUpToDate, installedVersion, latestVersion) = await isAzureArcAgentUpToDate();
+            var (isUpToDate, installedVersion, latestVersion) = await IsAzureArcAgentUpToDate();
 
             if (isUpToDate)
             {
@@ -243,38 +243,38 @@ Latest Version: {latestVersion}",
         private async void lblCheckVersion_Click(object sender, EventArgs e)
         {
             const string agentversionCheck = "show \"Agent Version\" \"Agent Logfile\" \"Agent Status\" \"Agent Last Heartbeat\" ";
-            txtOutput.Text = await runAzCmAgentCommand(agentversionCheck);
+            txtOutput.Text = await RunAzCmAgentCommand(agentversionCheck);
         }
 
         /// Azcmagent show "Agent Error Code" "Agent Error Details" "Agent Error Timestamp"
         private async void lblCheckAgentError_Click(object sender, EventArgs e)
         {
             const string agentErrorCheck = "show \"Agent Error Code\" \"Agent Error Details\" \"Agent Error Timestamp\"  ";
-            txtOutput.Text = await runAzCmAgentCommand(agentErrorCheck);
+            txtOutput.Text = await RunAzCmAgentCommand(agentErrorCheck);
         }
 
         /// Azcmagent config list
         private async void lblShowAgentConfig_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = await runAzCmAgentCommand("config list");
+            txtOutput.Text = await RunAzCmAgentCommand("config list");
         }
 
         /// Azcmagent config get config.mode
         private async void lblShowAgentMode_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = await runAzCmAgentCommand("config get config.mode");
+            txtOutput.Text = await RunAzCmAgentCommand("config get config.mode");
         }
 
         /// Put the agent in full mode
         private async void lblChangeMode2Full_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = await runAzCmAgentCommand("config set config.mode full");
+            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode full");
         }
 
         /// Put the agent in monitor mode
         private async void label1_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = await runAzCmAgentCommand("config set config.mode monitor");
+            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode monitor");
         }
 
         /// <summary>
@@ -300,7 +300,7 @@ Latest Version: {latestVersion}",
                     txtOutput.Text = @"Exporting logs to '" + strLogfilePath + @"'...";
 
                     // Run the command to export logs
-                    txtOutput.Text = await runAzCmAgentCommand("logs --full --output " + strLogfilePath);
+                    txtOutput.Text = await RunAzCmAgentCommand("logs --full --output " + strLogfilePath);
 
                     // MessageBox to inform the user
                     MessageBox.Show($@"Logs have been exported to: '{strLogfilePath}'", @"Export Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
