@@ -361,5 +361,11 @@ Latest Version: {latestVersion}",
                 SetLabelStatus(lblStatus, @"Failed to restart Azure Arc service", System.Drawing.Color.Red, true);
             }
         }
+
+        /// Azcmagent show full machine metadata and agent details
+        private async void lblGetFullDetails_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("show");
+        }
     }
 }

@@ -49,6 +49,7 @@
             this.tabControlMainForm = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblGetFullDetails = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -254,6 +255,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lblGetFullDetails);
             this.tabPage1.Controls.Add(this.lblCheckVersion);
             this.tabPage1.Controls.Add(this.btnRestartService);
             this.tabPage1.Controls.Add(this.lblCheckAgentError);
@@ -278,6 +280,19 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Configuration tasks";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lblGetFullDetails
+            // 
+            this.lblGetFullDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblGetFullDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblGetFullDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGetFullDetails.Location = new System.Drawing.Point(3, 283);
+            this.lblGetFullDetails.Name = "lblGetFullDetails";
+            this.lblGetFullDetails.Size = new System.Drawing.Size(298, 40);
+            this.lblGetFullDetails.TabIndex = 13;
+            this.lblGetFullDetails.Text = "Retrieve machine/agent status";
+            this.lblGetFullDetails.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblGetFullDetails.Click += new System.EventHandler(this.lblGetFullDetails_Click);
             // 
             // MainForm
             // 
@@ -335,6 +350,7 @@
         private System.Windows.Forms.TabControl tabControlMainForm;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label lblGetFullDetails;
     }
 }
 
