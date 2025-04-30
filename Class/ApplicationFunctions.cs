@@ -16,6 +16,13 @@ namespace AACMAToolkit.Class
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
+        public static string GenerateDynamicLogName(string logName)
+        {
+            var hostname = Environment.MachineName;
+            var timestamp = DateTime.Now.ToString("ddMMyyyy_HHmmss");
+            return $"{hostname}_{timestamp}_{logName}";
+        }
+
         // Function to restart the application is running as administrator
         public static void restartAsAdmin()
         {

@@ -18,13 +18,6 @@ namespace AACMAToolkit.Forms
             set { base.Text = value; }
         }
 
-        private string generateDynamicLogName(string logName)
-        {
-            var hostname = Environment.MachineName;
-            var timestamp = DateTime.Now.ToString("ddMMyyyy_HHmmss");
-            return $"{hostname}_{timestamp}_{logName}";
-        }
-
         private void SetLabelStatus(Label label, string text, System.Drawing.Color color, bool isVisible)
         {
             label.Text = text;
@@ -301,7 +294,7 @@ Latest Version: {latestVersion}",
                 {
                     // Get the selected path and create the log file name
                     var selectedPath = folderDialog.SelectedPath;
-                    var strLogfilePath = Path.Combine(selectedPath, generateDynamicLogName("AzcmagentLogs") + ".zip");
+                    var strLogfilePath = Path.Combine(selectedPath, ApplicationFunctions.GenerateDynamicLogName("AzcmagentLogs") + ".zip");
 
                     // Log to txtOutput what is being done
                     txtOutput.Text = @"Exporting logs to '" + strLogfilePath + @"'...";
