@@ -37,22 +37,26 @@
             this.lblExportLogs = new System.Windows.Forms.Label();
             this.lblShowAgentMode = new System.Windows.Forms.Label();
             this.lblShowAgentConfig = new System.Windows.Forms.Label();
-            this.lblChangeMode2Full = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.manuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartAsAdministratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.btnRestartService = new System.Windows.Forms.Label();
             this.tabControlMainForm = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lblGetFullDetails = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblChangeModeToFull = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lblRestartService = new System.Windows.Forms.Label();
+            this.lblCheckAgentConnection = new System.Windows.Forms.Label();
+            this.lblChangeModeToMonitor = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // spltButtonScreen
@@ -104,9 +108,9 @@
             this.lblUpdateArcAgent.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblUpdateArcAgent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblUpdateArcAgent.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUpdateArcAgent.Location = new System.Drawing.Point(12, 513);
+            this.lblUpdateArcAgent.Location = new System.Drawing.Point(12, 533);
             this.lblUpdateArcAgent.Name = "lblUpdateArcAgent";
-            this.lblUpdateArcAgent.Size = new System.Drawing.Size(315, 65);
+            this.lblUpdateArcAgent.Size = new System.Drawing.Size(315, 45);
             this.lblUpdateArcAgent.TabIndex = 6;
             this.lblUpdateArcAgent.Text = "Update Arc Agent";
             this.lblUpdateArcAgent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -117,9 +121,9 @@
             this.lblExportLogs.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblExportLogs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblExportLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExportLogs.Location = new System.Drawing.Point(12, 448);
+            this.lblExportLogs.Location = new System.Drawing.Point(12, 492);
             this.lblExportLogs.Name = "lblExportLogs";
-            this.lblExportLogs.Size = new System.Drawing.Size(315, 65);
+            this.lblExportLogs.Size = new System.Drawing.Size(315, 41);
             this.lblExportLogs.TabIndex = 7;
             this.lblExportLogs.Text = "Export Logs";
             this.lblExportLogs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -150,32 +154,6 @@
             this.lblShowAgentConfig.Text = "Show Agent Config";
             this.lblShowAgentConfig.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblShowAgentConfig.Click += new System.EventHandler(this.lblShowAgentConfig_Click);
-            // 
-            // lblChangeMode2Full
-            // 
-            this.lblChangeMode2Full.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblChangeMode2Full.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblChangeMode2Full.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChangeMode2Full.Location = new System.Drawing.Point(3, 163);
-            this.lblChangeMode2Full.Name = "lblChangeMode2Full";
-            this.lblChangeMode2Full.Size = new System.Drawing.Size(298, 40);
-            this.lblChangeMode2Full.TabIndex = 8;
-            this.lblChangeMode2Full.Text = "Change 2 Full mode";
-            this.lblChangeMode2Full.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblChangeMode2Full.Click += new System.EventHandler(this.lblChangeMode2Full_Click);
-            // 
-            // label1
-            // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 203);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(298, 40);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Change 2 Monitor mode";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // menuStrip1
             // 
@@ -230,69 +208,120 @@
             this.lblStatus.Size = new System.Drawing.Size(0, 13);
             this.lblStatus.TabIndex = 11;
             // 
-            // btnRestartService
-            // 
-            this.btnRestartService.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.btnRestartService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRestartService.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRestartService.Location = new System.Drawing.Point(3, 243);
-            this.btnRestartService.Name = "btnRestartService";
-            this.btnRestartService.Size = new System.Drawing.Size(298, 40);
-            this.btnRestartService.TabIndex = 12;
-            this.btnRestartService.Text = "Restart Azure Arc Service";
-            this.btnRestartService.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnRestartService.Click += new System.EventHandler(this.btnRestartService_Click);
-            // 
             // tabControlMainForm
             // 
             this.tabControlMainForm.Controls.Add(this.tabPage1);
             this.tabControlMainForm.Controls.Add(this.tabPage2);
+            this.tabControlMainForm.Controls.Add(this.tabPage3);
             this.tabControlMainForm.Location = new System.Drawing.Point(12, 25);
             this.tabControlMainForm.Name = "tabControlMainForm";
             this.tabControlMainForm.SelectedIndex = 0;
-            this.tabControlMainForm.Size = new System.Drawing.Size(315, 408);
+            this.tabControlMainForm.Size = new System.Drawing.Size(315, 464);
             this.tabControlMainForm.TabIndex = 13;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.lblGetFullDetails);
             this.tabPage1.Controls.Add(this.lblCheckVersion);
-            this.tabPage1.Controls.Add(this.btnRestartService);
             this.tabPage1.Controls.Add(this.lblCheckAgentError);
             this.tabPage1.Controls.Add(this.lblShowAgentConfig);
-            this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.lblShowAgentMode);
-            this.tabPage1.Controls.Add(this.lblChangeMode2Full);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(307, 382);
+            this.tabPage1.Size = new System.Drawing.Size(307, 438);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic tasks";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(307, 102);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Configuration tasks";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // lblGetFullDetails
             // 
             this.lblGetFullDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblGetFullDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblGetFullDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGetFullDetails.Location = new System.Drawing.Point(3, 283);
+            this.lblGetFullDetails.Location = new System.Drawing.Point(3, 163);
             this.lblGetFullDetails.Name = "lblGetFullDetails";
             this.lblGetFullDetails.Size = new System.Drawing.Size(298, 40);
             this.lblGetFullDetails.TabIndex = 13;
             this.lblGetFullDetails.Text = "Retrieve machine/agent status";
             this.lblGetFullDetails.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblGetFullDetails.Click += new System.EventHandler(this.lblGetFullDetails_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.lblChangeModeToMonitor);
+            this.tabPage2.Controls.Add(this.lblChangeModeToFull);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(307, 382);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Configuration tasks";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lblChangeModeToFull
+            // 
+            this.lblChangeModeToFull.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblChangeModeToFull.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblChangeModeToFull.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChangeModeToFull.Location = new System.Drawing.Point(3, 3);
+            this.lblChangeModeToFull.Name = "lblChangeModeToFull";
+            this.lblChangeModeToFull.Size = new System.Drawing.Size(298, 40);
+            this.lblChangeModeToFull.TabIndex = 9;
+            this.lblChangeModeToFull.Text = "Change 2 Full mode";
+            this.lblChangeModeToFull.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblChangeModeToFull.Click += new System.EventHandler(this.lblChangeModeToFull_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.lblRestartService);
+            this.tabPage3.Controls.Add(this.lblCheckAgentConnection);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(307, 382);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Troubleshooting";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // lblRestartService
+            // 
+            this.lblRestartService.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblRestartService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblRestartService.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRestartService.Location = new System.Drawing.Point(3, 3);
+            this.lblRestartService.Name = "lblRestartService";
+            this.lblRestartService.Size = new System.Drawing.Size(298, 40);
+            this.lblRestartService.TabIndex = 16;
+            this.lblRestartService.Text = "Restart Azure Arc Service";
+            this.lblRestartService.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblRestartService.Click += new System.EventHandler(this.lblRestartService_Click);
+            // 
+            // lblCheckAgentConnection
+            // 
+            this.lblCheckAgentConnection.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblCheckAgentConnection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblCheckAgentConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCheckAgentConnection.Location = new System.Drawing.Point(3, 43);
+            this.lblCheckAgentConnection.Name = "lblCheckAgentConnection";
+            this.lblCheckAgentConnection.Size = new System.Drawing.Size(298, 40);
+            this.lblCheckAgentConnection.TabIndex = 15;
+            this.lblCheckAgentConnection.Text = "Run connectivity checks";
+            this.lblCheckAgentConnection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCheckAgentConnection.Click += new System.EventHandler(this.lblCheckAgentConnection_Click);
+            // 
+            // lblChangeModeToMonitor
+            // 
+            this.lblChangeModeToMonitor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblChangeModeToMonitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblChangeModeToMonitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChangeModeToMonitor.Location = new System.Drawing.Point(3, 43);
+            this.lblChangeModeToMonitor.Name = "lblChangeModeToMonitor";
+            this.lblChangeModeToMonitor.Size = new System.Drawing.Size(298, 40);
+            this.lblChangeModeToMonitor.TabIndex = 10;
+            this.lblChangeModeToMonitor.Text = "Change 2 Monitor mode";
+            this.lblChangeModeToMonitor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblChangeModeToMonitor.Click += new System.EventHandler(this.lblChangeModeToMonitor_Click);
             // 
             // MainForm
             // 
@@ -323,6 +352,8 @@
             this.menuStrip1.PerformLayout();
             this.tabControlMainForm.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,19 +369,21 @@
         private System.Windows.Forms.Label lblExportLogs;
         private System.Windows.Forms.Label lblShowAgentMode;
         private System.Windows.Forms.Label lblShowAgentConfig;
-        private System.Windows.Forms.Label lblChangeMode2Full;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem manuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restartAsAdministratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.Label btnRestartService;
         private System.Windows.Forms.TabControl tabControlMainForm;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label lblGetFullDetails;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label lblCheckAgentConnection;
+        private System.Windows.Forms.Label lblRestartService;
+        private System.Windows.Forms.Label lblChangeModeToFull;
+        private System.Windows.Forms.Label lblChangeModeToMonitor;
     }
 }
 

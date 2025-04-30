@@ -187,23 +187,23 @@ namespace AACMAToolkit.Forms
             {
                 // Enable admin-specific options
                 lblUpdateArcAgent.Enabled = true;
-                lblChangeMode2Full.Enabled = true;
-                label1.Enabled = true; // Monitor mode
+                lblChangeModeToFull.Enabled = true;
+                lblChangeModeToMonitor.Enabled = true; // Monitor mode
                 lblShowAgentMode.Enabled = true; // Show mode
                 lblShowAgentConfig.Enabled = true; // Show config
                 lblExportLogs.Enabled = true; // Export logs
-                btnRestartService.Enabled = true; // Restart service
+                lblRestartService.Enabled = true; // Restart service
             }
             else
             {
                 // Disable admin-specific options
                 lblUpdateArcAgent.Enabled = false;
-                lblChangeMode2Full.Enabled = false;
-                label1.Enabled = false; // Monitor mode
+                lblChangeModeToFull.Enabled = false;
+                lblChangeModeToMonitor.Enabled = false; // Monitor mode
                 lblShowAgentMode.Enabled = false; // Show mode
                 lblShowAgentConfig.Enabled = false; // Show config
                 lblExportLogs.Enabled = false; // Export logs
-                btnRestartService.Enabled = false; // Restart service
+                lblRestartService.Enabled = false; // Restart service
 
                 MessageBox.Show(@"Some features are disabled because the application is not running as an administrator.",
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -366,6 +366,58 @@ Latest Version: {latestVersion}",
         private async void lblGetFullDetails_Click(object sender, EventArgs e)
         {
             txtOutput.Text = await RunAzCmAgentCommand("show");
+        }
+
+        /// <summary>
+        /// Check the connection to Azure
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void lblCheckAgentConnection_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("check -v");
+        }
+
+        /// <summary>
+        /// Restart the Azure Arc service
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void lblRestartService_Click(object sender, EventArgs e)
+        {
+            const string serviceName = "himds"; // Azure Hybrid Instance Metadata Service
+
+            SetLabelStatus(lblStatus, @"Restarting...", System.Drawing.Color.Blue, true);
+
+            txtOutput.Text = @"Restarting Azure Arc service...";
+            string result = await ServiceManager.RestartServiceAsync(serviceName);
+
+            txtOutput.Text = result;
+
+            if (result.IndexOf($"Service '{serviceName}' started.", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                MessageBox.Show(@"Azure Arc service restarted successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                SetLabelStatus(lblStatus, string.Empty, System.Drawing.Color.Black, false);
+            }
+            else
+            {
+                MessageBox.Show($@"Failed to restart Azure Arc service. Check the output for details.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                SetLabelStatus(lblStatus, @"Failed to restart Azure Arc service", System.Drawing.Color.Red, true);
+            }
+        }
+
+        /// Put the agent in full mode
+        private async void lblChangeModeToFull_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode full");
+        }
+
+        /// Put the agent in monitor mode
+        private async void lblChangeModeToMonitor_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode monitor");
         }
     }
 }
