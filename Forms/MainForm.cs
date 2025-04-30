@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AACMAToolkit.Class;
+using System.ServiceProcess;
 
 namespace AACMAToolkit.Forms
 {
@@ -337,6 +339,25 @@ Latest Version: {latestVersion}",
         {
             // Close the application
             Application.Exit();
+        }
+
+        private async void btnRestartService_Click(object sender, EventArgs e)
+        {
+            const string serviceName = "himds"; // Azure Hybrid Instance Metadata Service
+
+            txtOutput.Text = @"Restarting Azure Arc service...";
+            string result = await ServiceManager.RestartServiceAsync(serviceName);
+
+            txtOutput.Text = result;
+
+            if (result.IndexOf("Service started.", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                MessageBox.Show(@"Azure Arc service restarted successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show($@"Failed to restart Azure Arc service. Check the output for details.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

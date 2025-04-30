@@ -45,6 +45,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.btnRestartService = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -223,6 +224,19 @@
             this.lblStatus.Size = new System.Drawing.Size(0, 13);
             this.lblStatus.TabIndex = 11;
             // 
+            // btnRestartService
+            // 
+            this.btnRestartService.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.btnRestartService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRestartService.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRestartService.Location = new System.Drawing.Point(12, 267);
+            this.btnRestartService.Name = "btnRestartService";
+            this.btnRestartService.Size = new System.Drawing.Size(298, 40);
+            this.btnRestartService.TabIndex = 12;
+            this.btnRestartService.Text = "Restart Azure Arc Service";
+            this.btnRestartService.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnRestartService.Click += new System.EventHandler(this.btnRestartService_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -231,6 +245,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(1237, 590);
+            this.Controls.Add(this.btnRestartService);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblChangeMode2Full);
@@ -278,6 +293,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label btnRestartService;
     }
 }
 
