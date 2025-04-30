@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AACMAToolkit.Class;
-using System.ServiceProcess;
 
 namespace AACMAToolkit.Forms
 {
@@ -198,6 +196,7 @@ namespace AACMAToolkit.Forms
                 lblShowAgentMode.Enabled = true; // Show mode
                 lblShowAgentConfig.Enabled = true; // Show config
                 lblExportLogs.Enabled = true; // Export logs
+                btnRestartService.Enabled = true; // Restart service
             }
             else
             {
@@ -208,6 +207,7 @@ namespace AACMAToolkit.Forms
                 lblShowAgentMode.Enabled = false; // Show mode
                 lblShowAgentConfig.Enabled = false; // Show config
                 lblExportLogs.Enabled = false; // Export logs
+                btnRestartService.Enabled = false; // Restart service
 
                 MessageBox.Show(@"Some features are disabled because the application is not running as an administrator.",
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
