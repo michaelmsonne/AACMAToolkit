@@ -180,7 +180,7 @@ namespace AACMAToolkit.Forms
             Text = Application.ProductName + @" v." +Application.ProductVersion;
 
             // Check if the application is running as admin or not
-            var isAdmin = ApplicationFunctions.isRunningAsAdmin();
+            var isAdmin = ApplicationFunctions.IsRunningAsAdmin();
 
             // Adjust UI based on admin status
             if (isAdmin)
@@ -232,7 +232,7 @@ Latest Version: {latestVersion}",
                 var result = MessageBox.Show(@"Do you want to update the Azure Arc agent?", @"Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    ApplicationFunctions.updateAzureArcAgent();
+                    ApplicationFunctions.UpdateAzureArcAgent();
                 }
             }
         }
@@ -319,7 +319,7 @@ Latest Version: {latestVersion}",
         private void restartAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Call the function to restart the application as admin
-            ApplicationFunctions.restartAsAdmin();
+            ApplicationFunctions.RestartAsAdmin();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

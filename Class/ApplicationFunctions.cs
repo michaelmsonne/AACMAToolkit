@@ -9,7 +9,7 @@ namespace AACMAToolkit.Class
 {
     internal class ApplicationFunctions
     {
-        public static bool isRunningAsAdmin()
+        public static bool IsRunningAsAdmin()
         {
             var identity = WindowsIdentity.GetCurrent();
             var principal = new WindowsPrincipal(identity);
@@ -24,24 +24,28 @@ namespace AACMAToolkit.Class
         }
 
         // Function to restart the application is running as administrator
-        public static void restartAsAdmin()
+        public static void RestartAsAdmin()
         {
             // Get the current process
-            var process = System.Diagnostics.Process.GetCurrentProcess();
+            var process = Process.GetCurrentProcess();
             // Create a new process start info
-            var startInfo = new System.Diagnostics.ProcessStartInfo
+            if (process.MainModule != null)
             {
-                FileName = process.MainModule.FileName,
-                UseShellExecute = true,
-                Verb = "runas" // This will run the process as administrator
-            };
-            // Start the new process
-            System.Diagnostics.Process.Start(startInfo);
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = process.MainModule.FileName,
+                    UseShellExecute = true,
+                    Verb = "runas" // This will run the process as administrator
+                };
+                // Start the new process
+                Process.Start(startInfo);
+            }
+
             // Exit the current process
             Environment.Exit(0);
         }
 
-        public static void updateAzureArcAgent()
+        public static void UpdateAzureArcAgent()
         {
             // Logic to update the Azure Arc agent
             var installerUrl = "https://aka.ms/AzureConnectedMachineAgent"; // Works too: https://gbl.his.arc.azure.com/azcmagent/latest/AzureConnectedMachineAgent.msi
@@ -68,7 +72,7 @@ namespace AACMAToolkit.Class
                 installer.WaitForExit();
 
                 // Check if the installation was successful
-                MessageBox.Show(@"Installation completed.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"Installation completed.", @"Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
