@@ -46,7 +46,12 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnRestartService = new System.Windows.Forms.Label();
+            this.tabControlMainForm = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
+            this.tabControlMainForm.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // spltButtonScreen
@@ -62,7 +67,7 @@
             this.lblCheckVersion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblCheckVersion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblCheckVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCheckVersion.Location = new System.Drawing.Point(12, 27);
+            this.lblCheckVersion.Location = new System.Drawing.Point(3, 3);
             this.lblCheckVersion.Name = "lblCheckVersion";
             this.lblCheckVersion.Size = new System.Drawing.Size(298, 40);
             this.lblCheckVersion.TabIndex = 1;
@@ -85,7 +90,7 @@
             this.lblCheckAgentError.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblCheckAgentError.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblCheckAgentError.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCheckAgentError.Location = new System.Drawing.Point(12, 67);
+            this.lblCheckAgentError.Location = new System.Drawing.Point(3, 43);
             this.lblCheckAgentError.Name = "lblCheckAgentError";
             this.lblCheckAgentError.Size = new System.Drawing.Size(298, 40);
             this.lblCheckAgentError.TabIndex = 3;
@@ -124,7 +129,7 @@
             this.lblShowAgentMode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblShowAgentMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblShowAgentMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblShowAgentMode.Location = new System.Drawing.Point(12, 147);
+            this.lblShowAgentMode.Location = new System.Drawing.Point(3, 123);
             this.lblShowAgentMode.Name = "lblShowAgentMode";
             this.lblShowAgentMode.Size = new System.Drawing.Size(298, 40);
             this.lblShowAgentMode.TabIndex = 5;
@@ -137,7 +142,7 @@
             this.lblShowAgentConfig.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblShowAgentConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblShowAgentConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblShowAgentConfig.Location = new System.Drawing.Point(12, 107);
+            this.lblShowAgentConfig.Location = new System.Drawing.Point(3, 83);
             this.lblShowAgentConfig.Name = "lblShowAgentConfig";
             this.lblShowAgentConfig.Size = new System.Drawing.Size(298, 40);
             this.lblShowAgentConfig.TabIndex = 4;
@@ -150,7 +155,7 @@
             this.lblChangeMode2Full.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblChangeMode2Full.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblChangeMode2Full.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChangeMode2Full.Location = new System.Drawing.Point(12, 187);
+            this.lblChangeMode2Full.Location = new System.Drawing.Point(3, 163);
             this.lblChangeMode2Full.Name = "lblChangeMode2Full";
             this.lblChangeMode2Full.Size = new System.Drawing.Size(298, 40);
             this.lblChangeMode2Full.TabIndex = 8;
@@ -163,7 +168,7 @@
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 227);
+            this.label1.Location = new System.Drawing.Point(3, 203);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(298, 40);
             this.label1.TabIndex = 9;
@@ -229,13 +234,50 @@
             this.btnRestartService.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.btnRestartService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRestartService.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRestartService.Location = new System.Drawing.Point(12, 267);
+            this.btnRestartService.Location = new System.Drawing.Point(3, 243);
             this.btnRestartService.Name = "btnRestartService";
             this.btnRestartService.Size = new System.Drawing.Size(298, 40);
             this.btnRestartService.TabIndex = 12;
             this.btnRestartService.Text = "Restart Azure Arc Service";
             this.btnRestartService.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnRestartService.Click += new System.EventHandler(this.btnRestartService_Click);
+            // 
+            // tabControlMainForm
+            // 
+            this.tabControlMainForm.Controls.Add(this.tabPage1);
+            this.tabControlMainForm.Controls.Add(this.tabPage2);
+            this.tabControlMainForm.Location = new System.Drawing.Point(12, 25);
+            this.tabControlMainForm.Name = "tabControlMainForm";
+            this.tabControlMainForm.SelectedIndex = 0;
+            this.tabControlMainForm.Size = new System.Drawing.Size(315, 408);
+            this.tabControlMainForm.TabIndex = 13;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.lblCheckVersion);
+            this.tabPage1.Controls.Add(this.btnRestartService);
+            this.tabPage1.Controls.Add(this.lblCheckAgentError);
+            this.tabPage1.Controls.Add(this.lblShowAgentConfig);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.lblShowAgentMode);
+            this.tabPage1.Controls.Add(this.lblChangeMode2Full);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(307, 382);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Basic tasks";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(307, 102);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Configuration tasks";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -245,17 +287,11 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(1237, 590);
-            this.Controls.Add(this.btnRestartService);
+            this.Controls.Add(this.tabControlMainForm);
             this.Controls.Add(this.lblStatus);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblChangeMode2Full);
             this.Controls.Add(this.lblExportLogs);
             this.Controls.Add(this.lblUpdateArcAgent);
-            this.Controls.Add(this.lblShowAgentMode);
-            this.Controls.Add(this.lblShowAgentConfig);
-            this.Controls.Add(this.lblCheckAgentError);
             this.Controls.Add(this.txtOutput);
-            this.Controls.Add(this.lblCheckVersion);
             this.Controls.Add(this.spltButtonScreen);
             this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.SystemColors.Highlight;
@@ -270,6 +306,8 @@
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.tabControlMainForm.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -294,6 +332,9 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label btnRestartService;
+        private System.Windows.Forms.TabControl tabControlMainForm;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 
