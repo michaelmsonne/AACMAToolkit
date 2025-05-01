@@ -57,8 +57,8 @@ namespace AACMAToolkit.Class
             {
                 using (var client = new WebClient())
                 {
-                    MessageBox.Show(@"Downloading Azure Connected Machine Agent...");
                     client.DownloadFile(installerUrl, installerPath);
+                    MessageBox.Show(@"Downloading Azure Connected Machine Agent...");
                 }
 
                 var installer = new Process();
