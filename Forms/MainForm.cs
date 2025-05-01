@@ -94,7 +94,6 @@ namespace AACMAToolkit.Forms
         ///RedirectStandard = capture Output & Error
         ///UseShellExecute = process won't use system shell
         ///CreateNoWindow = no window pop-up whatsoever
-
         private async Task<string> RunAzCmAgentCommand(string args)
         {
             CancellationTokenSource cancellationTokenSource = null; // Declare the variable here
@@ -209,7 +208,12 @@ namespace AACMAToolkit.Forms
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        
+
+        /// <summary>
+        /// Check if the Azure Arc agent is up to date and prompt the user to update if necessary
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void lblUpdateArcAgent_Click(object sender, EventArgs e)
         {
             var (isUpToDate, installedVersion, latestVersion) = await IsAzureArcAgentUpToDate();
@@ -238,8 +242,7 @@ Latest Version: {latestVersion}",
         }
 
         /// Execute the click event with the right params --- Params are CASE SENSITIVE
-        /// Azcmagent show "Agent Version" "Agent Logfile" "Agent Status" "Agent Last Heartbeat"
-        ///
+        /// Azcmagent show "Agent Version" "Agent Logfile" "Agent Status" "Agent Last Heartbeat
         private async void lblCheckVersion_Click(object sender, EventArgs e)
         {
             const string agentversionCheck = "show \"Agent Version\" \"Agent Logfile\" \"Agent Status\" \"Agent Last Heartbeat\" ";
@@ -325,35 +328,22 @@ Latest Version: {latestVersion}",
             Application.Exit();
         }
 
-        private async void btnRestartService_Click(object sender, EventArgs e)
-        {
-            const string serviceName = "himds"; // Azure Hybrid Instance Metadata Service
-
-            SetLabelStatus(lblStatus, @"Restarting...", System.Drawing.Color.Blue, true);
-
-            txtOutput.Text = @"Restarting Azure Arc service...";
-            string result = await ServiceManager.RestartServiceAsync(serviceName);
-
-            txtOutput.Text = result;
-
-            if (result.IndexOf($"Service '{serviceName}' started.", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                MessageBox.Show(@"Azure Arc service restarted successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                SetLabelStatus(lblStatus, string.Empty, System.Drawing.Color.Black, false);
-            }
-            else
-            {
-                MessageBox.Show($@"Failed to restart Azure Arc service. Check the output for details.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                SetLabelStatus(lblStatus, @"Failed to restart Azure Arc service", System.Drawing.Color.Red, true);
-            }
-        }
-
         /// Azcmagent show full machine metadata and agent details
         private async void lblGetFullDetails_Click(object sender, EventArgs e)
         {
             txtOutput.Text = await RunAzCmAgentCommand("show");
+        }
+
+        /// Put the agent in full mode
+        private async void lblChangeModeToFull_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode full");
+        }
+
+        /// Put the agent in monitor mode
+        private async void lblChangeModeToMonitor_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode monitor");
         }
 
         /// <summary>
@@ -394,18 +384,6 @@ Latest Version: {latestVersion}",
 
                 SetLabelStatus(lblStatus, @"Failed to restart Azure Arc service", System.Drawing.Color.Red, true);
             }
-        }
-
-        /// Put the agent in full mode
-        private async void lblChangeModeToFull_Click(object sender, EventArgs e)
-        {
-            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode full");
-        }
-
-        /// Put the agent in monitor mode
-        private async void lblChangeModeToMonitor_Click(object sender, EventArgs e)
-        {
-            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode monitor");
         }
     }
 }
