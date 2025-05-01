@@ -49,7 +49,7 @@ namespace AACMAToolkit.Class
         {
             // Logic to update the Azure Arc agent
             var installerUrl = "https://aka.ms/AzureConnectedMachineAgent"; // Works too: https://gbl.his.arc.azure.com/azcmagent/latest/AzureConnectedMachineAgent.msi
-            // See more here: https://gbl.his.arc.azure.com/azcmagent-windows
+                                                                            // See more here: https://gbl.his.arc.azure.com/azcmagent-windows
             var tempPath = Path.GetTempPath();
             var installerPath = Path.Combine(tempPath, "AzureConnectedMachineAgent.msi");
 
