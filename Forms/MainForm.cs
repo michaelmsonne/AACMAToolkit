@@ -265,18 +265,6 @@ Latest Version: {latestVersion}",
             txtOutput.Text = await RunAzCmAgentCommand("config get config.mode");
         }
 
-        /// Put the agent in full mode
-        private async void lblChangeMode2Full_Click(object sender, EventArgs e)
-        {
-            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode full");
-        }
-
-        /// Put the agent in monitor mode
-        private async void label1_Click(object sender, EventArgs e)
-        {
-            txtOutput.Text = await RunAzCmAgentCommand("config set config.mode monitor");
-        }
-
         /// <summary>
         /// Export the logs to a zip file
         /// </summary>
