@@ -180,7 +180,7 @@ namespace AACMAToolkit.Forms
             Text = Application.ProductName + @" v." +Application.ProductVersion;
 
             // Check if the application is running as admin or not
-            var isAdmin = ApplicationFunctions.IsRunningAsAdmin();
+            var isAdmin = ApplicationFunctions.isRunningAsAdmin();
 
             // Adjust UI based on admin status
             if (isAdmin)
@@ -232,7 +232,7 @@ Latest Version: {latestVersion}",
                 var result = MessageBox.Show(@"Do you want to update the Azure Arc agent?", @"Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    ApplicationFunctions.UpdateAzureArcAgent();
+                    ApplicationFunctions.updateAzureArcAgent();
                 }
             }
         }
@@ -282,7 +282,7 @@ Latest Version: {latestVersion}",
                 {
                     // Get the selected path and create the log file name
                     var selectedPath = folderDialog.SelectedPath;
-                    var strLogfilePath = Path.Combine(selectedPath, ApplicationFunctions.GenerateDynamicLogName("AzcmagentLogs") + ".zip");
+                    var strLogfilePath = Path.Combine(selectedPath, ApplicationFunctions.generateDynamicLogName("AzcmagentLogs") + ".zip");
 
                     // Log to txtOutput what is being done
                     txtOutput.Text = @"Exporting logs to '" + strLogfilePath + @"'...";
@@ -307,7 +307,7 @@ Latest Version: {latestVersion}",
         private void restartAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Call the function to restart the application as admin
-            ApplicationFunctions.RestartAsAdmin();
+            ApplicationFunctions.restartAsAdmin();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

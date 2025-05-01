@@ -9,14 +9,14 @@ namespace AACMAToolkit.Class
 {
     internal class ApplicationFunctions
     {
-        public static bool IsRunningAsAdmin()
+        public static bool isRunningAsAdmin()
         {
             var identity = WindowsIdentity.GetCurrent();
             var principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
-        public static string GenerateDynamicLogName(string logName)
+        public static string generateDynamicLogName(string logName)
         {
             var hostname = Environment.MachineName;
             var timestamp = DateTime.Now.ToString("ddMMyyyy_HHmmss");
@@ -24,7 +24,7 @@ namespace AACMAToolkit.Class
         }
 
         // Function to restart the application is running as administrator
-        public static void RestartAsAdmin()
+        public static void restartAsAdmin()
         {
             // Get the current process
             var process = Process.GetCurrentProcess();
@@ -45,7 +45,7 @@ namespace AACMAToolkit.Class
             Environment.Exit(0);
         }
 
-        public static void UpdateAzureArcAgent()
+        public static void updateAzureArcAgent()
         {
             // Logic to update the Azure Arc agent
             var installerUrl = "https://aka.ms/AzureConnectedMachineAgent"; // Works too: https://gbl.his.arc.azure.com/azcmagent/latest/AzureConnectedMachineAgent.msi
@@ -57,10 +57,14 @@ namespace AACMAToolkit.Class
             {
                 using (var client = new WebClient())
                 {
+                    // Download the installer
                     client.DownloadFile(installerUrl, installerPath);
+
+                    // Show a message box to inform the user about the download
                     MessageBox.Show(@"Downloading Azure Connected Machine Agent...");
                 }
 
+                // Start the installer process
                 var installer = new Process();
                 installer.StartInfo.FileName = "msiexec.exe";
                 installer.StartInfo.Arguments = $"/i \"{installerPath}\" /quiet /qn /norestart";
@@ -72,12 +76,12 @@ namespace AACMAToolkit.Class
                 installer.WaitForExit();
 
                 // Check if the installation was successful
-                MessageBox.Show(@"Installation completed.", @"Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"Installation completed.", @"Updated Azure Connected Machine Agent", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 // Handle any exceptions that occur during the download or installation
-                MessageBox.Show(@"Error: " + ex.Message);
+                MessageBox.Show(@"Error installing Azure Connected Machine Agent: " + ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
