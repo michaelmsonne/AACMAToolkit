@@ -61,7 +61,7 @@ namespace AACMAToolkit.Class
                     client.DownloadFile(installerUrl, installerPath);
 
                     // Show a message box to inform the user about the download
-                    MessageBox.Show(@"Downloading Azure Connected Machine Agent...");
+                    MessageBox.Show($@"Downloading {Globals.toolLongName}...");
                 }
 
                 // Start the installer process
@@ -76,12 +76,12 @@ namespace AACMAToolkit.Class
                 installer.WaitForExit();
 
                 // Check if the installation was successful
-                MessageBox.Show(@"Installation completed.", @"Updated Azure Connected Machine Agent", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"Installation completed.", $@"Updated {Globals.toolLongName}", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 // Handle any exceptions that occur during the download or installation
-                MessageBox.Show(@"Error installing Azure Connected Machine Agent: " + ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($@"Error installing {Globals.toolLongName}: " + ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

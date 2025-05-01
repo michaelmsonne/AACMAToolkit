@@ -177,7 +177,7 @@ namespace AACMAToolkit.Forms
             InitializeComponent();
 
             // Set the title of the form to include the version number
-            Text = Application.ProductName + @" v." +Application.ProductVersion;
+            Text = Globals.toolLongName + @" v." +Application.ProductVersion;
 
             // Check if the application is running as admin or not
             var isAdmin = ApplicationFunctions.isRunningAsAdmin();
