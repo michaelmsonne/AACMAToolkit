@@ -69,11 +69,11 @@ This toolkit is ideal for administrators managing multiple Azure Arc-enabled ser
 To use the tool, you first need to download the executable (.exe), there is the tool itself.
 You can find the executable (.exe) at [https://github.com/enderalci/AACMAToolkit/releases/latest](https://github.com/enderalci/AACMAToolkit/releases/latest) for download, and here is the following files avalible under each version tag of the tool (aka releases):
 
-| **File name**        | **Description of the file**                          |
-| -------------------- | ---------------------------------------------------  |
-| **AACMAToolkit.exe** | **The tool (the file you need to download and run)** |
-| Source code (zip)    | The soruce code for the specific build (.zip)        |
-| Source code (tar.gz) | The soruce code for the specific build (.tar.gz)     |
+| **File name**        | **Description of the file**                                           |
+| -------------------- | --------------------------------------------------------------------- |
+| **AACMAToolkit.exe** | **The tool (the file you need to download and run)**                  |
+| Source code (zip)    | The soruce code for the specific build (.zip) (auto generated)        |
+| Source code (tar.gz) | The soruce code for the specific build (.tar.gz) (auto generated)     |
 
 ### 2️⃣ Run the tool
 
@@ -82,6 +82,7 @@ Start the executable file you have downloaded **ACMAToolkit.exe** and start expl
 ---
 
 **Contributions Welcome!** 🤝 Feel free to fork, improve, and submit a PR!
-Contact us through LinkedIn or github!
+
+Contact us through LinkedIn or GitHub!
 
 Reference: https://learn.microsoft.com/en-us/azure/azure-arc/servers/azcmagent
