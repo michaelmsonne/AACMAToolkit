@@ -393,7 +393,7 @@ Latest Version: {latestVersion}",
         /// <param name="e"></param>
         private async void lblRestartService_Click(object sender, EventArgs e)
         {
-            const string serviceName = "himds"; // Azure Hybrid Instance Metadata Service
+            string serviceName = Globals.azcmagentServiceName; // Azure Hybrid Instance Metadata Service
 
             SetLabelStatus(lblStatus, @"Restarting...", System.Drawing.Color.Blue, true);
 
