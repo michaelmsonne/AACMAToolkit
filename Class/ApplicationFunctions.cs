@@ -111,11 +111,59 @@ namespace AACMAToolkit.Class
             return false;
         }
 
+        /// <summary>
+        /// Gets the appropriate Azure Arc agent installer URL based on the environment.
+        /// </summary>
+        /// <returns>The URL of the Azure Arc agent installer.</returns>
+        public static string GetAzureArcAgentInstallerUrl()
+        {
+            string hisEndpoint = "https://gbl.his.arc.azure.com";
+
+            // Determine the environment
+            string cloudEnvironment = Environment.GetEnvironmentVariable("CLOUD");
+
+            if (!string.IsNullOrEmpty(cloudEnvironment))
+            {
+                switch (cloudEnvironment)
+                {
+                    case "AzureUSGovernment":
+                        hisEndpoint = "https://gbl.his.arc.azure.us";
+                        break;
+                    case "AzureChinaCloud":
+                        hisEndpoint = "https://gbl.his.arc.azure.cn";
+                        break;
+                    case "AzureStackCloud":
+                        string altHisEndpoint = Environment.GetEnvironmentVariable("AltHisEndpoint");
+                        if (!string.IsNullOrEmpty(altHisEndpoint))
+                        {
+                            hisEndpoint = altHisEndpoint;
+                        }
+                        else
+                        {
+                            // Log a warning or handle the default case
+                            MessageBox.Show(@"Invalid HIS endpoint for AzureStackCloud. Using default endpoint.", @"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        break;
+                }
+            }
+
+            // Construct the full installer URL
+            return $"{hisEndpoint}/azcmagent/latest/AzureConnectedMachineAgent.msi";
+        }
+
         public static void updateAzureArcAgent()
         {
             // Logic to update the Azure Arc agent
-            var installerUrl = "https://aka.ms/AzureConnectedMachineAgent"; // Works too: https://gbl.his.arc.azure.com/azcmagent/latest/AzureConnectedMachineAgent.msi
+            var installerUrl = GetAzureArcAgentInstallerUrl();
+            //var installerUrl = "https://aka.ms/AzureConnectedMachineAgent"; // Works too: https://gbl.his.arc.azure.com/azcmagent/latest/AzureConnectedMachineAgent.msi
                                                                             // See more here: https://gbl.his.arc.azure.com/azcmagent-windows
+
+#if DEBUG
+            // For debugging purposes, copy URL to clipboard
+            Clipboard.SetText(GetAzureArcAgentInstallerUrl());
+            MessageBox.Show(@"Installer URL copied to clipboard for debugging purposes.", @"Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
+
             var tempPath = Path.GetTempPath();
             var installerPath = Path.Combine(tempPath, "AzureConnectedMachineAgent.msi");
 

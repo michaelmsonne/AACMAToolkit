@@ -78,8 +78,14 @@ namespace AACMAToolkit.Forms
                     }
                 }
 
+#if DEBUG
+                // Always update/get URL in debug mode
+                bool isUpToDate = false;
+                latestVersion = "DebugModeLatestVersion"; // Simulate latest version for debug
+#else
                 // Step 3: Compare the normalized installed version with the latest version
                 bool isUpToDate = string.Equals(normalizedInstalledVersion, latestVersion, StringComparison.OrdinalIgnoreCase);
+#endif
                 return (isUpToDate, installedVersion, latestVersion);
             }
             catch (Exception ex)
@@ -209,6 +215,21 @@ namespace AACMAToolkit.Forms
             }
         }
 
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            // Check if the azcmagent service is installed and the executable exists on this host before running the application
+            if (ApplicationFunctions.IsAzcmAgentInstalled(Globals.azcmagentPath))
+            {
+                // Show a message box indicating that the service is installed and the executable exists - tool can be used
+                MessageBox.Show($@"The '{Globals.azcmagentServiceName}' service is installed and the executable '{Globals.azcmagentPath}' exists.", @"Checks Passed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                // Show a message box indicating that the service is not installed or the executable is missing - tool cannot be used
+                MessageBox.Show($@"Either the '{Globals.azcmagentServiceName}' service is not installed, or the executable '{Globals.azcmagentPath}' is missing on this host.", @"Checks failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         /// <summary>
         /// Check if the Azure Arc agent is up to date and prompt the user to update if necessary
         /// </summary>
@@ -217,6 +238,15 @@ namespace AACMAToolkit.Forms
         private async void lblUpdateArcAgent_Click(object sender, EventArgs e)
         {
             var (isUpToDate, installedVersion, latestVersion) = await IsAzureArcAgentUpToDate();
+
+            if (ApplicationFunctions.IsRunningInAzure())
+            {
+                MessageBox.Show(@"This machine is running in Azure. Azure Arc agent is not designed for Azure VMs.", @"Azure Environment Detected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                //MessageBox.Show($@"Download the Azure Arc agent from: {ApplicationFunctions.GetAzureArcAgentInstallerUrl()}", @"Installer URL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
             if (isUpToDate)
             {
@@ -385,20 +415,6 @@ Latest Version: {latestVersion}",
                 SetLabelStatus(lblStatus, @"Failed to restart Azure Arc service", System.Drawing.Color.Red, true);
             }
         }
-
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            // Check if the azcmagent service is installed and the executable exists on this host before running the application
-            if (ApplicationFunctions.IsAzcmAgentInstalled(Globals.azcmagentPath))
-            {
-                // Show a message box indicating that the service is installed and the executable exists - tool can be used
-                MessageBox.Show($@"The '{Globals.azcmagentServiceName}' service is installed and the executable '{Globals.azcmagentPath}' exists.", @"Checks Passed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                // Show a message box indicating that the service is not installed or the executable is missing - tool cannot be used
-                MessageBox.Show($@"Either the '{Globals.azcmagentServiceName}' service is not installed, or the executable '{Globals.azcmagentPath}' is missing on this host.", @"Checks failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
+        
     }
 }
