@@ -83,6 +83,34 @@ namespace AACMAToolkit.Class
             Environment.Exit(0);
         }
 
+        /// <summary>
+        /// Checks if the current machine is running in Azure.
+        /// </summary>
+        /// <returns>True if the machine is in Azure, otherwise false.</returns>
+        public static bool IsRunningInAzure()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    client.Headers.Add("Metadata", "true");
+                    string metadataUrl = "http://169.254.169.254/metadata/instance/compute?api-version=2019-06-01";
+                    string response = client.DownloadString(metadataUrl);
+
+                    if (!string.IsNullOrEmpty(response) && response.Contains("resourceId"))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                // Ignore exceptions and assume not running in Azure
+            }
+
+            return false;
+        }
+
         public static void updateAzureArcAgent()
         {
             // Logic to update the Azure Arc agent
