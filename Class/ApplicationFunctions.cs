@@ -99,13 +99,40 @@ namespace AACMAToolkit.Class
 
                     if (!string.IsNullOrEmpty(response) && response.Contains("resourceId"))
                     {
+                        // Check for MSFT_ARC_TEST environment variable
+                        string overrideTest = Environment.GetEnvironmentVariable("MSFT_ARC_TEST", EnvironmentVariableTarget.Machine);
+                        if ("true".Equals(overrideTest, StringComparison.OrdinalIgnoreCase))
+                        {
+                            MessageBox.Show(
+                                @"Running on an Azure Virtual Machine with MSFT_ARC_TEST set.
+        Azure Connected Machine Agent is designed for use outside Azure.
+        This virtual machine should only be used for testing purposes.
+        See https://aka.ms/azcmagent-testwarning for more details.",
+                                @"Warning",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException(
+                                @"Cannot install Azure Connected Machine agent on an Azure Virtual Machine.
+        Azure Connected Machine Agent is designed for use outside Azure.
+        To connect an Azure VM for TESTING PURPOSES ONLY, see https://aka.ms/azcmagent-testwarning for more details."
+                            );
+                        }
+
                         return true;
                     }
                 }
             }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch
             {
-                // Ignore exceptions and assume not running in Azure
+                // Ignore other exceptions and assume not running in Azure
             }
 
             return false;
