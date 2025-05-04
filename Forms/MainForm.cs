@@ -385,5 +385,20 @@ Latest Version: {latestVersion}",
                 SetLabelStatus(lblStatus, @"Failed to restart Azure Arc service", System.Drawing.Color.Red, true);
             }
         }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            // Check if the azcmagent service is installed and the executable exists on this host before running the application
+            if (ApplicationFunctions.IsAzcmAgentInstalled(Globals.azcmagentPath))
+            {
+                // Show a message box indicating that the service is installed and the executable exists - tool can be used
+                MessageBox.Show($@"The '{Globals.azcmagentServiceName}' service is installed and the executable '{Globals.azcmagentPath}' exists.", @"Checks Passed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                // Show a message box indicating that the service is not installed or the executable is missing - tool cannot be used
+                MessageBox.Show($@"Either the '{Globals.azcmagentServiceName}' service is not installed, or the executable '{Globals.azcmagentPath}' is missing on this host.", @"Checks failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }

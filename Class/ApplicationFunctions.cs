@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Security.Principal;
+using System.ServiceProcess;
 using System.Windows.Forms;
 
 namespace AACMAToolkit.Class
@@ -21,6 +22,43 @@ namespace AACMAToolkit.Class
             var hostname = Environment.MachineName;
             var timestamp = DateTime.Now.ToString("ddMMyyyy_HHmmss");
             return $"{hostname}_{timestamp}_{logName}";
+        }
+
+        /// <summary>
+        /// Checks if the Azure Arc agent service (azcmagent) is installed and if the executable exists in the specified path.
+        /// </summary>
+        /// <param name="exePath">The full path to the azcmagent.exe file.</param>
+        /// <returns>True if both the service is installed and the executable exists, otherwise false.</returns>
+        public static bool IsAzcmAgentInstalled(string exePath)
+        {
+            const string serviceName = "himds"; // Replace with the actual service name if different
+
+            try
+            {
+                // Check if the service is installed
+                bool isServiceInstalled = false;
+                ServiceController[] services = ServiceController.GetServices();
+                foreach (var service in services)
+                {
+                    if (service.ServiceName.Equals(serviceName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        isServiceInstalled = true;
+                        break;
+                    }
+                }
+
+                // Check if the executable exists
+                bool isExeExists = File.Exists(exePath);
+
+                // Return true only if both conditions are met
+                return isServiceInstalled && isExeExists;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                MessageBox.Show($"Error checking azcmagent installation: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
 
         // Function to restart the application is running as administrator
