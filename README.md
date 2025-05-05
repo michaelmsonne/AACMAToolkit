@@ -46,7 +46,7 @@ This toolkit is ideal for administrators managing multiple Azure Arc-enabled ser
 - Network connectivity
 - Admin rights (for configuration)
 
-## 📌 Requirementes
+## 📌 Requirements
 
   - Agent Version: Connected Machine Agent version 1.47 or higher is required.
   
@@ -77,7 +77,7 @@ You can find the executable (.exe) at [https://github.com/enderalci/AACMAToolkit
 
 ### 2️⃣ Run the tool
 
-Start the executable file you have downloaded **ACMAToolkit.exe** and start exploreing the tool´s features!
+Start the executable file you have downloaded **ACMAToolkit.exe** and start exploring the tool´s features!
 
 ---
 
