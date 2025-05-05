@@ -47,11 +47,11 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.lblGetFullDetails = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblChangeModeToMonitor = new System.Windows.Forms.Label();
             this.lblChangeModeToFull = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.lblRestartService = new System.Windows.Forms.Label();
             this.lblCheckAgentConnection = new System.Windows.Forms.Label();
-            this.lblChangeModeToMonitor = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -254,10 +254,23 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(307, 382);
+            this.tabPage2.Size = new System.Drawing.Size(307, 438);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Configuration tasks";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lblChangeModeToMonitor
+            // 
+            this.lblChangeModeToMonitor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblChangeModeToMonitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblChangeModeToMonitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChangeModeToMonitor.Location = new System.Drawing.Point(3, 43);
+            this.lblChangeModeToMonitor.Name = "lblChangeModeToMonitor";
+            this.lblChangeModeToMonitor.Size = new System.Drawing.Size(298, 40);
+            this.lblChangeModeToMonitor.TabIndex = 10;
+            this.lblChangeModeToMonitor.Text = "Change 2 Monitor mode";
+            this.lblChangeModeToMonitor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblChangeModeToMonitor.Click += new System.EventHandler(this.lblChangeModeToMonitor_Click);
             // 
             // lblChangeModeToFull
             // 
@@ -279,7 +292,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(307, 382);
+            this.tabPage3.Size = new System.Drawing.Size(307, 438);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Troubleshooting";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -310,19 +323,6 @@
             this.lblCheckAgentConnection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCheckAgentConnection.Click += new System.EventHandler(this.lblCheckAgentConnection_Click);
             // 
-            // lblChangeModeToMonitor
-            // 
-            this.lblChangeModeToMonitor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblChangeModeToMonitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblChangeModeToMonitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChangeModeToMonitor.Location = new System.Drawing.Point(3, 43);
-            this.lblChangeModeToMonitor.Name = "lblChangeModeToMonitor";
-            this.lblChangeModeToMonitor.Size = new System.Drawing.Size(298, 40);
-            this.lblChangeModeToMonitor.TabIndex = 10;
-            this.lblChangeModeToMonitor.Text = "Change 2 Monitor mode";
-            this.lblChangeModeToMonitor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblChangeModeToMonitor.Click += new System.EventHandler(this.lblChangeModeToMonitor_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -348,6 +348,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControlMainForm.ResumeLayout(false);
