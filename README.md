@@ -67,7 +67,7 @@ This toolkit is ideal for administrators managing multiple Azure Arc-enabled ser
 ### 1️⃣ Download the tool
 
 To use the tool, you first need to download the executable (.exe), there is the tool itself.
-You can find the executable (.exe) at [https://github.com/enderalci/AACMAToolkit/releases/latest](https://github.com/enderalci/AACMAToolkit/releases/latest) for download, and here is the following files avalible under each version tag of the tool (aka releases):
+You can find the executable (.exe) at [https://github.com/enderalci/AACMAToolkit/releases/latest](https://github.com/enderalci/AACMAToolkit/releases/latest) for download (direct to last v.: https://github.com/enderalci/AACMAToolkit/releases/latest/download/AACMAToolkit.exe), and here is the following files avalible under each version tag of the tool (aka releases):
 
 | **File name**        | **Description of the file**                                           |
 | -------------------- | --------------------------------------------------------------------- |
