@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -182,7 +183,7 @@ namespace AACMAToolkit.Forms
             InitializeComponent();
 
             // Set the title of the form to include the version number
-            Text = Globals.toolLongName + @" v." +Application.ProductVersion;
+            Text = Globals.toolLongName + @" v." + Application.ProductVersion;
 
             // Check if the application is running as admin or not
             var isAdmin = ApplicationFunctions.isRunningAsAdmin();
@@ -198,6 +199,7 @@ namespace AACMAToolkit.Forms
                 lblShowAgentConfig.Enabled = true; // Show config
                 lblExportLogs.Enabled = true; // Export logs
                 lblRestartService.Enabled = true; // Restart service
+                lblChangeTier0.Enabled = true; // Change to Tier 0 mode
             }
             else
             {
@@ -209,6 +211,7 @@ namespace AACMAToolkit.Forms
                 lblShowAgentConfig.Enabled = false; // Show config
                 lblExportLogs.Enabled = false; // Export logs
                 lblRestartService.Enabled = false; // Restart service
+                lblChangeTier0.Enabled = false; // Change to Tier 0 mode
 
                 MessageBox.Show(@"Some features are disabled because the application is not running as an administrator.",
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -221,7 +224,8 @@ namespace AACMAToolkit.Forms
             if (ApplicationFunctions.IsAzcmAgentInstalled(Globals.azcmagentPath))
             {
                 // Show a message box indicating that the service is installed and the executable exists - tool can be used
-                MessageBox.Show($@"The '{Globals.azcmagentServiceName}' service is installed and the executable '{Globals.azcmagentPath}' exists.", @"Checks Passed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ///MessageBox.Show($@"The '{Globals.azcmagentServiceName}' service is installed and the executable '{Globals.azcmagentPath}' exists.", @"Checks Passed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtOutput.Text = $@"The '{Globals.azcmagentServiceName}' service is installed and the executable '{Globals.azcmagentPath}' exists.";
             }
             else
             {
@@ -376,6 +380,17 @@ Latest Version: {latestVersion}",
             txtOutput.Text = await RunAzCmAgentCommand("config set config.mode monitor");
         }
 
+        /// Change the agent to tier 0 mode
+
+        private async void lblChangeTier0_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("config set incomingconnections.enabled false");
+            txtOutput.Text += await RunAzCmAgentCommand("config set guestconfiguration.enabled false");
+            txtOutput.Text += await RunAzCmAgentCommand("config set extensions.allowlist \"Microsoft.Azure.Monitor/AzureMonitorWindowsAgent,Microsoft.Azure.AzureDefenderForServers/MDE.Windows\"");
+            txtOutput.Text += "Incoming connections & guestconfiguration are disabled, only the Azure Monitor Agent and Defender extensions are enabled!";
+
+        }
+
         /// <summary>
         /// Check the connection to Azure
         /// </summary>
@@ -415,6 +430,7 @@ Latest Version: {latestVersion}",
                 SetLabelStatus(lblStatus, @"Failed to restart Azure Arc service", System.Drawing.Color.Red, true);
             }
         }
-        
+
+
     }
 }
