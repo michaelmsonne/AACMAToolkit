@@ -52,6 +52,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.lblRestartService = new System.Windows.Forms.Label();
             this.lblCheckAgentConnection = new System.Windows.Forms.Label();
+            this.lblChangeTier0 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -249,6 +250,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.lblChangeTier0);
             this.tabPage2.Controls.Add(this.lblChangeModeToMonitor);
             this.tabPage2.Controls.Add(this.lblChangeModeToFull);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -323,6 +325,19 @@
             this.lblCheckAgentConnection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCheckAgentConnection.Click += new System.EventHandler(this.lblCheckAgentConnection_Click);
             // 
+            // lblChangeTier0
+            // 
+            this.lblChangeTier0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblChangeTier0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblChangeTier0.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChangeTier0.Location = new System.Drawing.Point(3, 83);
+            this.lblChangeTier0.Name = "lblChangeTier0";
+            this.lblChangeTier0.Size = new System.Drawing.Size(298, 40);
+            this.lblChangeTier0.TabIndex = 11;
+            this.lblChangeTier0.Text = "Change 2 Tier0 config";
+            this.lblChangeTier0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblChangeTier0.Click += new System.EventHandler(this.lblChangeTier0_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -385,6 +400,7 @@
         private System.Windows.Forms.Label lblRestartService;
         private System.Windows.Forms.Label lblChangeModeToFull;
         private System.Windows.Forms.Label lblChangeModeToMonitor;
+        private System.Windows.Forms.Label lblChangeTier0;
     }
 }
 
