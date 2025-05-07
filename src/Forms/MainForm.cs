@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -111,7 +110,9 @@ namespace AACMAToolkit.Forms
 
                 // Start a task to animate the label text
                 cancellationTokenSource = new CancellationTokenSource();
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 AnimateLabelText(lblStatus, "Processing", cancellationTokenSource.Token);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
                 // Wait for the animation task to start and parse the task
                 var psi = new ProcessStartInfo
@@ -224,7 +225,6 @@ namespace AACMAToolkit.Forms
             if (ApplicationFunctions.IsAzcmAgentInstalled(Globals.azcmagentPath))
             {
                 // Show a message box indicating that the service is installed and the executable exists - tool can be used
-                ///MessageBox.Show($@"The '{Globals.azcmagentServiceName}' service is installed and the executable '{Globals.azcmagentPath}' exists.", @"Checks Passed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtOutput.Text = $@"The '{Globals.azcmagentServiceName}' service is installed and the executable '{Globals.azcmagentPath}' exists.";
             }
             else
@@ -249,9 +249,10 @@ namespace AACMAToolkit.Forms
             }
             else
             {
-                //MessageBox.Show($@"Download the Azure Arc agent from: {ApplicationFunctions.GetAzureArcAgentInstallerUrl()}", @"Installer URL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show($@"Downloading the Azure Arc agent from '{ApplicationFunctions.GetAzureArcAgentInstallerUrl()}' to install the update.", @"Installer URL", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
+            // Check if the agent is up to date
             if (isUpToDate)
             {
                 MessageBox.Show($@"Azure Arc agent is up-to-date.
@@ -387,7 +388,7 @@ Latest Version: {latestVersion}",
             txtOutput.Text = await RunAzCmAgentCommand("config set incomingconnections.enabled false");
             txtOutput.Text += await RunAzCmAgentCommand("config set guestconfiguration.enabled false");
             txtOutput.Text += await RunAzCmAgentCommand("config set extensions.allowlist \"Microsoft.Azure.Monitor/AzureMonitorWindowsAgent,Microsoft.Azure.AzureDefenderForServers/MDE.Windows\"");
-            txtOutput.Text += "Incoming connections & guestconfiguration are disabled, only the Azure Monitor Agent and Defender extensions are enabled!";
+            txtOutput.Text += @"Incoming connections & guestconfiguration are disabled, only the Azure Monitor Agent and Defender extensions are enabled!";
 
         }
 
@@ -430,7 +431,5 @@ Latest Version: {latestVersion}",
                 SetLabelStatus(lblStatus, @"Failed to restart Azure Arc service", System.Drawing.Color.Red, true);
             }
         }
-
-
     }
 }
