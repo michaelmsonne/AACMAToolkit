@@ -21,16 +21,42 @@ namespace AACMAToolkit.Forms
             public string State { get; set; }
         }
 
+        private void AppendToActionLog(string message)
+        {
+            if (textBoxExtentionsActionLog.InvokeRequired)
+            {
+                textBoxExtentionsActionLog.Invoke(new Action(() => textBoxExtentionsActionLog.AppendText(message + "\r\n")));
+            }
+            else
+            {
+                textBoxExtentionsActionLog.AppendText(message + "\r\n");
+            }
+        }
+
         private async Task<string> RunAzCmAgentCommand(string args)
         {
-            // Reuse the RunAzCmAgentCommand method from MainForm
             try
             {
-                MessageBox.Show($"Executing command: azcmagent {args}", "Debug", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return await ((MainForm)Owner).RunAzCmAgentCommand(args);
+#if DEBUG
+                   MessageBox.Show($"Executing command: azcmagent {args}", "Debug", MessageBoxButtons.OK, MessageBoxIcon.Information);  
+#endif
+                // Execute the command and get the output  
+                string output = await ((MainForm)Owner).RunAzCmAgentCommand(args);
+
+                // Check if the output contains the specific error message  
+                if (output.Contains("Supplied arguments do not satisfy the requirements"))
+                {
+                    // Append the command and its output to the action log  
+                    AppendToActionLog($"> Command: azcmagent {args}\r\n> Output: {output}\r");
+                }
+
+                return output;
             }
             catch (Exception ex)
             {
+                // Log the error to the action log  
+                AppendToActionLog($"> Command: azcmagent {args}\r\n> Error: {ex.Message}\r");
+
                 MessageBox.Show($"Error executing command: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return string.Empty;
             }
@@ -113,10 +139,13 @@ namespace AACMAToolkit.Forms
             {
                 lbAllowlist.Items.Clear();
                 string output = await RunAzCmAgentCommand("config get extensions.allowlist");
+
+                // Parse the output and filter out "[]"
                 var allowlist = output.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Where(line => !string.IsNullOrWhiteSpace(line))
+                    .Where(line => !string.IsNullOrWhiteSpace(line) && line != "[]")
                     .ToList();
 
+                // Add each valid extension to the ListBox
                 foreach (var extension in allowlist)
                 {
                     lbAllowlist.Items.Add(extension);
@@ -207,7 +236,8 @@ namespace AACMAToolkit.Forms
                 // Update the allowlist in the agent configuration
                 await UpdateAllowlistConfig();
 
-                MessageBox.Show(@"Extension removed from allowlist successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Notify the user of success
+                //MessageBox.Show(@"Extension removed from allowlist successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -219,14 +249,17 @@ namespace AACMAToolkit.Forms
         {
             try
             {
-                // Collect all extensions from the ListBox
+                // Collect all extensions from the ListBox  
                 var allowlist = lbAllowlist.Items.Cast<string>().ToList();
 
-                // Format the allowlist as a single string in square brackets
-                string allowlistString = "[" + string.Join(",", allowlist) + "]";
+                // Format the allowlist as a single string in the required format  
+                string allowlistString = string.Join(",", allowlist);
 
-                // Update the allowlist using the azcmagent command
+                // Update the allowlist using the azcmagent command  
                 await RunAzCmAgentCommand($"config set extensions.allowlist \"{allowlistString}\"");
+
+                // Notify the user of success  
+                MessageBox.Show(@"Allowlist updated successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -286,6 +319,12 @@ namespace AACMAToolkit.Forms
         {
             await LoadExtensions();
             await LoadAllowlist();
+        }
+
+        private void linkLabelExtentionListMS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Open the specified URL in the default web browser  
+            System.Diagnostics.Process.Start("https://learn.microsoft.com/en-us/azure/azure-arc/servers/manage-vm-extensions#extensions");
         }
     }
 }
