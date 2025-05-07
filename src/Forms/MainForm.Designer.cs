@@ -47,12 +47,12 @@ namespace AACMAToolkit.Forms
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.lblGetFullDetails = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblChangeTier0 = new System.Windows.Forms.Label();
             this.lblChangeModeToMonitor = new System.Windows.Forms.Label();
             this.lblChangeModeToFull = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.lblRestartService = new System.Windows.Forms.Label();
             this.lblCheckAgentConnection = new System.Windows.Forms.Label();
-            this.lblChangeTier0 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -204,7 +204,7 @@ namespace AACMAToolkit.Forms
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(1154, 5);
+            this.lblStatus.Location = new System.Drawing.Point(1147, 5);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(0, 13);
             this.lblStatus.TabIndex = 11;
@@ -260,6 +260,19 @@ namespace AACMAToolkit.Forms
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Configuration tasks";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lblChangeTier0
+            // 
+            this.lblChangeTier0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblChangeTier0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblChangeTier0.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChangeTier0.Location = new System.Drawing.Point(3, 83);
+            this.lblChangeTier0.Name = "lblChangeTier0";
+            this.lblChangeTier0.Size = new System.Drawing.Size(298, 40);
+            this.lblChangeTier0.TabIndex = 11;
+            this.lblChangeTier0.Text = "Change 2 Tier0 config";
+            this.lblChangeTier0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblChangeTier0.Click += new System.EventHandler(this.lblChangeTier0_Click);
             // 
             // lblChangeModeToMonitor
             // 
@@ -324,19 +337,6 @@ namespace AACMAToolkit.Forms
             this.lblCheckAgentConnection.Text = "Run connectivity checks";
             this.lblCheckAgentConnection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCheckAgentConnection.Click += new System.EventHandler(this.lblCheckAgentConnection_Click);
-            // 
-            // lblChangeTier0
-            // 
-            this.lblChangeTier0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblChangeTier0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblChangeTier0.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChangeTier0.Location = new System.Drawing.Point(3, 83);
-            this.lblChangeTier0.Name = "lblChangeTier0";
-            this.lblChangeTier0.Size = new System.Drawing.Size(298, 40);
-            this.lblChangeTier0.TabIndex = 11;
-            this.lblChangeTier0.Text = "Change 2 Tier0 config";
-            this.lblChangeTier0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblChangeTier0.Click += new System.EventHandler(this.lblChangeTier0_Click);
             // 
             // MainForm
             // 
