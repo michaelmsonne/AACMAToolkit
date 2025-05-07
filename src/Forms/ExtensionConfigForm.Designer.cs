@@ -46,6 +46,7 @@
             this.lbAllowlist = new System.Windows.Forms.ListBox();
             this.btnClearAllowlist = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -102,6 +103,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -210,6 +212,16 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(711, 280);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Blocklist";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
             // ExtensionConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -250,5 +262,6 @@
         private System.Windows.Forms.ListBox lbAllowlist;
         private System.Windows.Forms.Button btnClearAllowlist;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TabPage tabPage3;
     }
 }
