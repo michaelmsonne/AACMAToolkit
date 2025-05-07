@@ -54,6 +54,7 @@ namespace AACMAToolkit.Forms
             this.lblRestartService = new System.Windows.Forms.Label();
             this.lblCheckAgentConnection = new System.Windows.Forms.Label();
             this.lblGetAutomaticUpgradeConfig = new System.Windows.Forms.Label();
+            this.lblManageExtentions = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -252,6 +253,7 @@ namespace AACMAToolkit.Forms
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.lblManageExtentions);
             this.tabPage2.Controls.Add(this.lblChangeTier0);
             this.tabPage2.Controls.Add(this.lblChangeModeToMonitor);
             this.tabPage2.Controls.Add(this.lblChangeModeToFull);
@@ -353,6 +355,19 @@ namespace AACMAToolkit.Forms
             this.lblGetAutomaticUpgradeConfig.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblGetAutomaticUpgradeConfig.Click += new System.EventHandler(this.lblGetAutomaticUpgradeConfig_Click);
             // 
+            // lblManageExtentions
+            // 
+            this.lblManageExtentions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblManageExtentions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblManageExtentions.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblManageExtentions.Location = new System.Drawing.Point(3, 123);
+            this.lblManageExtentions.Name = "lblManageExtentions";
+            this.lblManageExtentions.Size = new System.Drawing.Size(298, 40);
+            this.lblManageExtentions.TabIndex = 12;
+            this.lblManageExtentions.Text = "Manage Extentions";
+            this.lblManageExtentions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblManageExtentions.Click += new System.EventHandler(this.lblManageExtentions_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -417,6 +432,7 @@ namespace AACMAToolkit.Forms
         private System.Windows.Forms.Label lblChangeModeToMonitor;
         private System.Windows.Forms.Label lblChangeTier0;
         private System.Windows.Forms.Label lblGetAutomaticUpgradeConfig;
+        private System.Windows.Forms.Label lblManageExtentions;
     }
 }
 

@@ -100,7 +100,7 @@ namespace AACMAToolkit.Forms
         ///RedirectStandard = capture Output & Error
         ///UseShellExecute = process won't use system shell
         ///CreateNoWindow = no window pop-up whatsoever
-        private async Task<string> RunAzCmAgentCommand(string args)
+        public async Task<string> RunAzCmAgentCommand(string args)
         {
             CancellationTokenSource cancellationTokenSource = null; // Declare the variable here
             try
@@ -436,6 +436,15 @@ Latest Version: {latestVersion}",
         private async void lblGetAutomaticUpgradeConfig_Click(object sender, EventArgs e)
         {
             txtOutput.Text = await RunAzCmAgentCommand("config get automaticupgrade.enabled");
+        }
+
+        private void lblManageExtentions_Click(object sender, EventArgs e)
+        {
+            using (var form = new ExtensionConfigForm())
+            {
+                form.Owner = this; // Set the owner to access shared methods
+                form.ShowDialog();
+            }
         }
     }
 }
