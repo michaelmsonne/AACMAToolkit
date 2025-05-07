@@ -2,9 +2,9 @@
 
 The Azure Arc Agent Toolkit is a GUI-based application designed to simplify the management of Azure Arc Connected Machine Agents. Built on .NET, this toolkit provides system administrators with an intuitive interface to perform common tasks without relying on the command-line interface (CLI). It is particularly useful for monitoring, configuring, and maintaining Azure Arc-enabled servers.
 
-![UI](application.png "The GUI of the tool")
+![UI](Resources/application.png "The GUI of the tool")
 
-## 🚀 Features
+## Features 🚀
 
   - Agent Version Management
     - Check the installed Azure Arc agent version and compare it with the latest available version and update the agent to the latest version if needed.
@@ -27,7 +27,9 @@ The Azure Arc Agent Toolkit is a GUI-based application designed to simplify the 
     - Provides a clean and simple interface for performing tasks with minimal effort.
     - Includes status indicators and animations for better user feedback.
 
-## 🚀 How It Works
+See the [CHANGELOG](CHANGELOG.md) for a detailed list of changes and updates.
+
+## How it works 🚀
 - The toolkit interacts with the Azure Arc agent using the azcmagent command-line tool under the hood
 - It captures and processes the output of commands like show config, logs, and restart service to provide actionable insights
 - The application uses asynchronous programming to ensure a responsive user experience, even during long-running operations
@@ -40,13 +42,13 @@ The Azure Arc Agent Toolkit is a GUI-based application designed to simplify the 
 
 This toolkit is ideal for administrators managing multiple Azure Arc-enabled servers, offering a streamlined and efficient way to handle day-to-day operations.
 
-## 📌 Prerequisites
+## Prerequisites 📌
 
 - Azure Arc enabled server
 - Network connectivity
 - Admin rights (for configuration)
 
-## 📌 Requirements
+## Requirements 📌
 
   - Agent Version: Connected Machine Agent version 1.47 or higher is required.
   
@@ -62,7 +64,7 @@ This toolkit is ideal for administrators managing multiple Azure Arc-enabled ser
   
   - Environments: Supported environments include Hyper-V, VMware, SCVMM, Stack HCI, AVS, and bare-metal where servers are connected to Azure Arc.
 
-## 📄 How to Use
+## How to use 📄
 
 ### 1️⃣ Download the tool
 

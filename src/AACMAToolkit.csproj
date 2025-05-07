@@ -48,7 +48,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>toolkit_aacma_icon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -129,9 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="toolkit_aacma_icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
