@@ -27,6 +27,8 @@ The Azure Arc Agent Toolkit is a GUI-based application designed to simplify the 
     - Provides a clean and simple interface for performing tasks with minimal effort.
     - Includes status indicators and animations for better user feedback.
 
+See the [CHANGELOG](CHANGELOG.md) for a detailed list of changes and updates.
+
 ## How it works 🚀
 - The toolkit interacts with the Azure Arc agent using the azcmagent command-line tool under the hood
 - It captures and processes the output of commands like show config, logs, and restart service to provide actionable insights
