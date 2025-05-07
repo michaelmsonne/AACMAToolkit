@@ -201,6 +201,9 @@ namespace AACMAToolkit.Forms
                 lblExportLogs.Enabled = true; // Export logs
                 lblRestartService.Enabled = true; // Restart service
                 lblChangeTier0.Enabled = true; // Change to Tier 0 mode
+                lblManageExtentions.Enabled = true; // Manage extensions
+                lblDisableAllUseOfExtentions.Enabled = true; // Disable all extensions
+                lblAllowAllUseOfExtentions.Enabled = true; // Allow all extensions
             }
             else
             {
@@ -213,6 +216,9 @@ namespace AACMAToolkit.Forms
                 lblExportLogs.Enabled = false; // Export logs
                 lblRestartService.Enabled = false; // Restart service
                 lblChangeTier0.Enabled = false; // Change to Tier 0 mode
+                lblManageExtentions.Enabled = false; // Manage extensions
+                lblDisableAllUseOfExtentions.Enabled = false; // Disable all extensions
+                lblAllowAllUseOfExtentions.Enabled = false; // Allow all extensions
 
                 MessageBox.Show(@"Some features are disabled because the application is not running as an administrator.",
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
