@@ -55,6 +55,8 @@ namespace AACMAToolkit.Forms
             this.lblCheckAgentConnection = new System.Windows.Forms.Label();
             this.lblGetAutomaticUpgradeConfig = new System.Windows.Forms.Label();
             this.lblManageExtentions = new System.Windows.Forms.Label();
+            this.lblDisableAllUseOfExtentions = new System.Windows.Forms.Label();
+            this.lblAllowAllUseOfExtentions = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -253,6 +255,8 @@ namespace AACMAToolkit.Forms
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.lblAllowAllUseOfExtentions);
+            this.tabPage2.Controls.Add(this.lblDisableAllUseOfExtentions);
             this.tabPage2.Controls.Add(this.lblManageExtentions);
             this.tabPage2.Controls.Add(this.lblChangeTier0);
             this.tabPage2.Controls.Add(this.lblChangeModeToMonitor);
@@ -368,6 +372,32 @@ namespace AACMAToolkit.Forms
             this.lblManageExtentions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblManageExtentions.Click += new System.EventHandler(this.lblManageExtentions_Click);
             // 
+            // lblDisableAllUseOfExtentions
+            // 
+            this.lblDisableAllUseOfExtentions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblDisableAllUseOfExtentions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblDisableAllUseOfExtentions.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDisableAllUseOfExtentions.Location = new System.Drawing.Point(3, 163);
+            this.lblDisableAllUseOfExtentions.Name = "lblDisableAllUseOfExtentions";
+            this.lblDisableAllUseOfExtentions.Size = new System.Drawing.Size(298, 40);
+            this.lblDisableAllUseOfExtentions.TabIndex = 13;
+            this.lblDisableAllUseOfExtentions.Text = "Disable use of extentions";
+            this.lblDisableAllUseOfExtentions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDisableAllUseOfExtentions.Click += new System.EventHandler(this.lblDisableAllUseOfExtentions_Click);
+            // 
+            // lblAllowAllUseOfExtentions
+            // 
+            this.lblAllowAllUseOfExtentions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblAllowAllUseOfExtentions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblAllowAllUseOfExtentions.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAllowAllUseOfExtentions.Location = new System.Drawing.Point(3, 203);
+            this.lblAllowAllUseOfExtentions.Name = "lblAllowAllUseOfExtentions";
+            this.lblAllowAllUseOfExtentions.Size = new System.Drawing.Size(298, 40);
+            this.lblAllowAllUseOfExtentions.TabIndex = 14;
+            this.lblAllowAllUseOfExtentions.Text = "Allow use of extentions";
+            this.lblAllowAllUseOfExtentions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblAllowAllUseOfExtentions.Click += new System.EventHandler(this.lblAllowAllUseOfExtentions_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -433,6 +463,8 @@ namespace AACMAToolkit.Forms
         private System.Windows.Forms.Label lblChangeTier0;
         private System.Windows.Forms.Label lblGetAutomaticUpgradeConfig;
         private System.Windows.Forms.Label lblManageExtentions;
+        private System.Windows.Forms.Label lblDisableAllUseOfExtentions;
+        private System.Windows.Forms.Label lblAllowAllUseOfExtentions;
     }
 }
 

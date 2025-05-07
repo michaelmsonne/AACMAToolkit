@@ -446,5 +446,15 @@ Latest Version: {latestVersion}",
                 form.ShowDialog();
             }
         }
+
+        private async void lblDisableAllUseOfExtentions_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("config set extensions.enabled false");
+        }
+
+        private async void lblAllowAllUseOfExtentions_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("config set extensions.enabled true");
+        }
     }
 }
