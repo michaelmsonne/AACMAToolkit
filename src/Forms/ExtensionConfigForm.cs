@@ -169,13 +169,7 @@ namespace AACMAToolkit.Forms
 
         private async void ExtensionConfigForm_Load(object sender, EventArgs e)
         {
-            await LoadExtensions();
-            await LoadAllowlist();
-        }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private async void btnAddCustomExtension_Click(object sender, EventArgs e)
@@ -325,6 +319,12 @@ namespace AACMAToolkit.Forms
         {
             // Open the specified URL in the default web browser  
             System.Diagnostics.Process.Start("https://learn.microsoft.com/en-us/azure/azure-arc/servers/manage-vm-extensions#extensions");
+        }
+
+        private async void ExtensionConfigForm_Shown(object sender, EventArgs e)
+        {
+            await LoadExtensions();
+            await LoadAllowlist();
         }
     }
 }
