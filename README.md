@@ -2,7 +2,7 @@
 
 The Azure Arc Agent Toolkit is a GUI-based application designed to simplify the management of Azure Arc Connected Machine Agents. Built on .NET, this toolkit provides system administrators with an intuitive interface to perform common tasks without relying on the command-line interface (CLI). It is particularly useful for monitoring, configuring, and maintaining Azure Arc-enabled servers.
 
-![UI](application.png "The GUI of the tool")
+![UI](Resources/application.png "The GUI of the tool")
 
 ## 🚀 Features
 
