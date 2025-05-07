@@ -53,6 +53,7 @@ namespace AACMAToolkit.Forms
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.lblRestartService = new System.Windows.Forms.Label();
             this.lblCheckAgentConnection = new System.Windows.Forms.Label();
+            this.lblGetAutomaticUpgradeConfig = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -222,6 +223,7 @@ namespace AACMAToolkit.Forms
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lblGetAutomaticUpgradeConfig);
             this.tabPage1.Controls.Add(this.lblGetFullDetails);
             this.tabPage1.Controls.Add(this.lblCheckVersion);
             this.tabPage1.Controls.Add(this.lblCheckAgentError);
@@ -338,6 +340,19 @@ namespace AACMAToolkit.Forms
             this.lblCheckAgentConnection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCheckAgentConnection.Click += new System.EventHandler(this.lblCheckAgentConnection_Click);
             // 
+            // lblGetAutomaticUpgradeConfig
+            // 
+            this.lblGetAutomaticUpgradeConfig.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblGetAutomaticUpgradeConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblGetAutomaticUpgradeConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGetAutomaticUpgradeConfig.Location = new System.Drawing.Point(4, 199);
+            this.lblGetAutomaticUpgradeConfig.Name = "lblGetAutomaticUpgradeConfig";
+            this.lblGetAutomaticUpgradeConfig.Size = new System.Drawing.Size(298, 40);
+            this.lblGetAutomaticUpgradeConfig.TabIndex = 14;
+            this.lblGetAutomaticUpgradeConfig.Text = "Get automatic upgrade status";
+            this.lblGetAutomaticUpgradeConfig.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblGetAutomaticUpgradeConfig.Click += new System.EventHandler(this.lblGetAutomaticUpgradeConfig_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -401,6 +416,7 @@ namespace AACMAToolkit.Forms
         private System.Windows.Forms.Label lblChangeModeToFull;
         private System.Windows.Forms.Label lblChangeModeToMonitor;
         private System.Windows.Forms.Label lblChangeTier0;
+        private System.Windows.Forms.Label lblGetAutomaticUpgradeConfig;
     }
 }
 

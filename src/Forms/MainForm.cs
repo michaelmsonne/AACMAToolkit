@@ -431,5 +431,11 @@ Latest Version: {latestVersion}",
                 SetLabelStatus(lblStatus, @"Failed to restart Azure Arc service", System.Drawing.Color.Red, true);
             }
         }
+
+        // Get the automatic upgrade configuration
+        private async void lblGetAutomaticUpgradeConfig_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("config get automaticupgrade.enabled");
+        }
     }
 }
