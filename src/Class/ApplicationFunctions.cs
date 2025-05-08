@@ -6,7 +6,6 @@ using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows.Forms;
 using System.Management;
-using System.Linq;
 
 namespace AACMAToolkit.Class
 {
