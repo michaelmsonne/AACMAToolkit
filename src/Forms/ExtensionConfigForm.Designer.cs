@@ -85,11 +85,11 @@
             // 
             // btnReloadExtensions
             // 
-            this.btnReloadExtensions.Location = new System.Drawing.Point(320, 251);
+            this.btnReloadExtensions.Location = new System.Drawing.Point(293, 251);
             this.btnReloadExtensions.Name = "btnReloadExtensions";
-            this.btnReloadExtensions.Size = new System.Drawing.Size(75, 23);
+            this.btnReloadExtensions.Size = new System.Drawing.Size(122, 23);
             this.btnReloadExtensions.TabIndex = 6;
-            this.btnReloadExtensions.Text = "Reload list";
+            this.btnReloadExtensions.Text = "Reload extension list";
             this.btnReloadExtensions.UseVisualStyleBackColor = true;
             this.btnReloadExtensions.Click += new System.EventHandler(this.buttonReloadInstalledExtentions_Click);
             // 

@@ -247,7 +247,7 @@ namespace AACMAToolkit.Forms
             this.lblGetAutomaticUpgradeConfig.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblGetAutomaticUpgradeConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblGetAutomaticUpgradeConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGetAutomaticUpgradeConfig.Location = new System.Drawing.Point(4, 199);
+            this.lblGetAutomaticUpgradeConfig.Location = new System.Drawing.Point(3, 203);
             this.lblGetAutomaticUpgradeConfig.Name = "lblGetAutomaticUpgradeConfig";
             this.lblGetAutomaticUpgradeConfig.Size = new System.Drawing.Size(298, 40);
             this.lblGetAutomaticUpgradeConfig.TabIndex = 14;
