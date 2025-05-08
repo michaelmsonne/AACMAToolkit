@@ -41,7 +41,6 @@
             this.Path = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.State = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textBoxExtentionsActionLog = new System.Windows.Forms.TextBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.linkLabelExtentionListMS = new System.Windows.Forms.LinkLabel();
@@ -50,7 +49,6 @@
             this.btnClearAllowlist = new System.Windows.Forms.Button();
             this.btnRemoveFromAllowlist = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.checkBoxShowLogs = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -162,15 +160,6 @@
             this.tabPage2.Text = "Allowlist/blocklist";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // textBoxExtentionsActionLog
-            // 
-            this.textBoxExtentionsActionLog.Location = new System.Drawing.Point(13, 353);
-            this.textBoxExtentionsActionLog.Multiline = true;
-            this.textBoxExtentionsActionLog.Name = "textBoxExtentionsActionLog";
-            this.textBoxExtentionsActionLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxExtentionsActionLog.Size = new System.Drawing.Size(719, 242);
-            this.textBoxExtentionsActionLog.TabIndex = 10;
-            // 
             // tabControl2
             // 
             this.tabControl2.Controls.Add(this.tabPage4);
@@ -258,25 +247,12 @@
             this.tabPage5.Text = "Blocklist";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // checkBoxShowLogs
-            // 
-            this.checkBoxShowLogs.AutoSize = true;
-            this.checkBoxShowLogs.Location = new System.Drawing.Point(662, 325);
-            this.checkBoxShowLogs.Name = "checkBoxShowLogs";
-            this.checkBoxShowLogs.Size = new System.Drawing.Size(70, 17);
-            this.checkBoxShowLogs.TabIndex = 10;
-            this.checkBoxShowLogs.Text = "Show log";
-            this.checkBoxShowLogs.UseVisualStyleBackColor = true;
-            this.checkBoxShowLogs.CheckedChanged += new System.EventHandler(this.checkBoxShowLogs_CheckedChanged);
-            // 
             // ExtensionConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(744, 348);
-            this.Controls.Add(this.checkBoxShowLogs);
-            this.Controls.Add(this.textBoxExtentionsActionLog);
+            this.ClientSize = new System.Drawing.Size(744, 334);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -292,7 +268,6 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -313,11 +288,9 @@
         private System.Windows.Forms.ListBox lbAllowlist;
         private System.Windows.Forms.Button btnClearAllowlist;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.TextBox textBoxExtentionsActionLog;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.LinkLabel linkLabelExtentionListMS;
-        private System.Windows.Forms.CheckBox checkBoxShowLogs;
     }
 }

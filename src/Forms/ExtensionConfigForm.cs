@@ -10,8 +10,6 @@ namespace AACMAToolkit.Forms
     {
         private List<string> _originalAllowlist = new List<string>();
 
-        private System.Drawing.Size _originalSize; // Declare a private field to store the original size
-
         public ExtensionConfigForm()
         {
             InitializeComponent();
@@ -23,18 +21,6 @@ namespace AACMAToolkit.Forms
             public string Version { get; set; }
             public string Path { get; set; }
             public string State { get; set; }
-        }
-
-        private void AppendToActionLog(string message)
-        {
-            if (textBoxExtentionsActionLog.InvokeRequired)
-            {
-                textBoxExtentionsActionLog.Invoke(new Action(() => textBoxExtentionsActionLog.AppendText(message + "\r\n")));
-            }
-            else
-            {
-                textBoxExtentionsActionLog.AppendText(message + "\r\n");
-            }
         }
 
         private async Task<string> RunAzCmAgentCommand(string args)
@@ -51,7 +37,7 @@ namespace AACMAToolkit.Forms
                 if (output.Contains("Supplied arguments do not satisfy the requirements"))
                 {
                     // Append the command and its output to the action log  
-                    AppendToActionLog($"> Command: azcmagent {args}\r\n> Output: {output}\r");
+                    //AppendToActionLog($"> Command: azcmagent {args}\r\n> Output: {output}\r");
                 }
 
                 return output;
@@ -59,7 +45,7 @@ namespace AACMAToolkit.Forms
             catch (Exception ex)
             {
                 // Log the error to the action log  
-                AppendToActionLog($"> Command: azcmagent {args}\r\n> Error: {ex.Message}\r");
+                //AppendToActionLog($"> Command: azcmagent {args}\r\n> Error: {ex.Message}\r");
 
                 MessageBox.Show($@"Error executing command: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return string.Empty;
@@ -337,20 +323,6 @@ namespace AACMAToolkit.Forms
 
             Height = 387;
 
-        }
-
-        private void checkBoxShowLogs_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxShowLogs.Checked)
-            {
-                // Set the size to show logs  
-                Height = 650;
-            }
-            else
-            {
-                // Set the size to the original size when the checkbox is unchecked  
-                Height = 387;
-            }
         }
     }
 }
