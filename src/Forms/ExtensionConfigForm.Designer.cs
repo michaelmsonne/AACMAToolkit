@@ -58,7 +58,7 @@
             // 
             // btnReloadAllowlist
             // 
-            this.btnReloadAllowlist.Location = new System.Drawing.Point(440, 32);
+            this.btnReloadAllowlist.Location = new System.Drawing.Point(361, 32);
             this.btnReloadAllowlist.Name = "btnReloadAllowlist";
             this.btnReloadAllowlist.Size = new System.Drawing.Size(84, 23);
             this.btnReloadAllowlist.TabIndex = 1;
@@ -191,7 +191,7 @@
             // linkLabelExtentionListMS
             // 
             this.linkLabelExtentionListMS.AutoSize = true;
-            this.linkLabelExtentionListMS.Location = new System.Drawing.Point(594, 66);
+            this.linkLabelExtentionListMS.Location = new System.Drawing.Point(597, 218);
             this.linkLabelExtentionListMS.Name = "linkLabelExtentionListMS";
             this.linkLabelExtentionListMS.Size = new System.Drawing.Size(88, 13);
             this.linkLabelExtentionListMS.TabIndex = 9;
@@ -209,7 +209,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(361, 32);
+            this.btnSave.Location = new System.Drawing.Point(607, 61);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 8;
@@ -219,7 +219,7 @@
             // 
             // btnClearAllowlist
             // 
-            this.btnClearAllowlist.Location = new System.Drawing.Point(361, 61);
+            this.btnClearAllowlist.Location = new System.Drawing.Point(449, 32);
             this.btnClearAllowlist.Name = "btnClearAllowlist";
             this.btnClearAllowlist.Size = new System.Drawing.Size(75, 23);
             this.btnClearAllowlist.TabIndex = 7;

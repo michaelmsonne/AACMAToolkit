@@ -13,6 +13,7 @@ namespace AACMAToolkit.Forms
         public ExtensionConfigForm()
         {
             InitializeComponent();
+            InitializeContextMenuAllowList(); // Initialize the context menu
         }
 
         public class ExtensionInfo
@@ -21,6 +22,28 @@ namespace AACMAToolkit.Forms
             public string Version { get; set; }
             public string Path { get; set; }
             public string State { get; set; }
+        }
+
+        private void InitializeContextMenuAllowList()
+        {
+            // Create a context menu
+            var contextMenu = new ContextMenuStrip();
+
+            // Add "Copy" option to the context menu
+            var copyMenuItem = new ToolStripMenuItem("Copy extension string");
+            copyMenuItem.BackColor = System.Drawing.Color.White;
+            copyMenuItem.Click += (s, e) =>
+            {
+                if (lbAllowlist.SelectedItem != null)
+                {
+                    Clipboard.SetText(lbAllowlist.SelectedItem.ToString());
+                }
+            };
+
+            contextMenu.Items.Add(copyMenuItem);
+
+            // Assign the context menu to the ListBox
+            lbAllowlist.ContextMenuStrip = contextMenu;
         }
 
         private async Task<string> RunAzCmAgentCommand(string args)
@@ -320,9 +343,6 @@ namespace AACMAToolkit.Forms
         {
             await LoadExtensions();
             await LoadAllowlist();
-
-            Height = 387;
-
         }
     }
 }
