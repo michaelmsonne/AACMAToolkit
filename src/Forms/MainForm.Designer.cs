@@ -45,14 +45,19 @@ namespace AACMAToolkit.Forms
             this.lblStatus = new System.Windows.Forms.Label();
             this.tabControlMainForm = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblGetAutomaticUpgradeConfig = new System.Windows.Forms.Label();
             this.lblGetFullDetails = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblAllowAllUseOfExtentions = new System.Windows.Forms.Label();
+            this.lblDisableAllUseOfExtentions = new System.Windows.Forms.Label();
+            this.lblManageExtentions = new System.Windows.Forms.Label();
+            this.lblChangeTier0 = new System.Windows.Forms.Label();
             this.lblChangeModeToMonitor = new System.Windows.Forms.Label();
             this.lblChangeModeToFull = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.lblRestartService = new System.Windows.Forms.Label();
             this.lblCheckAgentConnection = new System.Windows.Forms.Label();
-            this.lblChangeTier0 = new System.Windows.Forms.Label();
+            this.changelogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -171,6 +176,7 @@ namespace AACMAToolkit.Forms
             // 
             this.manuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.restartAsAdministratorToolStripMenuItem,
+            this.changelogToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.manuToolStripMenuItem.Name = "manuToolStripMenuItem";
@@ -204,7 +210,7 @@ namespace AACMAToolkit.Forms
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(1154, 5);
+            this.lblStatus.Location = new System.Drawing.Point(1147, 5);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(0, 13);
             this.lblStatus.TabIndex = 11;
@@ -222,6 +228,7 @@ namespace AACMAToolkit.Forms
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lblGetAutomaticUpgradeConfig);
             this.tabPage1.Controls.Add(this.lblGetFullDetails);
             this.tabPage1.Controls.Add(this.lblCheckVersion);
             this.tabPage1.Controls.Add(this.lblCheckAgentError);
@@ -234,6 +241,19 @@ namespace AACMAToolkit.Forms
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic tasks";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lblGetAutomaticUpgradeConfig
+            // 
+            this.lblGetAutomaticUpgradeConfig.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblGetAutomaticUpgradeConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblGetAutomaticUpgradeConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGetAutomaticUpgradeConfig.Location = new System.Drawing.Point(3, 203);
+            this.lblGetAutomaticUpgradeConfig.Name = "lblGetAutomaticUpgradeConfig";
+            this.lblGetAutomaticUpgradeConfig.Size = new System.Drawing.Size(298, 40);
+            this.lblGetAutomaticUpgradeConfig.TabIndex = 14;
+            this.lblGetAutomaticUpgradeConfig.Text = "Get automatic upgrade status";
+            this.lblGetAutomaticUpgradeConfig.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblGetAutomaticUpgradeConfig.Click += new System.EventHandler(this.lblGetAutomaticUpgradeConfig_Click);
             // 
             // lblGetFullDetails
             // 
@@ -250,6 +270,9 @@ namespace AACMAToolkit.Forms
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.lblAllowAllUseOfExtentions);
+            this.tabPage2.Controls.Add(this.lblDisableAllUseOfExtentions);
+            this.tabPage2.Controls.Add(this.lblManageExtentions);
             this.tabPage2.Controls.Add(this.lblChangeTier0);
             this.tabPage2.Controls.Add(this.lblChangeModeToMonitor);
             this.tabPage2.Controls.Add(this.lblChangeModeToFull);
@@ -260,6 +283,58 @@ namespace AACMAToolkit.Forms
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Configuration tasks";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lblAllowAllUseOfExtentions
+            // 
+            this.lblAllowAllUseOfExtentions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblAllowAllUseOfExtentions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblAllowAllUseOfExtentions.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAllowAllUseOfExtentions.Location = new System.Drawing.Point(3, 203);
+            this.lblAllowAllUseOfExtentions.Name = "lblAllowAllUseOfExtentions";
+            this.lblAllowAllUseOfExtentions.Size = new System.Drawing.Size(298, 40);
+            this.lblAllowAllUseOfExtentions.TabIndex = 14;
+            this.lblAllowAllUseOfExtentions.Text = "Allow use of extentions";
+            this.lblAllowAllUseOfExtentions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblAllowAllUseOfExtentions.Click += new System.EventHandler(this.lblAllowAllUseOfExtentions_Click);
+            // 
+            // lblDisableAllUseOfExtentions
+            // 
+            this.lblDisableAllUseOfExtentions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblDisableAllUseOfExtentions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblDisableAllUseOfExtentions.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDisableAllUseOfExtentions.Location = new System.Drawing.Point(3, 163);
+            this.lblDisableAllUseOfExtentions.Name = "lblDisableAllUseOfExtentions";
+            this.lblDisableAllUseOfExtentions.Size = new System.Drawing.Size(298, 40);
+            this.lblDisableAllUseOfExtentions.TabIndex = 13;
+            this.lblDisableAllUseOfExtentions.Text = "Disable use of extentions";
+            this.lblDisableAllUseOfExtentions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDisableAllUseOfExtentions.Click += new System.EventHandler(this.lblDisableAllUseOfExtentions_Click);
+            // 
+            // lblManageExtentions
+            // 
+            this.lblManageExtentions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblManageExtentions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblManageExtentions.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblManageExtentions.Location = new System.Drawing.Point(3, 123);
+            this.lblManageExtentions.Name = "lblManageExtentions";
+            this.lblManageExtentions.Size = new System.Drawing.Size(298, 40);
+            this.lblManageExtentions.TabIndex = 12;
+            this.lblManageExtentions.Text = "Manage Extentions";
+            this.lblManageExtentions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblManageExtentions.Click += new System.EventHandler(this.lblManageExtentions_Click);
+            // 
+            // lblChangeTier0
+            // 
+            this.lblChangeTier0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblChangeTier0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblChangeTier0.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChangeTier0.Location = new System.Drawing.Point(3, 83);
+            this.lblChangeTier0.Name = "lblChangeTier0";
+            this.lblChangeTier0.Size = new System.Drawing.Size(298, 40);
+            this.lblChangeTier0.TabIndex = 11;
+            this.lblChangeTier0.Text = "Change 2 Tier0 config";
+            this.lblChangeTier0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblChangeTier0.Click += new System.EventHandler(this.lblChangeTier0_Click);
             // 
             // lblChangeModeToMonitor
             // 
@@ -325,18 +400,13 @@ namespace AACMAToolkit.Forms
             this.lblCheckAgentConnection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCheckAgentConnection.Click += new System.EventHandler(this.lblCheckAgentConnection_Click);
             // 
-            // lblChangeTier0
+            // changelogToolStripMenuItem
             // 
-            this.lblChangeTier0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblChangeTier0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblChangeTier0.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChangeTier0.Location = new System.Drawing.Point(3, 83);
-            this.lblChangeTier0.Name = "lblChangeTier0";
-            this.lblChangeTier0.Size = new System.Drawing.Size(298, 40);
-            this.lblChangeTier0.TabIndex = 11;
-            this.lblChangeTier0.Text = "Change 2 Tier0 config";
-            this.lblChangeTier0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblChangeTier0.Click += new System.EventHandler(this.lblChangeTier0_Click);
+            this.changelogToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.changelogToolStripMenuItem.Name = "changelogToolStripMenuItem";
+            this.changelogToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.changelogToolStripMenuItem.Text = "Changelog";
+            this.changelogToolStripMenuItem.Click += new System.EventHandler(this.changelogToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -401,6 +471,11 @@ namespace AACMAToolkit.Forms
         private System.Windows.Forms.Label lblChangeModeToFull;
         private System.Windows.Forms.Label lblChangeModeToMonitor;
         private System.Windows.Forms.Label lblChangeTier0;
+        private System.Windows.Forms.Label lblGetAutomaticUpgradeConfig;
+        private System.Windows.Forms.Label lblManageExtentions;
+        private System.Windows.Forms.Label lblDisableAllUseOfExtentions;
+        private System.Windows.Forms.Label lblAllowAllUseOfExtentions;
+        private System.Windows.Forms.ToolStripMenuItem changelogToolStripMenuItem;
     }
 }
 

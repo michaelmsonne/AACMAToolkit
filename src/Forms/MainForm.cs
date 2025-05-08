@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -101,7 +100,7 @@ namespace AACMAToolkit.Forms
         ///RedirectStandard = capture Output & Error
         ///UseShellExecute = process won't use system shell
         ///CreateNoWindow = no window pop-up whatsoever
-        private async Task<string> RunAzCmAgentCommand(string args)
+        public async Task<string> RunAzCmAgentCommand(string args)
         {
             CancellationTokenSource cancellationTokenSource = null; // Declare the variable here
             try
@@ -111,7 +110,9 @@ namespace AACMAToolkit.Forms
 
                 // Start a task to animate the label text
                 cancellationTokenSource = new CancellationTokenSource();
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 AnimateLabelText(lblStatus, "Processing", cancellationTokenSource.Token);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
                 // Wait for the animation task to start and parse the task
                 var psi = new ProcessStartInfo
@@ -200,6 +201,9 @@ namespace AACMAToolkit.Forms
                 lblExportLogs.Enabled = true; // Export logs
                 lblRestartService.Enabled = true; // Restart service
                 lblChangeTier0.Enabled = true; // Change to Tier 0 mode
+                lblManageExtentions.Enabled = true; // Manage extensions
+                lblDisableAllUseOfExtentions.Enabled = true; // Disable all extensions
+                lblAllowAllUseOfExtentions.Enabled = true; // Allow all extensions
             }
             else
             {
@@ -212,6 +216,9 @@ namespace AACMAToolkit.Forms
                 lblExportLogs.Enabled = false; // Export logs
                 lblRestartService.Enabled = false; // Restart service
                 lblChangeTier0.Enabled = false; // Change to Tier 0 mode
+                lblManageExtentions.Enabled = false; // Manage extensions
+                lblDisableAllUseOfExtentions.Enabled = false; // Disable all extensions
+                lblAllowAllUseOfExtentions.Enabled = false; // Allow all extensions
 
                 MessageBox.Show(@"Some features are disabled because the application is not running as an administrator.",
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -220,16 +227,35 @@ namespace AACMAToolkit.Forms
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            // Check if the azcmagent service is installed and the executable exists on this host before running the application
+            // Check if the azcmagent service is installed and the executable exists on this host before running the application  
             if (ApplicationFunctions.IsAzcmAgentInstalled(Globals.azcmagentPath))
             {
-                // Show a message box indicating that the service is installed and the executable exists - tool can be used
-                ///MessageBox.Show($@"The '{Globals.azcmagentServiceName}' service is installed and the executable '{Globals.azcmagentPath}' exists.", @"Checks Passed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Show a message box indicating that the service is installed and the executable exists - tool can be used  
                 txtOutput.Text = $@"The '{Globals.azcmagentServiceName}' service is installed and the executable '{Globals.azcmagentPath}' exists.";
+
+                // Check if the executable is signed  
+                if (ApplicationFunctions.IsAzcmAgentInstalled(Globals.azcmagentPath))
+                {
+                    // Check if the executable is codesigned by Microsoft
+                    bool isExeCodeSigned = ApplicationFunctions.IsFileCodeSignedByMicrosoft(Globals.azcmagentPath);
+                    if (!isExeCodeSigned)
+                    {
+                        MessageBox.Show($@"The executable {Globals.azcmagentPath} is not code signed by Microsoft.", @"Cant validate the Azure Arc Agent is from Microsoft", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtOutput.Text += Environment.NewLine + $@"The executable '{Globals.azcmagentPath}' is not digitally signed or the signature is invalid.";
+                    }
+                    else
+                    {
+                        txtOutput.Text += Environment.NewLine + $@"The executable '{Globals.azcmagentPath}' is digitally signed and verified.";
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($@"The executable '{Globals.azcmagentPath}' is not digitally signed or the signature is invalid.", @"Security Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
             {
-                // Show a message box indicating that the service is not installed or the executable is missing - tool cannot be used
+                // Show a message box indicating that the service is not installed or the executable is missing - tool cannot be used  
                 MessageBox.Show($@"Either the '{Globals.azcmagentServiceName}' service is not installed, or the executable '{Globals.azcmagentPath}' is missing on this host.", @"Checks failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -243,15 +269,16 @@ namespace AACMAToolkit.Forms
         {
             var (isUpToDate, installedVersion, latestVersion) = await IsAzureArcAgentUpToDate();
 
-            if (ApplicationFunctions.IsRunningInAzure())
+            if (ApplicationFunctions.IsRunningInAzureOrHardware())
             {
                 MessageBox.Show(@"This machine is running in Azure. Azure Arc agent is not designed for Azure VMs.", @"Azure Environment Detected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-                //MessageBox.Show($@"Download the Azure Arc agent from: {ApplicationFunctions.GetAzureArcAgentInstallerUrl()}", @"Installer URL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show($@"Downloading the Azure Arc agent from '{ApplicationFunctions.GetAzureArcAgentInstallerUrl()}' to install the update.", @"Installer URL", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
+            // Check if the agent is up to date
             if (isUpToDate)
             {
                 MessageBox.Show($@"Azure Arc agent is up-to-date.
@@ -387,7 +414,7 @@ Latest Version: {latestVersion}",
             txtOutput.Text = await RunAzCmAgentCommand("config set incomingconnections.enabled false");
             txtOutput.Text += await RunAzCmAgentCommand("config set guestconfiguration.enabled false");
             txtOutput.Text += await RunAzCmAgentCommand("config set extensions.allowlist \"Microsoft.Azure.Monitor/AzureMonitorWindowsAgent,Microsoft.Azure.AzureDefenderForServers/MDE.Windows\"");
-            txtOutput.Text += "Incoming connections & guestconfiguration are disabled, only the Azure Monitor Agent and Defender extensions are enabled!";
+            txtOutput.Text += @"Incoming connections & guestconfiguration are disabled, only the Azure Monitor Agent and Defender extensions are enabled!";
 
         }
 
@@ -431,6 +458,37 @@ Latest Version: {latestVersion}",
             }
         }
 
+        // Get the automatic upgrade configuration
+        private async void lblGetAutomaticUpgradeConfig_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("config get automaticupgrade.enabled");
+        }
 
+        private void lblManageExtentions_Click(object sender, EventArgs e)
+        {
+            using (var form = new ExtensionConfigForm())
+            {
+                form.Owner = this; // Set the owner to access shared methods
+                form.ShowDialog();
+            }
+        }
+
+        // Disable all extensions
+        private async void lblDisableAllUseOfExtentions_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("config set extensions.enabled false");
+        }
+
+        // Allow all extensions
+        private async void lblAllowAllUseOfExtentions_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = await RunAzCmAgentCommand("config set extensions.enabled true");
+        }
+
+        // Open the GitHub repository in the default web browser and show the changelog file
+        private void changelogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/enderalci/AACMAToolkit/blob/master/CHANGELOG.md");
+        }
     }
 }
