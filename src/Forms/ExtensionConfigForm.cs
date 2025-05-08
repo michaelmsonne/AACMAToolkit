@@ -36,10 +36,12 @@ namespace AACMAToolkit.Forms
             {
                 if (lbAllowlist.SelectedItem != null)
                 {
+                    // Copy the selected item to the clipboard
                     Clipboard.SetText(lbAllowlist.SelectedItem.ToString());
                 }
             };
 
+            // Add the menu item to the context menu
             contextMenu.Items.Add(copyMenuItem);
 
             // Assign the context menu to the ListBox
@@ -51,7 +53,7 @@ namespace AACMAToolkit.Forms
             try
             {
 #if DEBUG
-                   MessageBox.Show($"Executing command: azcmagent {args}", "Debug", MessageBoxButtons.OK, MessageBoxIcon.Information);  
+                MessageBox.Show($"Executing command: azcmagent {args}", "Debug", MessageBoxButtons.OK, MessageBoxIcon.Information);  
 #endif
                 // Execute the command and get the output  
                 string output = await ((MainForm)Owner).RunAzCmAgentCommand(args);
@@ -81,7 +83,10 @@ namespace AACMAToolkit.Forms
             var extensions = new List<ExtensionInfo>();
             var lines = output.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
+            // Initialize a new ExtensionInfo object to hold the current extension details
             ExtensionInfo currentExtension = null;
+
+            // Iterate through each line of the output
             foreach (var line in lines)
             {
                 if (line.StartsWith("Extension:"))
@@ -113,9 +118,11 @@ namespace AACMAToolkit.Forms
             // Add the last extension if it exists
             if (currentExtension != null)
             {
+                // Check if the extension is already in the list to avoid duplicates
                 extensions.Add(currentExtension);
             }
 
+            // Return the list of parsed extensions
             return extensions;
         }
 
@@ -137,11 +144,17 @@ namespace AACMAToolkit.Forms
                     item.SubItems.Add(extension.Version);
                     item.SubItems.Add(extension.Path);
                     item.SubItems.Add(extension.State);
+
+                    // Add the item to the ListView
                     lvExtensions.Items.Add(item);
                 }
+
+                // Notify the user of success
+                MessageBox.Show(@"Installed extensions reloaded successfully.", @"Reload", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
+                // Handle any errors that occur during the operation
                 MessageBox.Show($@"Failed to load extensions: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -176,8 +189,6 @@ namespace AACMAToolkit.Forms
         private async void buttonReloadInstalledExtentions_Click(object sender, EventArgs e)
         {
             await LoadExtensions();
-            MessageBox.Show(@"Installed extensions reloaded successfully.", @"Reload", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
         }
 
         private async void btnAddCustomExtension_Click(object sender, EventArgs e)
@@ -209,9 +220,6 @@ namespace AACMAToolkit.Forms
 
                 // Clear the TextBox for new input
                 txtAllowlistExtension.Clear();
-
-                // Notify the user of success
-                //MessageBox.Show(@"Extension added to allowlist successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
