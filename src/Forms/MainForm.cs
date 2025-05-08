@@ -453,11 +453,13 @@ Latest Version: {latestVersion}",
             }
         }
 
+        // Disable all extensions
         private async void lblDisableAllUseOfExtentions_Click(object sender, EventArgs e)
         {
             txtOutput.Text = await RunAzCmAgentCommand("config set extensions.enabled false");
         }
 
+        // Allow all extensions
         private async void lblAllowAllUseOfExtentions_Click(object sender, EventArgs e)
         {
             txtOutput.Text = await RunAzCmAgentCommand("config set extensions.enabled true");
