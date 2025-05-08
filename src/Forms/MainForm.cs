@@ -227,15 +227,35 @@ namespace AACMAToolkit.Forms
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            // Check if the azcmagent service is installed and the executable exists on this host before running the application
+            // Check if the azcmagent service is installed and the executable exists on this host before running the application  
             if (ApplicationFunctions.IsAzcmAgentInstalled(Globals.azcmagentPath))
             {
-                // Show a message box indicating that the service is installed and the executable exists - tool can be used
+                // Show a message box indicating that the service is installed and the executable exists - tool can be used  
                 txtOutput.Text = $@"The '{Globals.azcmagentServiceName}' service is installed and the executable '{Globals.azcmagentPath}' exists.";
+
+                // Check if the executable is signed  
+                if (ApplicationFunctions.IsAzcmAgentInstalled(Globals.azcmagentPath))
+                {
+                    // Check if the executable is codesigned by Microsoft
+                    bool isExeCodeSigned = ApplicationFunctions.IsFileCodeSignedByMicrosoft(Globals.azcmagentPath);
+                    if (!isExeCodeSigned)
+                    {
+                        MessageBox.Show($@"The executable {Globals.azcmagentPath} is not code signed by Microsoft.", @"Cant validate the Azure Arc Agent is from Microsoft", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtOutput.Text += Environment.NewLine + $@"The executable '{Globals.azcmagentPath}' is not digitally signed or the signature is invalid.";
+                    }
+                    else
+                    {
+                        txtOutput.Text += Environment.NewLine + $@"The executable '{Globals.azcmagentPath}' is digitally signed and verified.";
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($@"The executable '{Globals.azcmagentPath}' is not digitally signed or the signature is invalid.", @"Security Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
             {
-                // Show a message box indicating that the service is not installed or the executable is missing - tool cannot be used
+                // Show a message box indicating that the service is not installed or the executable is missing - tool cannot be used  
                 MessageBox.Show($@"Either the '{Globals.azcmagentServiceName}' service is not installed, or the executable '{Globals.azcmagentPath}' is missing on this host.", @"Checks failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }

@@ -6,6 +6,8 @@ using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows.Forms;
 using System.Management;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AACMAToolkit.Class
 {
@@ -48,16 +50,16 @@ namespace AACMAToolkit.Class
                     }
                 }
 
-                // Check if the executable exists
+                // Check if the executable exists and is codesigned by Microsoft
                 bool isExeExists = File.Exists(exePath);
-
+                
                 // Return true only if both conditions are met
                 return isServiceInstalled && isExeExists;
             }
             catch (Exception ex)
             {
                 // Log or handle the exception as needed
-                MessageBox.Show($"Error checking azcmagent installation: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($@"Error checking azcmagent installation: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -277,6 +279,63 @@ namespace AACMAToolkit.Class
                 // Handle any exceptions that occur during the download or installation
                 MessageBox.Show($@"Error installing {Globals.toolLongName}: " + ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public static bool IsFileCodeSignedByMicrosoft(string filePath)
+        {
+            try
+            {
+                // Load the file's certificate  
+                var cert = new X509Certificate2(filePath);
+
+                // Display certificate details in a MessageBox
+#if DEBUG
+                MessageBox.Show(
+                    $@"Certificate Details:  
+        Subject: {cert.Subject}  
+        Issuer: {cert.Issuer}  
+        Thumbprint: {cert.Thumbprint}  
+        Effective Date: {cert.NotBefore}  
+        Expiration Date: {cert.NotAfter}",
+                    @"Certificate Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+#endif
+                // Check the issuer name to verify it's signed by Microsoft  
+                var issuer = cert.Issuer;
+                if (issuer.Contains("CN=Microsoft Corporation") || issuer.Contains("CN=Microsoft Code Signing PCA"))
+                {
+                    // Check if the certificate is valid
+                    if (cert.NotAfter > DateTime.Now && cert.NotBefore < DateTime.Now)
+                    {
+#if DEBUG
+                        MessageBox.Show($@"The file '{Globals.azcmagentPath}' is code signed by Microsoft.", @"Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
+                        return true;
+                    }
+                    else
+                    {
+#if DEBUG
+                        MessageBox.Show($@"The certificate is expired or not a Microsoft valid one for the file '{Globals.azcmagentPath}'.", @"Validation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#endif
+                        return false;
+                    }
+                }
+            }
+            catch (CryptographicException)
+            {
+                // Return false if the file is not signed or any cryptographic error occurs  
+                return false;
+            }
+            catch
+            {
+                // Return false for any other exceptions  
+                return false;
+            }
+
+            // Default return value if no conditions are met
+            return false;
         }
     }
 }
