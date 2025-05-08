@@ -35,21 +35,22 @@
             this.btnReloadExtensions = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lvExtensions = new System.Windows.Forms.ListView();
             this.Extension = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Version = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Path = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.State = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnRemoveFromAllowlist = new System.Windows.Forms.Button();
-            this.lbAllowlist = new System.Windows.Forms.ListBox();
-            this.btnClearAllowlist = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.textBoxExtentionsActionLog = new System.Windows.Forms.TextBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.textBoxExtentionsActionLog = new System.Windows.Forms.TextBox();
             this.linkLabelExtentionListMS = new System.Windows.Forms.LinkLabel();
+            this.lbAllowlist = new System.Windows.Forms.ListBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnClearAllowlist = new System.Windows.Forms.Button();
+            this.btnRemoveFromAllowlist = new System.Windows.Forms.Button();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.checkBoxShowLogs = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -59,7 +60,7 @@
             // 
             // btnReloadAllowlist
             // 
-            this.btnReloadAllowlist.Location = new System.Drawing.Point(221, 151);
+            this.btnReloadAllowlist.Location = new System.Drawing.Point(440, 32);
             this.btnReloadAllowlist.Name = "btnReloadAllowlist";
             this.btnReloadAllowlist.Size = new System.Drawing.Size(84, 23);
             this.btnReloadAllowlist.TabIndex = 1;
@@ -69,14 +70,14 @@
             // 
             // txtAllowlistExtension
             // 
-            this.txtAllowlistExtension.Location = new System.Drawing.Point(6, 153);
+            this.txtAllowlistExtension.Location = new System.Drawing.Point(361, 6);
             this.txtAllowlistExtension.Name = "txtAllowlistExtension";
-            this.txtAllowlistExtension.Size = new System.Drawing.Size(209, 20);
+            this.txtAllowlistExtension.Size = new System.Drawing.Size(324, 20);
             this.txtAllowlistExtension.TabIndex = 3;
             // 
             // btnAddToAllowlist
             // 
-            this.btnAddToAllowlist.Location = new System.Drawing.Point(221, 6);
+            this.btnAddToAllowlist.Location = new System.Drawing.Point(607, 32);
             this.btnAddToAllowlist.Name = "btnAddToAllowlist";
             this.btnAddToAllowlist.Size = new System.Drawing.Size(75, 23);
             this.btnAddToAllowlist.TabIndex = 4;
@@ -116,18 +117,6 @@
             this.tabPage1.Text = "Installed extentions";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.textBoxExtentionsActionLog);
-            this.tabPage2.Controls.Add(this.tabControl2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(711, 280);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Allowlist/blocklist";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // lvExtensions
             // 
             this.lvExtensions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -162,43 +151,25 @@
             this.State.Text = "State";
             this.State.Width = 80;
             // 
-            // btnRemoveFromAllowlist
+            // tabPage2
             // 
-            this.btnRemoveFromAllowlist.Location = new System.Drawing.Point(221, 35);
-            this.btnRemoveFromAllowlist.Name = "btnRemoveFromAllowlist";
-            this.btnRemoveFromAllowlist.Size = new System.Drawing.Size(75, 23);
-            this.btnRemoveFromAllowlist.TabIndex = 5;
-            this.btnRemoveFromAllowlist.Text = "Remove";
-            this.btnRemoveFromAllowlist.UseVisualStyleBackColor = true;
-            this.btnRemoveFromAllowlist.Click += new System.EventHandler(this.btnRemoveFromAllowlist_Click);
+            this.tabPage2.Controls.Add(this.tabControl2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(711, 280);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Allowlist/blocklist";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // lbAllowlist
+            // textBoxExtentionsActionLog
             // 
-            this.lbAllowlist.FormattingEnabled = true;
-            this.lbAllowlist.Location = new System.Drawing.Point(6, 6);
-            this.lbAllowlist.Name = "lbAllowlist";
-            this.lbAllowlist.Size = new System.Drawing.Size(209, 134);
-            this.lbAllowlist.TabIndex = 6;
-            // 
-            // btnClearAllowlist
-            // 
-            this.btnClearAllowlist.Location = new System.Drawing.Point(222, 65);
-            this.btnClearAllowlist.Name = "btnClearAllowlist";
-            this.btnClearAllowlist.Size = new System.Drawing.Size(75, 23);
-            this.btnClearAllowlist.TabIndex = 7;
-            this.btnClearAllowlist.Text = "Clear";
-            this.btnClearAllowlist.UseVisualStyleBackColor = true;
-            this.btnClearAllowlist.Click += new System.EventHandler(this.btnClearAllowlist_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(222, 95);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 8;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.textBoxExtentionsActionLog.Location = new System.Drawing.Point(13, 353);
+            this.textBoxExtentionsActionLog.Multiline = true;
+            this.textBoxExtentionsActionLog.Name = "textBoxExtentionsActionLog";
+            this.textBoxExtentionsActionLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxExtentionsActionLog.Size = new System.Drawing.Size(719, 242);
+            this.textBoxExtentionsActionLog.TabIndex = 10;
             // 
             // tabControl2
             // 
@@ -207,7 +178,7 @@
             this.tabControl2.Location = new System.Drawing.Point(6, 6);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(324, 268);
+            this.tabControl2.Size = new System.Drawing.Size(699, 268);
             this.tabControl2.TabIndex = 9;
             // 
             // tabPage4
@@ -223,34 +194,15 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(316, 242);
+            this.tabPage4.Size = new System.Drawing.Size(691, 242);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Allowlist";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(316, 242);
-            this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "Blocklist";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // textBoxExtentionsActionLog
-            // 
-            this.textBoxExtentionsActionLog.Location = new System.Drawing.Point(336, 28);
-            this.textBoxExtentionsActionLog.Multiline = true;
-            this.textBoxExtentionsActionLog.Name = "textBoxExtentionsActionLog";
-            this.textBoxExtentionsActionLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxExtentionsActionLog.Size = new System.Drawing.Size(369, 242);
-            this.textBoxExtentionsActionLog.TabIndex = 10;
-            // 
             // linkLabelExtentionListMS
             // 
             this.linkLabelExtentionListMS.AutoSize = true;
-            this.linkLabelExtentionListMS.Location = new System.Drawing.Point(221, 127);
+            this.linkLabelExtentionListMS.Location = new System.Drawing.Point(594, 66);
             this.linkLabelExtentionListMS.Name = "linkLabelExtentionListMS";
             this.linkLabelExtentionListMS.Size = new System.Drawing.Size(88, 13);
             this.linkLabelExtentionListMS.TabIndex = 9;
@@ -258,12 +210,73 @@
             this.linkLabelExtentionListMS.Text = "List of extensions";
             this.linkLabelExtentionListMS.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelExtentionListMS_LinkClicked);
             // 
+            // lbAllowlist
+            // 
+            this.lbAllowlist.FormattingEnabled = true;
+            this.lbAllowlist.Location = new System.Drawing.Point(6, 6);
+            this.lbAllowlist.Name = "lbAllowlist";
+            this.lbAllowlist.Size = new System.Drawing.Size(349, 225);
+            this.lbAllowlist.TabIndex = 6;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(361, 32);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 8;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnClearAllowlist
+            // 
+            this.btnClearAllowlist.Location = new System.Drawing.Point(361, 61);
+            this.btnClearAllowlist.Name = "btnClearAllowlist";
+            this.btnClearAllowlist.Size = new System.Drawing.Size(75, 23);
+            this.btnClearAllowlist.TabIndex = 7;
+            this.btnClearAllowlist.Text = "Clear";
+            this.btnClearAllowlist.UseVisualStyleBackColor = true;
+            this.btnClearAllowlist.Click += new System.EventHandler(this.btnClearAllowlist_Click);
+            // 
+            // btnRemoveFromAllowlist
+            // 
+            this.btnRemoveFromAllowlist.Location = new System.Drawing.Point(528, 32);
+            this.btnRemoveFromAllowlist.Name = "btnRemoveFromAllowlist";
+            this.btnRemoveFromAllowlist.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveFromAllowlist.TabIndex = 5;
+            this.btnRemoveFromAllowlist.Text = "Remove";
+            this.btnRemoveFromAllowlist.UseVisualStyleBackColor = true;
+            this.btnRemoveFromAllowlist.Click += new System.EventHandler(this.btnRemoveFromAllowlist_Click);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(691, 242);
+            this.tabPage5.TabIndex = 1;
+            this.tabPage5.Text = "Blocklist";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxShowLogs
+            // 
+            this.checkBoxShowLogs.AutoSize = true;
+            this.checkBoxShowLogs.Location = new System.Drawing.Point(662, 325);
+            this.checkBoxShowLogs.Name = "checkBoxShowLogs";
+            this.checkBoxShowLogs.Size = new System.Drawing.Size(70, 17);
+            this.checkBoxShowLogs.TabIndex = 10;
+            this.checkBoxShowLogs.Text = "Show log";
+            this.checkBoxShowLogs.UseVisualStyleBackColor = true;
+            this.checkBoxShowLogs.CheckedChanged += new System.EventHandler(this.checkBoxShowLogs_CheckedChanged);
+            // 
             // ExtensionConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(744, 334);
+            this.ClientSize = new System.Drawing.Size(744, 348);
+            this.Controls.Add(this.checkBoxShowLogs);
+            this.Controls.Add(this.textBoxExtentionsActionLog);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -275,11 +288,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -305,5 +318,6 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.LinkLabel linkLabelExtentionListMS;
+        private System.Windows.Forms.CheckBox checkBoxShowLogs;
     }
 }

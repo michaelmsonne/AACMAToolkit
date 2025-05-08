@@ -8,6 +8,10 @@ namespace AACMAToolkit.Forms
 {
     public partial class ExtensionConfigForm : Form
     {
+        private List<string> _originalAllowlist = new List<string>();
+
+        private System.Drawing.Size _originalSize; // Declare a private field to store the original size
+
         public ExtensionConfigForm()
         {
             InitializeComponent();
@@ -57,7 +61,7 @@ namespace AACMAToolkit.Forms
                 // Log the error to the action log  
                 AppendToActionLog($"> Command: azcmagent {args}\r\n> Error: {ex.Message}\r");
 
-                MessageBox.Show($"Error executing command: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($@"Error executing command: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return string.Empty;
             }
         }
@@ -152,7 +156,7 @@ namespace AACMAToolkit.Forms
                 }
 
                 // Update the original allowlist
-                originalAllowlist = new List<string>(allowlist);
+                _originalAllowlist = new List<string>(allowlist);
             }
             catch (Exception ex)
             {
@@ -164,11 +168,6 @@ namespace AACMAToolkit.Forms
         {
             await LoadExtensions();
             MessageBox.Show(@"Installed extensions reloaded successfully.", @"Reload", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-        }
-
-        private async void ExtensionConfigForm_Load(object sender, EventArgs e)
-        {
 
         }
 
@@ -203,12 +202,12 @@ namespace AACMAToolkit.Forms
                 txtAllowlistExtension.Clear();
 
                 // Notify the user of success
-                MessageBox.Show(@"Extension added to allowlist successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show(@"Extension added to allowlist successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 // Handle any errors that occur during the operation
-                MessageBox.Show($@"Failed to add extension to allowlist: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show($@"Failed to add extension to allowlist: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -250,10 +249,22 @@ namespace AACMAToolkit.Forms
                 string allowlistString = string.Join(",", allowlist);
 
                 // Update the allowlist using the azcmagent command  
-                await RunAzCmAgentCommand($"config set extensions.allowlist \"{allowlistString}\"");
+                string result = await RunAzCmAgentCommand($"config set extensions.allowlist \"{allowlistString}\"");
 
-                // Notify the user of success  
-                MessageBox.Show(@"Allowlist updated successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (string.IsNullOrEmpty(result) || result.IndexOf("error", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    MessageBox.Show($@"Failed to update allowlist configuration: {result ?? "null"}", @"Error update allowlist", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    // If the update fails, revert the ListBox to the original allowlist with the content loaded from the agent configuration
+                    lbAllowlist.Items.Clear();
+
+                    // Repopulate the ListBox with the original allowlist
+                    await LoadAllowlist();
+                }
+                else
+                {
+                    MessageBox.Show(@"Allowlist updated successfully.", @"Success update allowlist", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
@@ -289,8 +300,6 @@ namespace AACMAToolkit.Forms
             }
         }
 
-        private List<string> originalAllowlist = new List<string>();
-
         private async void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -299,13 +308,13 @@ namespace AACMAToolkit.Forms
                 await UpdateAllowlistConfig();
 
                 // Update the original allowlist to match the current state
-                originalAllowlist = lbAllowlist.Items.Cast<string>().ToList();
+                _originalAllowlist = lbAllowlist.Items.Cast<string>().ToList();
 
-                MessageBox.Show(@"Allowlist updated successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show(@"Allowlist updated successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($@"Failed to update allowlist: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show($@"Failed to update allowlist: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -325,6 +334,23 @@ namespace AACMAToolkit.Forms
         {
             await LoadExtensions();
             await LoadAllowlist();
+
+            Height = 387;
+
+        }
+
+        private void checkBoxShowLogs_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxShowLogs.Checked)
+            {
+                // Set the size to show logs  
+                Height = 650;
+            }
+            else
+            {
+                // Set the size to the original size when the checkbox is unchecked  
+                Height = 387;
+            }
         }
     }
 }
