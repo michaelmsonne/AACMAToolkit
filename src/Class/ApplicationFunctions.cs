@@ -135,12 +135,15 @@ namespace AACMAToolkit.Class
             }
             catch (WebException ex) when (ex.Message.Contains("Unable to connect to the remote server"))
             {
+#if DEBUG
                 MessageBox.Show(@"Unable to connect to the remote server. This may indicate the machine is not running in Azure due to network restrictions.", @"Network Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+#endif
                 // Check if the machine is physical hardware
                 if (IsPhysicalHardware())
                 {
+#if DEBUG
                     MessageBox.Show(@"The machine is identified as physical hardware.", @"Hardware Check", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
                     return false;
                 }
             }
@@ -155,8 +158,7 @@ namespace AACMAToolkit.Class
 
             return false;
         }
-
-
+        
         /// <summary>
         /// Gets the physical hardware status of the machine.
         /// </summary>
@@ -238,13 +240,11 @@ namespace AACMAToolkit.Class
             var installerUrl = GetAzureArcAgentInstallerUrl();
             //var installerUrl = "https://aka.ms/AzureConnectedMachineAgent"; // Works too: https://gbl.his.arc.azure.com/azcmagent/latest/AzureConnectedMachineAgent.msi
                                                                             // See more here: https://gbl.his.arc.azure.com/azcmagent-windows
-
 #if DEBUG
             // For debugging purposes, copy URL to clipboard
             Clipboard.SetText(GetAzureArcAgentInstallerUrl());
             MessageBox.Show(@"Installer URL copied to clipboard for debugging purposes.", @"Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 #endif
-
             var tempPath = Path.GetTempPath();
             var installerPath = Path.Combine(tempPath, "AzureConnectedMachineAgent.msi");
 
