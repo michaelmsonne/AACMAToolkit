@@ -464,5 +464,11 @@ Latest Version: {latestVersion}",
         {
             txtOutput.Text = await RunAzCmAgentCommand("config set extensions.enabled true");
         }
+
+        // Open the GitHub repository in the default web browser and show the changelog file
+        private void changelogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/enderalci/AACMAToolkit/blob/master/CHANGELOG.md");
+        }
     }
 }
