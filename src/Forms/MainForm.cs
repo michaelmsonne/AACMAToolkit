@@ -249,7 +249,7 @@ namespace AACMAToolkit.Forms
         {
             var (isUpToDate, installedVersion, latestVersion) = await IsAzureArcAgentUpToDate();
 
-            if (ApplicationFunctions.IsRunningInAzure())
+            if (ApplicationFunctions.IsRunningInAzureOrHardware())
             {
                 MessageBox.Show(@"This machine is running in Azure. Azure Arc agent is not designed for Azure VMs.", @"Azure Environment Detected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }

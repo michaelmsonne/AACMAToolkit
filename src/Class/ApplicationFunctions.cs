@@ -5,6 +5,8 @@ using System.Net;
 using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows.Forms;
+using System.Management;
+using System.Linq;
 
 namespace AACMAToolkit.Class
 {
@@ -87,7 +89,8 @@ namespace AACMAToolkit.Class
         /// Checks if the current machine is running in Azure.
         /// </summary>
         /// <returns>True if the machine is in Azure, otherwise false.</returns>
-        public static bool IsRunningInAzure()
+        
+        public static bool IsRunningInAzureOrHardware()
         {
             try
             {
@@ -96,6 +99,10 @@ namespace AACMAToolkit.Class
                     client.Headers.Add("Metadata", "true");
                     string metadataUrl = "http://169.254.169.254/metadata/instance/compute?api-version=2019-06-01";
                     string response = client.DownloadString(metadataUrl);
+
+#if DEBUG
+                   MessageBox.Show(response, @"Azure Metadata", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
 
                     if (!string.IsNullOrEmpty(response) && response.Contains("resourceId"))
                     {
@@ -126,9 +133,20 @@ namespace AACMAToolkit.Class
                     }
                 }
             }
+            catch (WebException ex) when (ex.Message.Contains("Unable to connect to the remote server"))
+            {
+                MessageBox.Show(@"Unable to connect to the remote server. This may indicate the machine is not running in Azure due to network restrictions.", @"Network Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                // Check if the machine is physical hardware
+                if (IsPhysicalHardware())
+                {
+                    MessageBox.Show(@"The machine is identified as physical hardware.", @"Hardware Check", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+            }
             catch (InvalidOperationException ex)
             {
-                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Error checking if running in Azure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch
             {
@@ -136,6 +154,42 @@ namespace AACMAToolkit.Class
             }
 
             return false;
+        }
+
+
+        /// <summary>
+        /// Gets the physical hardware status of the machine.
+        /// </summary>
+        /// <returns>True if the machine is physical hardware, otherwise false.</returns>
+        private static bool IsPhysicalHardware()
+        {
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystem")) // No changes here
+                {
+                    foreach (var obj in searcher.Get())
+                    {
+                        var manufacturer = obj["Manufacturer"]?.ToString() ?? string.Empty;
+                        var model = obj["Model"]?.ToString() ?? string.Empty;
+
+                        if (!string.IsNullOrEmpty(manufacturer) && !string.IsNullOrEmpty(model))
+                        {
+                            if (manufacturer.IndexOf("Microsoft", StringComparison.OrdinalIgnoreCase) >= 0 &&
+                                model.IndexOf("Virtual", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                return false; // Virtual machine
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Handle or log exceptions if necessary
+            }
+
+            return true; // Assume physical hardware if no virtual indicators are found
         }
 
         /// <summary>
