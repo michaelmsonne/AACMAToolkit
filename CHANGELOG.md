@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.0.0 (in the makeing...)
+
+Small changes like:
+- Extention manager (get list and edit allowlist for now)
+- Features to check diffrent stuff for the application like code signing of MS parts
+- Code cleanup
+- Add about information of the tool and so in aboutform
+- Updates to UI and typos
+- ....
+
 ## 1.0.1 (06-05-2025)
 
 Small changes like:
