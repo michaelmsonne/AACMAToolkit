@@ -5,6 +5,9 @@ using System.Net;
 using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows.Forms;
+using System.Management;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AACMAToolkit.Class
 {
@@ -47,16 +50,16 @@ namespace AACMAToolkit.Class
                     }
                 }
 
-                // Check if the executable exists
+                // Check if the executable exists and is codesigned by Microsoft
                 bool isExeExists = File.Exists(exePath);
-
+                
                 // Return true only if both conditions are met
                 return isServiceInstalled && isExeExists;
             }
             catch (Exception ex)
             {
                 // Log or handle the exception as needed
-                MessageBox.Show($"Error checking azcmagent installation: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($@"Error checking azcmagent installation: {ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -87,7 +90,8 @@ namespace AACMAToolkit.Class
         /// Checks if the current machine is running in Azure.
         /// </summary>
         /// <returns>True if the machine is in Azure, otherwise false.</returns>
-        public static bool IsRunningInAzure()
+        
+        public static bool IsRunningInAzureOrHardware()
         {
             try
             {
@@ -96,6 +100,10 @@ namespace AACMAToolkit.Class
                     client.Headers.Add("Metadata", "true");
                     string metadataUrl = "http://169.254.169.254/metadata/instance/compute?api-version=2019-06-01";
                     string response = client.DownloadString(metadataUrl);
+
+#if DEBUG
+                   MessageBox.Show(response, @"Azure Metadata", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
 
                     if (!string.IsNullOrEmpty(response) && response.Contains("resourceId"))
                     {
@@ -126,9 +134,23 @@ namespace AACMAToolkit.Class
                     }
                 }
             }
+            catch (WebException ex) when (ex.Message.Contains("Unable to connect to the remote server"))
+            {
+#if DEBUG
+                MessageBox.Show(@"Unable to connect to the remote server. This may indicate the machine is not running in Azure due to network restrictions.", @"Network Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+#endif
+                // Check if the machine is physical hardware
+                if (IsPhysicalHardware())
+                {
+#if DEBUG
+                    MessageBox.Show(@"The machine is identified as physical hardware.", @"Hardware Check", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
+                    return false;
+                }
+            }
             catch (InvalidOperationException ex)
             {
-                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Error checking if running in Azure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch
             {
@@ -136,6 +158,41 @@ namespace AACMAToolkit.Class
             }
 
             return false;
+        }
+        
+        /// <summary>
+        /// Gets the physical hardware status of the machine.
+        /// </summary>
+        /// <returns>True if the machine is physical hardware, otherwise false.</returns>
+        private static bool IsPhysicalHardware()
+        {
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystem")) // No changes here
+                {
+                    foreach (var obj in searcher.Get())
+                    {
+                        var manufacturer = obj["Manufacturer"]?.ToString() ?? string.Empty;
+                        var model = obj["Model"]?.ToString() ?? string.Empty;
+
+                        if (!string.IsNullOrEmpty(manufacturer) && !string.IsNullOrEmpty(model))
+                        {
+                            if (manufacturer.IndexOf("Microsoft", StringComparison.OrdinalIgnoreCase) >= 0 &&
+                                model.IndexOf("Virtual", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                return false; // Virtual machine
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Handle or log exceptions if necessary
+            }
+
+            return true; // Assume physical hardware if no virtual indicators are found
         }
 
         /// <summary>
@@ -184,13 +241,11 @@ namespace AACMAToolkit.Class
             var installerUrl = GetAzureArcAgentInstallerUrl();
             //var installerUrl = "https://aka.ms/AzureConnectedMachineAgent"; // Works too: https://gbl.his.arc.azure.com/azcmagent/latest/AzureConnectedMachineAgent.msi
                                                                             // See more here: https://gbl.his.arc.azure.com/azcmagent-windows
-
 #if DEBUG
             // For debugging purposes, copy URL to clipboard
             Clipboard.SetText(GetAzureArcAgentInstallerUrl());
             MessageBox.Show(@"Installer URL copied to clipboard for debugging purposes.", @"Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 #endif
-
             var tempPath = Path.GetTempPath();
             var installerPath = Path.Combine(tempPath, "AzureConnectedMachineAgent.msi");
 
@@ -224,6 +279,63 @@ namespace AACMAToolkit.Class
                 // Handle any exceptions that occur during the download or installation
                 MessageBox.Show($@"Error installing {Globals.toolLongName}: " + ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public static bool IsFileCodeSignedByMicrosoft(string filePath)
+        {
+            try
+            {
+                // Load the file's certificate  
+                var cert = new X509Certificate2(filePath);
+
+                // Display certificate details in a MessageBox
+#if DEBUG
+                MessageBox.Show(
+                    $@"Certificate Details:  
+        Subject: {cert.Subject}  
+        Issuer: {cert.Issuer}  
+        Thumbprint: {cert.Thumbprint}  
+        Effective Date: {cert.NotBefore}  
+        Expiration Date: {cert.NotAfter}",
+                    @"Certificate Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+#endif
+                // Check the issuer name to verify it's signed by Microsoft  
+                var issuer = cert.Issuer;
+                if (issuer.Contains("CN=Microsoft Corporation") || issuer.Contains("CN=Microsoft Code Signing PCA"))
+                {
+                    // Check if the certificate is valid
+                    if (cert.NotAfter > DateTime.Now && cert.NotBefore < DateTime.Now)
+                    {
+#if DEBUG
+                        MessageBox.Show($@"The file '{Globals.azcmagentPath}' is code signed by Microsoft.", @"Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
+                        return true;
+                    }
+                    else
+                    {
+#if DEBUG
+                        MessageBox.Show($@"The certificate is expired or not a Microsoft valid one for the file '{Globals.azcmagentPath}'.", @"Validation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#endif
+                        return false;
+                    }
+                }
+            }
+            catch (CryptographicException)
+            {
+                // Return false if the file is not signed or any cryptographic error occurs  
+                return false;
+            }
+            catch
+            {
+                // Return false for any other exceptions  
+                return false;
+            }
+
+            // Default return value if no conditions are met
+            return false;
         }
     }
 }
