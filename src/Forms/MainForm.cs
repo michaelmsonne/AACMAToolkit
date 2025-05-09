@@ -432,5 +432,17 @@ Latest Version: {latestVersion}",
         }
 
 
+
+        private async void lblCheckPublicEndpoints_Click(object sender, EventArgs e)
+        {
+            using (var RegionInput = new RegionInput())
+            {
+                RegionInput.ShowDialog();
+                string Chosenregion = RegionInput.SelectedRegion.ToString();
+                string Checkstring = "check --location " + "\"" + Chosenregion + "\"";
+                txtOutput.Text = await RunAzCmAgentCommand(Checkstring);
+            }
+        }
     }
 }
+ 
