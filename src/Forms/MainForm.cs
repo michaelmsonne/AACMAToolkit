@@ -257,6 +257,8 @@ namespace AACMAToolkit.Forms
             {
                 // Show a message box indicating that the service is not installed or the executable is missing - tool cannot be used  
                 MessageBox.Show($@"Either the '{Globals.azcmagentServiceName}' service is not installed, or the executable '{Globals.azcmagentPath}' is missing on this host.", @"Checks failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                tabControlMainForm.Enabled = false; // Disable the tab control
             }
         }
 

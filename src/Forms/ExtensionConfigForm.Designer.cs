@@ -60,7 +60,7 @@
             // 
             this.btnReloadAllowlist.Location = new System.Drawing.Point(361, 32);
             this.btnReloadAllowlist.Name = "btnReloadAllowlist";
-            this.btnReloadAllowlist.Size = new System.Drawing.Size(84, 23);
+            this.btnReloadAllowlist.Size = new System.Drawing.Size(93, 23);
             this.btnReloadAllowlist.TabIndex = 1;
             this.btnReloadAllowlist.Text = "Reload allowlist";
             this.btnReloadAllowlist.UseVisualStyleBackColor = true;
@@ -75,9 +75,9 @@
             // 
             // btnAddToAllowlist
             // 
-            this.btnAddToAllowlist.Location = new System.Drawing.Point(607, 32);
+            this.btnAddToAllowlist.Location = new System.Drawing.Point(361, 119);
             this.btnAddToAllowlist.Name = "btnAddToAllowlist";
-            this.btnAddToAllowlist.Size = new System.Drawing.Size(75, 23);
+            this.btnAddToAllowlist.Size = new System.Drawing.Size(93, 23);
             this.btnAddToAllowlist.TabIndex = 4;
             this.btnAddToAllowlist.Text = "Add";
             this.btnAddToAllowlist.UseVisualStyleBackColor = true;
@@ -185,13 +185,13 @@
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(691, 242);
             this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "Allowlist";
+            this.tabPage4.Text = "Manage Allowlist";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // linkLabelExtentionListMS
             // 
             this.linkLabelExtentionListMS.AutoSize = true;
-            this.linkLabelExtentionListMS.Location = new System.Drawing.Point(597, 218);
+            this.linkLabelExtentionListMS.Location = new System.Drawing.Point(364, 174);
             this.linkLabelExtentionListMS.Name = "linkLabelExtentionListMS";
             this.linkLabelExtentionListMS.Size = new System.Drawing.Size(88, 13);
             this.linkLabelExtentionListMS.TabIndex = 9;
@@ -209,9 +209,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(607, 61);
+            this.btnSave.Location = new System.Drawing.Point(361, 148);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(93, 23);
             this.btnSave.TabIndex = 8;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -219,9 +219,9 @@
             // 
             // btnClearAllowlist
             // 
-            this.btnClearAllowlist.Location = new System.Drawing.Point(449, 32);
+            this.btnClearAllowlist.Location = new System.Drawing.Point(361, 61);
             this.btnClearAllowlist.Name = "btnClearAllowlist";
-            this.btnClearAllowlist.Size = new System.Drawing.Size(75, 23);
+            this.btnClearAllowlist.Size = new System.Drawing.Size(93, 23);
             this.btnClearAllowlist.TabIndex = 7;
             this.btnClearAllowlist.Text = "Clear";
             this.btnClearAllowlist.UseVisualStyleBackColor = true;
@@ -229,9 +229,9 @@
             // 
             // btnRemoveFromAllowlist
             // 
-            this.btnRemoveFromAllowlist.Location = new System.Drawing.Point(528, 32);
+            this.btnRemoveFromAllowlist.Location = new System.Drawing.Point(361, 90);
             this.btnRemoveFromAllowlist.Name = "btnRemoveFromAllowlist";
-            this.btnRemoveFromAllowlist.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveFromAllowlist.Size = new System.Drawing.Size(93, 23);
             this.btnRemoveFromAllowlist.TabIndex = 5;
             this.btnRemoveFromAllowlist.Text = "Remove";
             this.btnRemoveFromAllowlist.UseVisualStyleBackColor = true;
@@ -244,7 +244,7 @@
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(691, 242);
             this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "Blocklist";
+            this.tabPage5.Text = "Manage Blocklist";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // ExtensionConfigForm
