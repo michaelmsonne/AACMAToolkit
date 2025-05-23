@@ -186,6 +186,11 @@ namespace AACMAToolkit.Forms
             // Set the title of the form to include the version number
             Text = Globals.toolLongName + @" v." + Application.ProductVersion;
 
+#if DEBUG
+            // Show debug mode in the title bar or status label
+            Text += @" [DEBUG BUILD]";
+#endif
+
             // Check if the application is running as admin or not
             var isAdmin = ApplicationFunctions.IsRunningAsAdmin();
 
