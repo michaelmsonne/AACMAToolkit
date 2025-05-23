@@ -40,6 +40,7 @@ namespace AACMAToolkit.Forms
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.manuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartAsAdministratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changelogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblStatus = new System.Windows.Forms.Label();
@@ -55,9 +56,10 @@ namespace AACMAToolkit.Forms
             this.lblChangeModeToMonitor = new System.Windows.Forms.Label();
             this.lblChangeModeToFull = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lblCheckPrivateEndpoints = new System.Windows.Forms.Label();
+            this.lblCheckPublicEndpoints = new System.Windows.Forms.Label();
             this.lblRestartService = new System.Windows.Forms.Label();
             this.lblCheckAgentConnection = new System.Windows.Forms.Label();
-            this.changelogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -92,7 +94,7 @@ namespace AACMAToolkit.Forms
             this.txtOutput.Location = new System.Drawing.Point(342, 24);
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
-            this.txtOutput.Size = new System.Drawing.Size(886, 556);
+            this.txtOutput.Size = new System.Drawing.Size(937, 556);
             this.txtOutput.TabIndex = 2;
             this.txtOutput.Text = "";
             // 
@@ -168,7 +170,7 @@ namespace AACMAToolkit.Forms
             this.manuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1237, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1291, 24);
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStripTop";
             // 
@@ -190,6 +192,14 @@ namespace AACMAToolkit.Forms
             this.restartAsAdministratorToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.restartAsAdministratorToolStripMenuItem.Text = "Restart as Administrator";
             this.restartAsAdministratorToolStripMenuItem.Click += new System.EventHandler(this.restartAsAdministratorToolStripMenuItem_Click);
+            // 
+            // changelogToolStripMenuItem
+            // 
+            this.changelogToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.changelogToolStripMenuItem.Name = "changelogToolStripMenuItem";
+            this.changelogToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.changelogToolStripMenuItem.Text = "Changelog";
+            this.changelogToolStripMenuItem.Click += new System.EventHandler(this.changelogToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -364,6 +374,8 @@ namespace AACMAToolkit.Forms
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.lblCheckPrivateEndpoints);
+            this.tabPage3.Controls.Add(this.lblCheckPublicEndpoints);
             this.tabPage3.Controls.Add(this.lblRestartService);
             this.tabPage3.Controls.Add(this.lblCheckAgentConnection);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -373,6 +385,31 @@ namespace AACMAToolkit.Forms
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Troubleshooting";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // lblCheckPrivateEndpoints
+            // 
+            this.lblCheckPrivateEndpoints.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblCheckPrivateEndpoints.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblCheckPrivateEndpoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCheckPrivateEndpoints.Location = new System.Drawing.Point(3, 123);
+            this.lblCheckPrivateEndpoints.Name = "lblCheckPrivateEndpoints";
+            this.lblCheckPrivateEndpoints.Size = new System.Drawing.Size(298, 40);
+            this.lblCheckPrivateEndpoints.TabIndex = 18;
+            this.lblCheckPrivateEndpoints.Text = "Connectivity Private endpoints";
+            this.lblCheckPrivateEndpoints.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblCheckPublicEndpoints
+            // 
+            this.lblCheckPublicEndpoints.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblCheckPublicEndpoints.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblCheckPublicEndpoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCheckPublicEndpoints.Location = new System.Drawing.Point(3, 83);
+            this.lblCheckPublicEndpoints.Name = "lblCheckPublicEndpoints";
+            this.lblCheckPublicEndpoints.Size = new System.Drawing.Size(298, 40);
+            this.lblCheckPublicEndpoints.TabIndex = 17;
+            this.lblCheckPublicEndpoints.Text = "Connectivity Public endpoints";
+            this.lblCheckPublicEndpoints.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCheckPublicEndpoints.Click += new System.EventHandler(this.lblCheckPublicEndpoints_Click);
             // 
             // lblRestartService
             // 
@@ -400,14 +437,6 @@ namespace AACMAToolkit.Forms
             this.lblCheckAgentConnection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCheckAgentConnection.Click += new System.EventHandler(this.lblCheckAgentConnection_Click);
             // 
-            // changelogToolStripMenuItem
-            // 
-            this.changelogToolStripMenuItem.BackColor = System.Drawing.Color.White;
-            this.changelogToolStripMenuItem.Name = "changelogToolStripMenuItem";
-            this.changelogToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.changelogToolStripMenuItem.Text = "Changelog";
-            this.changelogToolStripMenuItem.Click += new System.EventHandler(this.changelogToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -415,7 +444,7 @@ namespace AACMAToolkit.Forms
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1237, 590);
+            this.ClientSize = new System.Drawing.Size(1291, 590);
             this.Controls.Add(this.tabControlMainForm);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblExportLogs);
@@ -432,6 +461,7 @@ namespace AACMAToolkit.Forms
             this.MinimumSize = new System.Drawing.Size(1000, 500);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Azure Connected Machine Agent v. x.x.x.x";
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.menuStrip1.ResumeLayout(false);
@@ -476,6 +506,8 @@ namespace AACMAToolkit.Forms
         private System.Windows.Forms.Label lblDisableAllUseOfExtentions;
         private System.Windows.Forms.Label lblAllowAllUseOfExtentions;
         private System.Windows.Forms.ToolStripMenuItem changelogToolStripMenuItem;
+        private System.Windows.Forms.Label lblCheckPublicEndpoints;
+        private System.Windows.Forms.Label lblCheckPrivateEndpoints;
     }
 }
 

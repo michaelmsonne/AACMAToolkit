@@ -83,6 +83,11 @@ Start the executable file you have downloaded **ACMAToolkit.exe** and start expl
 
 ---
 
+### To-Do List 📝
+ - Add loggging and more error handling
+
+---
+
 **Contributions Welcome!** 🤝 Feel free to fork, improve, and submit a PR!
 
 Contact us through LinkedIn or GitHub!

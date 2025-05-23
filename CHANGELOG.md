@@ -1,9 +1,10 @@
 # Changelog
 
-## 1.1.0.0 (in the makeing...)
+## 1.0.0.2 (in the makeing...)
 
 Small changes like:
 - Extention manager (get list and edit allowlist for now)
+- Added a feature to check connectivity status for different regions (public endpoints).
 - Features to check diffrent stuff for the application like code signing of MS parts
 - Code cleanup
 - Add about information of the tool and so in aboutform

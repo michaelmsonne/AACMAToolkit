@@ -49,6 +49,7 @@
             this.btnClearAllowlist = new System.Windows.Forms.Button();
             this.btnRemoveFromAllowlist = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -60,7 +61,7 @@
             // 
             this.btnReloadAllowlist.Location = new System.Drawing.Point(361, 32);
             this.btnReloadAllowlist.Name = "btnReloadAllowlist";
-            this.btnReloadAllowlist.Size = new System.Drawing.Size(84, 23);
+            this.btnReloadAllowlist.Size = new System.Drawing.Size(93, 23);
             this.btnReloadAllowlist.TabIndex = 1;
             this.btnReloadAllowlist.Text = "Reload allowlist";
             this.btnReloadAllowlist.UseVisualStyleBackColor = true;
@@ -75,9 +76,9 @@
             // 
             // btnAddToAllowlist
             // 
-            this.btnAddToAllowlist.Location = new System.Drawing.Point(607, 32);
+            this.btnAddToAllowlist.Location = new System.Drawing.Point(361, 119);
             this.btnAddToAllowlist.Name = "btnAddToAllowlist";
-            this.btnAddToAllowlist.Size = new System.Drawing.Size(75, 23);
+            this.btnAddToAllowlist.Size = new System.Drawing.Size(93, 23);
             this.btnAddToAllowlist.TabIndex = 4;
             this.btnAddToAllowlist.Text = "Add";
             this.btnAddToAllowlist.UseVisualStyleBackColor = true;
@@ -138,6 +139,7 @@
             // Version
             // 
             this.Version.Text = "Version";
+            this.Version.Width = 70;
             // 
             // Path
             // 
@@ -172,6 +174,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label1);
             this.tabPage4.Controls.Add(this.linkLabelExtentionListMS);
             this.tabPage4.Controls.Add(this.lbAllowlist);
             this.tabPage4.Controls.Add(this.btnSave);
@@ -185,13 +188,13 @@
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(691, 242);
             this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "Allowlist";
+            this.tabPage4.Text = "Manage Allowlist";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // linkLabelExtentionListMS
             // 
             this.linkLabelExtentionListMS.AutoSize = true;
-            this.linkLabelExtentionListMS.Location = new System.Drawing.Point(597, 218);
+            this.linkLabelExtentionListMS.Location = new System.Drawing.Point(364, 174);
             this.linkLabelExtentionListMS.Name = "linkLabelExtentionListMS";
             this.linkLabelExtentionListMS.Size = new System.Drawing.Size(88, 13);
             this.linkLabelExtentionListMS.TabIndex = 9;
@@ -209,9 +212,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(607, 61);
+            this.btnSave.Location = new System.Drawing.Point(361, 148);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(93, 23);
             this.btnSave.TabIndex = 8;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -219,9 +222,9 @@
             // 
             // btnClearAllowlist
             // 
-            this.btnClearAllowlist.Location = new System.Drawing.Point(449, 32);
+            this.btnClearAllowlist.Location = new System.Drawing.Point(361, 61);
             this.btnClearAllowlist.Name = "btnClearAllowlist";
-            this.btnClearAllowlist.Size = new System.Drawing.Size(75, 23);
+            this.btnClearAllowlist.Size = new System.Drawing.Size(93, 23);
             this.btnClearAllowlist.TabIndex = 7;
             this.btnClearAllowlist.Text = "Clear";
             this.btnClearAllowlist.UseVisualStyleBackColor = true;
@@ -229,9 +232,9 @@
             // 
             // btnRemoveFromAllowlist
             // 
-            this.btnRemoveFromAllowlist.Location = new System.Drawing.Point(528, 32);
+            this.btnRemoveFromAllowlist.Location = new System.Drawing.Point(361, 90);
             this.btnRemoveFromAllowlist.Name = "btnRemoveFromAllowlist";
-            this.btnRemoveFromAllowlist.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveFromAllowlist.Size = new System.Drawing.Size(93, 23);
             this.btnRemoveFromAllowlist.TabIndex = 5;
             this.btnRemoveFromAllowlist.Text = "Remove";
             this.btnRemoveFromAllowlist.UseVisualStyleBackColor = true;
@@ -244,8 +247,19 @@
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(691, 242);
             this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "Blocklist";
+            this.tabPage5.Text = "Manage Blocklist";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(516, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(169, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "PREVIEW/TESTING STAGE";
             // 
             // ExtensionConfigForm
             // 
@@ -293,5 +307,6 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.LinkLabel linkLabelExtentionListMS;
+        private System.Windows.Forms.Label label1;
     }
 }

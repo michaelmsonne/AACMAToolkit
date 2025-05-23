@@ -186,8 +186,13 @@ namespace AACMAToolkit.Forms
             // Set the title of the form to include the version number
             Text = Globals.toolLongName + @" v." + Application.ProductVersion;
 
+#if DEBUG
+            // Show debug mode in the title bar or status label
+            Text += @" [DEBUG BUILD]";
+#endif
+
             // Check if the application is running as admin or not
-            var isAdmin = ApplicationFunctions.isRunningAsAdmin();
+            var isAdmin = ApplicationFunctions.IsRunningAsAdmin();
 
             // Adjust UI based on admin status
             if (isAdmin)
@@ -204,6 +209,7 @@ namespace AACMAToolkit.Forms
                 lblManageExtentions.Enabled = true; // Manage extensions
                 lblDisableAllUseOfExtentions.Enabled = true; // Disable all extensions
                 lblAllowAllUseOfExtentions.Enabled = true; // Allow all extensions
+                lblGetAutomaticUpgradeConfig.Enabled = true; // Get automatic upgrade config
             }
             else
             {
@@ -219,6 +225,7 @@ namespace AACMAToolkit.Forms
                 lblManageExtentions.Enabled = false; // Manage extensions
                 lblDisableAllUseOfExtentions.Enabled = false; // Disable all extensions
                 lblAllowAllUseOfExtentions.Enabled = false; // Allow all extensions
+                lblGetAutomaticUpgradeConfig.Enabled = false; // Get automatic upgrade config
 
                 MessageBox.Show(@"Some features are disabled because the application is not running as an administrator.",
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -257,6 +264,8 @@ namespace AACMAToolkit.Forms
             {
                 // Show a message box indicating that the service is not installed or the executable is missing - tool cannot be used  
                 MessageBox.Show($@"Either the '{Globals.azcmagentServiceName}' service is not installed, or the executable '{Globals.azcmagentPath}' is missing on this host.", @"Checks failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                tabControlMainForm.Enabled = false; // Disable the tab control
             }
         }
 
@@ -297,7 +306,7 @@ Latest Version: {latestVersion}",
                 var result = MessageBox.Show(@"Do you want to update the Azure Arc agent?", @"Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    ApplicationFunctions.updateAzureArcAgent();
+                    ApplicationFunctions.UpdateAzureArcAgent();
                 }
             }
         }
@@ -346,7 +355,7 @@ Latest Version: {latestVersion}",
                 {
                     // Get the selected path and create the log file name
                     var selectedPath = folderDialog.SelectedPath;
-                    var strLogfilePath = Path.Combine(selectedPath, ApplicationFunctions.generateDynamicLogName("AzcmagentLogs") + ".zip");
+                    var strLogfilePath = Path.Combine(selectedPath, ApplicationFunctions.GenerateDynamicLogName("AzcmagentLogs") + ".zip");
 
                     // Log to txtOutput what is being done
                     txtOutput.Text = @"Exporting logs to '" + strLogfilePath + @"'...";
@@ -371,7 +380,7 @@ Latest Version: {latestVersion}",
         private void restartAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Call the function to restart the application as admin
-            ApplicationFunctions.restartAsAdmin();
+            ApplicationFunctions.RestartAsAdmin();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -411,11 +420,13 @@ Latest Version: {latestVersion}",
 
         private async void lblChangeTier0_Click(object sender, EventArgs e)
         {
+            // Set config.mode to tier0
             txtOutput.Text = await RunAzCmAgentCommand("config set incomingconnections.enabled false");
             txtOutput.Text += await RunAzCmAgentCommand("config set guestconfiguration.enabled false");
             txtOutput.Text += await RunAzCmAgentCommand("config set extensions.allowlist \"Microsoft.Azure.Monitor/AzureMonitorWindowsAgent,Microsoft.Azure.AzureDefenderForServers/MDE.Windows\"");
-            txtOutput.Text += @"Incoming connections & guestconfiguration are disabled, only the Azure Monitor Agent and Defender extensions are enabled!";
 
+            // log
+            txtOutput.Text += @"Incoming connections & guestconfiguration are disabled, only the Azure Monitor Agent and Defender extensions are enabled!";
         }
 
         /// <summary>
@@ -488,7 +499,26 @@ Latest Version: {latestVersion}",
         // Open the GitHub repository in the default web browser and show the changelog file
         private void changelogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/enderalci/AACMAToolkit/blob/master/CHANGELOG.md");
+            Process.Start(Globals.changeLogURL);
+        }
+
+        // Open the form to check public endpoints connectivity
+        private async void lblCheckPublicEndpoints_Click(object sender, EventArgs e)
+        {
+            using (var regionInput = new RegionInput())
+            {
+                // Show the region input form and wait for it to close
+                regionInput.ShowDialog();
+
+                // Check if the user selected a region
+                var chosenregion = regionInput.SelectedRegion;
+
+                if (!string.IsNullOrEmpty(chosenregion))
+                {
+                    var checkstring = "check --location " + "\"" + chosenregion + "\"";
+                    txtOutput.Text = await RunAzCmAgentCommand(checkstring);
+                }
+            }
         }
     }
 }
