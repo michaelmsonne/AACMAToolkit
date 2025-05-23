@@ -58,6 +58,8 @@ namespace AACMAToolkit.Forms
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.lblRestartService = new System.Windows.Forms.Label();
             this.lblCheckAgentConnection = new System.Windows.Forms.Label();
+            this.lblCheckPrivateEndpoints = new System.Windows.Forms.Label();
+            this.lblCheckPublicEndpoints = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -262,6 +264,19 @@ namespace AACMAToolkit.Forms
             this.lblGetAutomaticUpgradeConfig.Text = "Get automatic upgrade status";
             this.lblGetAutomaticUpgradeConfig.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblGetAutomaticUpgradeConfig.Click += new System.EventHandler(this.lblGetAutomaticUpgradeConfig_Click);
+            //
+            // lblChangeTier0
+            // 
+            this.lblChangeTier0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblChangeTier0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblChangeTier0.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChangeTier0.Location = new System.Drawing.Point(3, 83);
+            this.lblChangeTier0.Name = "lblChangeTier0";
+            this.lblChangeTier0.Size = new System.Drawing.Size(298, 40);
+            this.lblChangeTier0.TabIndex = 11;
+            this.lblChangeTier0.Text = "Change 2 Tier0 config";
+            this.lblChangeTier0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblChangeTier0.Click += new System.EventHandler(this.lblChangeTier0_Click);
             // 
             // lblGetFullDetails
             // 
@@ -372,6 +387,8 @@ namespace AACMAToolkit.Forms
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.lblCheckPrivateEndpoints);
+            this.tabPage3.Controls.Add(this.lblCheckPublicEndpoints);
             this.tabPage3.Controls.Add(this.lblRestartService);
             this.tabPage3.Controls.Add(this.lblCheckAgentConnection);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -381,6 +398,31 @@ namespace AACMAToolkit.Forms
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Troubleshooting";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // lblCheckPrivateEndpoints
+            // 
+            this.lblCheckPrivateEndpoints.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblCheckPrivateEndpoints.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblCheckPrivateEndpoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCheckPrivateEndpoints.Location = new System.Drawing.Point(3, 123);
+            this.lblCheckPrivateEndpoints.Name = "lblCheckPrivateEndpoints";
+            this.lblCheckPrivateEndpoints.Size = new System.Drawing.Size(298, 40);
+            this.lblCheckPrivateEndpoints.TabIndex = 18;
+            this.lblCheckPrivateEndpoints.Text = "Connectivity Private endpoints";
+            this.lblCheckPrivateEndpoints.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblCheckPublicEndpoints
+            // 
+            this.lblCheckPublicEndpoints.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblCheckPublicEndpoints.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblCheckPublicEndpoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCheckPublicEndpoints.Location = new System.Drawing.Point(3, 83);
+            this.lblCheckPublicEndpoints.Name = "lblCheckPublicEndpoints";
+            this.lblCheckPublicEndpoints.Size = new System.Drawing.Size(298, 40);
+            this.lblCheckPublicEndpoints.TabIndex = 17;
+            this.lblCheckPublicEndpoints.Text = "Connectivity Public endpoints";
+            this.lblCheckPublicEndpoints.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCheckPublicEndpoints.Click += new System.EventHandler(this.lblCheckPublicEndpoints_Click);
             // 
             // lblRestartService
             // 
@@ -477,6 +519,8 @@ namespace AACMAToolkit.Forms
         private System.Windows.Forms.Label lblDisableAllUseOfExtentions;
         private System.Windows.Forms.Label lblAllowAllUseOfExtentions;
         private System.Windows.Forms.ToolStripMenuItem changelogToolStripMenuItem;
+        private System.Windows.Forms.Label lblCheckPublicEndpoints;
+        private System.Windows.Forms.Label lblCheckPrivateEndpoints;
     }
 }
 
