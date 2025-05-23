@@ -49,6 +49,7 @@
             this.btnClearAllowlist = new System.Windows.Forms.Button();
             this.btnRemoveFromAllowlist = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -138,6 +139,7 @@
             // Version
             // 
             this.Version.Text = "Version";
+            this.Version.Width = 70;
             // 
             // Path
             // 
@@ -172,6 +174,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label1);
             this.tabPage4.Controls.Add(this.linkLabelExtentionListMS);
             this.tabPage4.Controls.Add(this.lbAllowlist);
             this.tabPage4.Controls.Add(this.btnSave);
@@ -247,6 +250,17 @@
             this.tabPage5.Text = "Manage Blocklist";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(516, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(169, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "PREVIEW/TESTING STAGE";
+            // 
             // ExtensionConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -293,5 +307,6 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.LinkLabel linkLabelExtentionListMS;
+        private System.Windows.Forms.Label label1;
     }
 }

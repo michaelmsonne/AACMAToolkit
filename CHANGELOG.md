@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.0.0 (in the makeing...)
+## 1.0.0.2 (in the makeing...)
 
 Small changes like:
 - Extention manager (get list and edit allowlist for now)

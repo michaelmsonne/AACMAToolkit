@@ -11,5 +11,6 @@ namespace AACMAToolkit.Class
         public static string toolLongName = "Azure Connected Machine Agent";
         public static string azcmagentPath = @"C:\Program Files\AzureConnectedMachineAgent\azcmagent.exe"; // Update the path as needed
         public static string azcmagentServiceName = "himds"; // Update the service name as needed - Azure Hybrid Instance Metadata Service
+        public static string changeLogURL = "https://github.com/enderalci/AACMAToolkit/blob/master/CHANGELOG.md"; // Update the URL as needed
     }
 }

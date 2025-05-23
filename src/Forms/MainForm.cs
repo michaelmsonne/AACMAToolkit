@@ -204,6 +204,7 @@ namespace AACMAToolkit.Forms
                 lblManageExtentions.Enabled = true; // Manage extensions
                 lblDisableAllUseOfExtentions.Enabled = true; // Disable all extensions
                 lblAllowAllUseOfExtentions.Enabled = true; // Allow all extensions
+                lblGetAutomaticUpgradeConfig.Enabled = true; // Get automatic upgrade config
             }
             else
             {
@@ -219,6 +220,7 @@ namespace AACMAToolkit.Forms
                 lblManageExtentions.Enabled = false; // Manage extensions
                 lblDisableAllUseOfExtentions.Enabled = false; // Disable all extensions
                 lblAllowAllUseOfExtentions.Enabled = false; // Allow all extensions
+                lblGetAutomaticUpgradeConfig.Enabled = false; // Get automatic upgrade config
 
                 MessageBox.Show(@"Some features are disabled because the application is not running as an administrator.",
                     @"Limited Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -490,7 +492,7 @@ Latest Version: {latestVersion}",
         // Open the GitHub repository in the default web browser and show the changelog file
         private void changelogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/enderalci/AACMAToolkit/blob/master/CHANGELOG.md");
+            Process.Start(Globals.changeLogURL);
         }
     }
 }
