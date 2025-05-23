@@ -415,11 +415,13 @@ Latest Version: {latestVersion}",
 
         private async void lblChangeTier0_Click(object sender, EventArgs e)
         {
+            // Set config.mode to tier0
             txtOutput.Text = await RunAzCmAgentCommand("config set incomingconnections.enabled false");
             txtOutput.Text += await RunAzCmAgentCommand("config set guestconfiguration.enabled false");
             txtOutput.Text += await RunAzCmAgentCommand("config set extensions.allowlist \"Microsoft.Azure.Monitor/AzureMonitorWindowsAgent,Microsoft.Azure.AzureDefenderForServers/MDE.Windows\"");
-            txtOutput.Text += @"Incoming connections & guestconfiguration are disabled, only the Azure Monitor Agent and Defender extensions are enabled!";
 
+            // log
+            txtOutput.Text += @"Incoming connections & guestconfiguration are disabled, only the Azure Monitor Agent and Defender extensions are enabled!";
         }
 
         /// <summary>
