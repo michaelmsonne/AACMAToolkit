@@ -49,7 +49,7 @@ namespace AACMAToolkit.Forms
             // 
             this.cmbChooseRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbChooseRegion.FormattingEnabled = true;
-            this.cmbChooseRegion.Location = new System.Drawing.Point(8, 8);
+            this.cmbChooseRegion.Location = new System.Drawing.Point(8, 9);
             this.cmbChooseRegion.Margin = new System.Windows.Forms.Padding(2);
             this.cmbChooseRegion.Name = "cmbChooseRegion";
             this.cmbChooseRegion.Size = new System.Drawing.Size(299, 21);
@@ -59,6 +59,7 @@ namespace AACMAToolkit.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(369, 41);
             this.Controls.Add(this.cmbChooseRegion);
             this.Controls.Add(this.btnChooseRegion);
