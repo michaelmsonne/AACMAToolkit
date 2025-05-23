@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AACMAToolkit.Forms
@@ -19,8 +11,7 @@ namespace AACMAToolkit.Forms
         {
             InitializeComponent();
 
-            var regions = new[]
-            {
+            object[] regions = {
                 new RegionItem { Display = "West Europe", Value = "westeurope" },
                 new RegionItem { Display = "North Europe", Value = "northeurope" },
                 new RegionItem { Display = "East US", Value = "eastus" },
@@ -51,11 +42,6 @@ namespace AACMAToolkit.Forms
             public string Display { get; set; }
             public string Value { get; set; }
             public override string ToString() => Display;
-        }
-
-        private void RegionInput_Load(object sender, EventArgs e)
-        {
-            
         }
 
         private void btnChooseRegion_Click(object sender, EventArgs e)
