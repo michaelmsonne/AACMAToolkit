@@ -17,10 +17,15 @@ namespace AACMAToolkit.Forms
         public RegionInput()
         {
             InitializeComponent();
+
+            // Load the regions into the combo box
             LoadRegions();
             this.FormClosing += RegionInput_FormClosing;
         }
 
+        /// <summary>
+        /// Loads the regions into the combo box.
+        /// </summary>
         private void LoadRegions()
         {
             cmbChooseRegion.Items.AddRange(new object[]
@@ -50,14 +55,19 @@ namespace AACMAToolkit.Forms
                 cmbChooseRegion.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Checks the selected region and sets the SelectedRegion property.
+        /// </summary>
         private void btnChooseRegion_Click(object sender, EventArgs e)
         {
+            // Check if an item is selected in the combo box
             if (cmbChooseRegion.SelectedItem is RegionItem item)
             {
                 SelectedRegion = item.Value;
                 DialogResult = DialogResult.OK;
                 Close();
             }
+            // If no item is selected, show a message box
             else
             {
                 MessageBox.Show(@"Please select a region before checking connectivity.", @"No Region Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
