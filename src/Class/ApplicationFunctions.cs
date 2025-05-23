@@ -13,14 +13,14 @@ namespace AACMAToolkit.Class
 {
     internal class ApplicationFunctions
     {
-        public static bool isRunningAsAdmin()
+        public static bool IsRunningAsAdmin()
         {
             var identity = WindowsIdentity.GetCurrent();
             var principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
-        public static string generateDynamicLogName(string logName)
+        public static string GenerateDynamicLogName(string logName)
         {
             var hostname = Environment.MachineName;
             var timestamp = DateTime.Now.ToString("ddMMyyyy_HHmmss");
@@ -65,7 +65,7 @@ namespace AACMAToolkit.Class
         }
 
         // Function to restart the application is running as administrator
-        public static void restartAsAdmin()
+        public static void RestartAsAdmin()
         {
             // Get the current process
             var process = Process.GetCurrentProcess();
@@ -235,7 +235,7 @@ namespace AACMAToolkit.Class
             return $"{hisEndpoint}/azcmagent/latest/AzureConnectedMachineAgent.msi";
         }
 
-        public static void updateAzureArcAgent()
+        public static void UpdateAzureArcAgent()
         {
             // Logic to update the Azure Arc agent
             var installerUrl = GetAzureArcAgentInstallerUrl();
