@@ -56,10 +56,10 @@ namespace AACMAToolkit.Forms
             this.lblChangeModeToMonitor = new System.Windows.Forms.Label();
             this.lblChangeModeToFull = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.lblRestartService = new System.Windows.Forms.Label();
-            this.lblCheckAgentConnection = new System.Windows.Forms.Label();
             this.lblCheckPrivateEndpoints = new System.Windows.Forms.Label();
             this.lblCheckPublicEndpoints = new System.Windows.Forms.Label();
+            this.lblRestartService = new System.Windows.Forms.Label();
+            this.lblCheckAgentConnection = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -94,7 +94,7 @@ namespace AACMAToolkit.Forms
             this.txtOutput.Location = new System.Drawing.Point(342, 24);
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
-            this.txtOutput.Size = new System.Drawing.Size(886, 556);
+            this.txtOutput.Size = new System.Drawing.Size(937, 556);
             this.txtOutput.TabIndex = 2;
             this.txtOutput.Text = "";
             // 
@@ -170,7 +170,7 @@ namespace AACMAToolkit.Forms
             this.manuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1237, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1291, 24);
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStripTop";
             // 
@@ -264,19 +264,6 @@ namespace AACMAToolkit.Forms
             this.lblGetAutomaticUpgradeConfig.Text = "Get automatic upgrade status";
             this.lblGetAutomaticUpgradeConfig.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblGetAutomaticUpgradeConfig.Click += new System.EventHandler(this.lblGetAutomaticUpgradeConfig_Click);
-            //
-            // lblChangeTier0
-            // 
-            this.lblChangeTier0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblChangeTier0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblChangeTier0.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChangeTier0.Location = new System.Drawing.Point(3, 83);
-            this.lblChangeTier0.Name = "lblChangeTier0";
-            this.lblChangeTier0.Size = new System.Drawing.Size(298, 40);
-            this.lblChangeTier0.TabIndex = 11;
-            this.lblChangeTier0.Text = "Change 2 Tier0 config";
-            this.lblChangeTier0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblChangeTier0.Click += new System.EventHandler(this.lblChangeTier0_Click);
             // 
             // lblGetFullDetails
             // 
@@ -457,7 +444,7 @@ namespace AACMAToolkit.Forms
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1237, 590);
+            this.ClientSize = new System.Drawing.Size(1291, 590);
             this.Controls.Add(this.tabControlMainForm);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblExportLogs);
