@@ -37,7 +37,7 @@ namespace AACMAToolkit.Forms
             // btnChooseRegion
             // 
             this.btnChooseRegion.Location = new System.Drawing.Point(311, 8);
-            this.btnChooseRegion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnChooseRegion.Margin = new System.Windows.Forms.Padding(2);
             this.btnChooseRegion.Name = "btnChooseRegion";
             this.btnChooseRegion.Size = new System.Drawing.Size(50, 23);
             this.btnChooseRegion.TabIndex = 1;
@@ -47,12 +47,10 @@ namespace AACMAToolkit.Forms
             // 
             // cmbChooseRegion
             // 
-            this.cmbChooseRegion.FormattingEnabled = true;
             this.cmbChooseRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            //this.cmbChooseRegion.DisplayMember = "Display";
-            //this.cmbChooseRegion.ValueMember = "Value";
+            this.cmbChooseRegion.FormattingEnabled = true;
             this.cmbChooseRegion.Location = new System.Drawing.Point(8, 8);
-            this.cmbChooseRegion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbChooseRegion.Margin = new System.Windows.Forms.Padding(2);
             this.cmbChooseRegion.Name = "cmbChooseRegion";
             this.cmbChooseRegion.Size = new System.Drawing.Size(299, 21);
             this.cmbChooseRegion.TabIndex = 2;
@@ -66,12 +64,13 @@ namespace AACMAToolkit.Forms
             this.Controls.Add(this.btnChooseRegion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RegionInput";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Choose your region to check connectivity for";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegionInput_FormClosing);
             this.ResumeLayout(false);
 
         }

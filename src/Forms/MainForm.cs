@@ -495,14 +495,22 @@ Latest Version: {latestVersion}",
             Process.Start(Globals.changeLogURL);
         }
 
+        // Open the form to check public endpoints connectivity
         private async void lblCheckPublicEndpoints_Click(object sender, EventArgs e)
         {
-            using (var RegionInput = new RegionInput())
+            using (var regionInput = new RegionInput())
             {
-                RegionInput.ShowDialog();
-                string Chosenregion = RegionInput.SelectedRegion.ToString();
-                string Checkstring = "check --location " + "\"" + Chosenregion + "\"";
-                txtOutput.Text = await RunAzCmAgentCommand(Checkstring);
+                // Show the region input form and wait for it to close
+                regionInput.ShowDialog();
+
+                // Check if the user selected a region
+                var chosenregion = regionInput.SelectedRegion;
+
+                if (!string.IsNullOrEmpty(chosenregion))
+                {
+                    var checkstring = "check --location " + "\"" + chosenregion + "\"";
+                    txtOutput.Text = await RunAzCmAgentCommand(checkstring);
+                }
             }
         }
     }
