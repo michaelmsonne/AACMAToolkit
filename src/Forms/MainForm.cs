@@ -520,5 +520,23 @@ Latest Version: {latestVersion}",
                 }
             }
         }
+
+        private async void lblCheckPrivateEndpoints_Click(object sender, EventArgs e)
+        {
+            using (var regionInput = new RegionInput())
+            {
+                // Show the region input form and wait for it to close
+                regionInput.ShowDialog();
+
+                // Check if the user selected a region
+                var chosenregion = regionInput.SelectedRegion;
+
+                if (!string.IsNullOrEmpty(chosenregion))
+                {
+                    var checkstring = "check --location " + "\"" + chosenregion + "\"" + " --enable-pls-check";
+                    txtOutput.Text = await RunAzCmAgentCommand(checkstring);
+                }
+            }
+        }
     }
 }

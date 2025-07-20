@@ -397,6 +397,7 @@ namespace AACMAToolkit.Forms
             this.lblCheckPrivateEndpoints.TabIndex = 18;
             this.lblCheckPrivateEndpoints.Text = "Connectivity Private endpoints";
             this.lblCheckPrivateEndpoints.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCheckPrivateEndpoints.Click += new System.EventHandler(this.lblCheckPrivateEndpoints_Click);
             // 
             // lblCheckPublicEndpoints
             // 
