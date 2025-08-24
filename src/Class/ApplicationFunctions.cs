@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Management;
 using System.Net;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows.Forms;
-using System.Management;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
+using System.Runtime.InteropServices;
 
 namespace AACMAToolkit.Class
 {
@@ -38,21 +40,13 @@ namespace AACMAToolkit.Class
 
             try
             {
-                // Check if the service is installed
-                bool isServiceInstalled = false;
-                ServiceController[] services = ServiceController.GetServices();
-                foreach (var service in services)
-                {
-                    if (service.ServiceName.Equals(serviceName, StringComparison.OrdinalIgnoreCase))
-                    {
-                        isServiceInstalled = true;
-                        break;
-                    }
-                }
+                // Check if the service is installed using LINQ Any for efficiency
+                bool isServiceInstalled = ServiceController.GetServices()
+                    .Any(service => service.ServiceName.Equals(serviceName, StringComparison.OrdinalIgnoreCase));
 
-                // Check if the executable exists and is codesigned by Microsoft
+                // Check if the executable exists
                 bool isExeExists = File.Exists(exePath);
-                
+
                 // Return true only if both conditions are met
                 return isServiceInstalled && isExeExists;
             }
@@ -201,33 +195,34 @@ namespace AACMAToolkit.Class
         /// <returns>The URL of the Azure Arc agent installer.</returns>
         public static string GetAzureArcAgentInstallerUrl()
         {
-            string hisEndpoint = "https://gbl.his.arc.azure.com";
+            // Map cloud environments to their HIS endpoints
+            var hisEndpoints = new System.Collections.Generic.Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                { "AzureUSGovernment", "https://gbl.his.arc.azure.us" },
+                { "AzureChinaCloud",   "https://gbl.his.arc.azure.cn" }
+                // AzureStackCloud handled separately below
+            };
 
-            // Determine the environment
+            string hisEndpoint = "https://gbl.his.arc.azure.com";
             string cloudEnvironment = Environment.GetEnvironmentVariable("CLOUD");
 
             if (!string.IsNullOrEmpty(cloudEnvironment))
             {
-                switch (cloudEnvironment)
+                if (cloudEnvironment.Equals("AzureStackCloud", StringComparison.OrdinalIgnoreCase))
                 {
-                    case "AzureUSGovernment":
-                        hisEndpoint = "https://gbl.his.arc.azure.us";
-                        break;
-                    case "AzureChinaCloud":
-                        hisEndpoint = "https://gbl.his.arc.azure.cn";
-                        break;
-                    case "AzureStackCloud":
-                        string altHisEndpoint = Environment.GetEnvironmentVariable("AltHisEndpoint");
-                        if (!string.IsNullOrEmpty(altHisEndpoint))
-                        {
-                            hisEndpoint = altHisEndpoint;
-                        }
-                        else
-                        {
-                            // Log a warning or handle the default case
-                            MessageBox.Show(@"Invalid HIS endpoint for AzureStackCloud. Using default endpoint.", @"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        break;
+                    string altHisEndpoint = Environment.GetEnvironmentVariable("AltHisEndpoint");
+                    if (!string.IsNullOrEmpty(altHisEndpoint))
+                    {
+                        hisEndpoint = altHisEndpoint;
+                    }
+                    else
+                    {
+                        MessageBox.Show(@"Invalid HIS endpoint for AzureStackCloud. Using default endpoint.", @"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else if (hisEndpoints.ContainsKey(cloudEnvironment))
+                {
+                    hisEndpoint = hisEndpoints[cloudEnvironment];
                 }
             }
 
@@ -235,12 +230,12 @@ namespace AACMAToolkit.Class
             return $"{hisEndpoint}/azcmagent/latest/AzureConnectedMachineAgent.msi";
         }
 
-        public static void UpdateAzureArcAgent()
+        public static void UpdateAzureArcAgent(string latestVersion)
         {
             // Logic to update the Azure Arc agent
             var installerUrl = GetAzureArcAgentInstallerUrl();
             //var installerUrl = "https://aka.ms/AzureConnectedMachineAgent"; // Works too: https://gbl.his.arc.azure.com/azcmagent/latest/AzureConnectedMachineAgent.msi
-                                                                            // See more here: https://gbl.his.arc.azure.com/azcmagent-windows
+                                                                              // See more here: https://gbl.his.arc.azure.com/azcmagent-windows
 #if DEBUG
             // For debugging purposes, copy URL to clipboard
             Clipboard.SetText(GetAzureArcAgentInstallerUrl());
@@ -260,24 +255,26 @@ namespace AACMAToolkit.Class
                     MessageBox.Show($@"Downloading {Globals.toolLongName}...");
                 }
 
-                // Start the installer process
-                var installer = new Process();
-                installer.StartInfo.FileName = "msiexec.exe";
-                installer.StartInfo.Arguments = $"/i \"{installerPath}\" /quiet /qn /norestart";
-                installer.StartInfo.Verb = "runas"; // Admin rights
-                installer.StartInfo.UseShellExecute = true;
-                installer.Start();
+                // Start the installer process using a using statement to ensure resources are released
+                using (var installer = new Process())
+                {
+                    installer.StartInfo.FileName = "msiexec.exe";
+                    installer.StartInfo.Arguments = $"/i \"{installerPath}\" /quiet /qn /norestart";
+                    installer.StartInfo.Verb = "runas"; // Admin rights
+                    installer.StartInfo.UseShellExecute = true;
+                    installer.Start();
 
-                // Wait for the installer to finish
-                installer.WaitForExit();
+                    // Wait for the installer to finish
+                    installer.WaitForExit();
+                }
 
                 // Check if the installation was successful
-                MessageBox.Show(@"Installation completed.", $@"Updated {Globals.toolLongName}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($@"Installation completed. {Globals.toolLongName} {latestVersion} is now installed.", $@"Updated {Globals.toolLongName}", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 // Handle any exceptions that occur during the download or installation
-                MessageBox.Show($@"Error installing {Globals.toolLongName}: " + ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($@"Error installing {Globals.toolLongName} {latestVersion}: " + ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -1,3 +1,4 @@
+using AACMAToolkit.Class;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AACMAToolkit.Class;
+using static AACMAToolkit.Class.FileLogger;
 
 namespace AACMAToolkit.Forms
 {
@@ -234,6 +235,9 @@ namespace AACMAToolkit.Forms
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            // Log the application's name and version to the log file
+            Message(@"Started " + Application.ProductName + @" v." + Application.ProductVersion, EventType.Information, 1000);
+
             // Check if the azcmagent service is installed and the executable exists on this host before running the application  
             if (ApplicationFunctions.IsAzcmAgentInstalled(Globals.azcmagentPath))
             {
@@ -252,7 +256,7 @@ namespace AACMAToolkit.Forms
                     }
                     else
                     {
-                        txtOutput.Text += Environment.NewLine + $@"The executable '{Globals.azcmagentPath}' is digitally signed and verified.";
+                        txtOutput.Text += Environment.NewLine + $@"The executable '{Globals.azcmagentPath}' is digitally signed and verified from Microsoft.";
                     }
                 }
                 else
@@ -306,7 +310,7 @@ Latest Version: {latestVersion}",
                 var result = MessageBox.Show(@"Do you want to update the Azure Arc agent?", @"Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    ApplicationFunctions.UpdateAzureArcAgent();
+                    ApplicationFunctions.UpdateAzureArcAgent(latestVersion);
                 }
             }
         }
